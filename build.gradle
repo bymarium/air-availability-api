@@ -1,0 +1,12 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.airsofka'
+version = '1'
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
