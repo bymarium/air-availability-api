@@ -1,0 +1,7 @@
+dependencies {
+//    implementation('org.springframework.boot:spring-boot-starter-webflux')
+//    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+//    implementation(project(':flight:domain'))
+//    implementation(project(':flight:application'))
+//    implementation(project(':shared:application'))
+}
