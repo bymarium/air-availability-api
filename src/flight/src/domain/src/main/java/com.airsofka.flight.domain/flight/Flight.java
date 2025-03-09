@@ -43,10 +43,10 @@ public class Flight extends AggregateRoot<FlightId> {
 
     //#region Constructors
 
-    public Flight(String flightNumber, String identity, String routeId, Date departureTime, Date arrivalTime) {
+    public Flight(String flightNumber, String routeId, Date departureTime, Date arrivalTime) {
         super(new FlightId());
         subscribe(new FlightHandler(this));
-        apply(new FlightCreated(identity, flightNumber, routeId, departureTime, arrivalTime));
+        apply(new FlightCreated(this.getIdentity().getValue(), flightNumber, routeId, departureTime, arrivalTime));
     }
 
     private Flight(FlightId identity) {
@@ -130,20 +130,20 @@ public class Flight extends AggregateRoot<FlightId> {
         apply(new AssignedRoute(seatId));
     }
 
-    public void changedRoute(String flightId, String routeId) {
-        apply(new RouteChanged(flightId, routeId));
+    public void changedRoute( String routeId) {
+        apply(new RouteChanged(this.getIdentity().getValue(), routeId));
     }
 
-    public void changedSeat(String flightId, String seatId) {
-        apply(new SeatChanged(flightId, seatId));
+    public void changedSeat( String seatId) {
+        apply(new SeatChanged(this.getIdentity().getValue(), seatId));
     }
 
-    public void changeStatusFlight(String flightId, String status) {
-        apply(new StatusChanged(flightId, status));
+    public void changeStatusFlight( String status) {
+        apply(new StatusChanged(this.getIdentity().getValue(), status));
     }
 
-    public void updateFlight(String flightId, String flightNumber, String routeId, String seatId) {
-        apply(new UpdateFlight(flightId, flightNumber, routeId, seatId));
+    public void updateFlight( String flightNumber, String routeId, String seatId,Date departureTime, Date arrivalTime) {
+        apply(new UpdateFlight(this.getIdentity().getValue(), flightNumber, routeId, seatId, departureTime, arrivalTime));
     }
     public void enableSeat(String seatId) {
         apply(new SeatEnabled(seatId));

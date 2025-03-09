@@ -21,4 +21,7 @@ public class IsAvailable implements IValueObject {
     public void validate() {
         Validator.validateNotNull(value);
     }
+    public boolean getValue() {
+        return value;
+    }
 }

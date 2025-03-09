@@ -20,4 +20,7 @@ public class TotalSeats implements IValueObject {
     public void validate() {
         Validator.validateNotNull(value);
     }
+    public int getValue() {
+        return value;
+    }
 }

@@ -19,6 +19,10 @@ public class SeatClass implements IValueObject {
 
     @Override
     public void validate() {
-       Validator.validateNotNull(value);
+        Validator.validateNotNull(value);
+    }
+
+    public String getValue() {
+        return value;
     }
 }

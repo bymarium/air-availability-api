@@ -12,7 +12,7 @@ public class UpdateFlight extends DomainEvent {
     private Date departureTime;
     private Date arrivalTime;
 
-    public UpdateFlight(String flightId, String flightNumber, String routeId, String seatId) {
+    public UpdateFlight(String flightId, String flightNumber, String routeId, String seatId, Date departureTime, Date arrivalTime) {
         super(EventsEnum.UPDATED_FLIGHT.name());
         this.flightId = flightId;
         this.flightNumber = flightNumber;
@@ -35,4 +35,12 @@ public class UpdateFlight extends DomainEvent {
     public String getSeatId() {
         return seatId;
     }
+    public Date getDepartureTime() {
+        return departureTime;
+    }
+
+    public Date getArrivalTime() {
+        return arrivalTime;
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.airsofka.flight.domain.flight.values;
 
 import com.airsofka.shared.domain.generic.IValueObject;
+import utils.Validator;
 
 public class PriceSeat implements IValueObject {
     private final double value;
@@ -18,6 +19,9 @@ public class PriceSeat implements IValueObject {
 
     @Override
     public void validate() {
-        // TODO: Implement validation logic
+        Validator.validatePositive(value);
+    }
+    public double getValue() {
+        return value;
     }
 }

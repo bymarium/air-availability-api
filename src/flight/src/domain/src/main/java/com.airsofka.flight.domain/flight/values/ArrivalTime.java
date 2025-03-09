@@ -23,5 +23,7 @@ public class ArrivalTime implements IValueObject {
     public void validate() {
         Validator.validateNotNull(value);
     }
-
+    public Date getValue() {
+        return value;
+    }
 }

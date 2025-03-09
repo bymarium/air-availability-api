@@ -21,4 +21,7 @@ public class SeatNumber implements IValueObject {
     public void validate() {
         Validator.validateNotNull(value);
     }
+    public String getValue() {
+        return value;
+    }
 }
