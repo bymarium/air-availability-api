@@ -15,7 +15,12 @@ public class Validator {
     }
   }
 
-  public static void validatePositive(Integer value) {
+  public static void validatePositive(Integer  value) {
+    if (value == null || value < 0) {
+      throw new IllegalArgumentException(  " must be a positive number");
+    }
+  }
+  public static void validatePositive(Double  value) {
     if (value == null || value < 0) {
       throw new IllegalArgumentException(  " must be a positive number");
     }

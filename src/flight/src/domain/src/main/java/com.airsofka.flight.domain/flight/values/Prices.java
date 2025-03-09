@@ -8,24 +8,28 @@ public class Prices implements IValueObject {
     private double childPrice;
     private double infantPrice;
 
-    public Prices(double adultPrice, double childPrice, double infantPrice) {
+    public Prices(double adultPrice) {
         this.adultPrice = adultPrice;
-        this.childPrice = childPrice;
-        this.infantPrice = infantPrice;
+        setPrices();
     }
 
-    public static Prices of(double adultPrice, double childPrice, double infantPrice) {
-        Prices prices = new Prices(adultPrice, childPrice, infantPrice);
+    public static Prices of(double adultPrice) {
+        Prices prices = new Prices(adultPrice);
+        prices.setPrices();
         prices.validate();
-
         return prices;
     }
 
     @Override
     public void validate() {
-    Validator.validateNotNull(adultPrice);
-    Validator.validateNotNull(childPrice);
-    Validator.validateNotNull(infantPrice);
+        Validator.validatePositive(adultPrice);
+        Validator.validatePositive(childPrice);
+        Validator.validatePositive(infantPrice);
+    }
+
+    void setPrices() {
+        this.childPrice = this.adultPrice * 0.75;
+        this.infantPrice = this.adultPrice * 0.45;
     }
 
     public double getAdultPrice() {
@@ -51,4 +55,5 @@ public class Prices implements IValueObject {
     public void setInfantPrice(double infantPrice) {
         this.infantPrice = infantPrice;
     }
+
 }
