@@ -8,14 +8,16 @@ public class FlightCreated extends DomainEvent {
     private String flightId;
     private String flightNumber;
     private String routeId;
+    private Double price;
     private Date departureTime;
     private Date arrivalTime;
 
-    public FlightCreated(String flightId, String flightNumber, String routeId, Date departureTime, Date arrivalTime) {
+    public FlightCreated(String flightId, String flightNumber, String routeId, Double price, Date departureTime, Date arrivalTime) {
         super(EventsEnum.CREATED_FLIGHT.name());
         this.flightId = flightId;
         this.flightNumber = flightNumber;
         this.routeId = routeId;
+        this.price = price;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
     }
@@ -59,5 +61,13 @@ public class FlightCreated extends DomainEvent {
 
     public void setArrivalTime(Date arrivalTime) {
         this.arrivalTime = arrivalTime;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

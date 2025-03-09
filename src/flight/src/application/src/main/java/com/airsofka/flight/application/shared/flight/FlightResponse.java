@@ -1,6 +1,6 @@
 package com.airsofka.flight.application.shared.flight;
 
-import com.airsofka.flight.domain.flight.values.Prices;
+
 
 import java.util.List;
 
@@ -49,6 +49,15 @@ public class FlightResponse {
     public String getStatus() {
         return status;
     }
+
+    public PricesInfo getPrices() {
+        return prices;
+    }
+
+    public List<seat> getSeats() {
+        return seats;
+    }
+
     public static class seat {
         private final String seatId;
         private final String seatNumber;

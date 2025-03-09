@@ -12,6 +12,7 @@ import com.airsofka.flight.domain.flight.values.ArrivalTime;
 import com.airsofka.flight.domain.flight.values.DepartureTime;
 import com.airsofka.flight.domain.flight.values.FlightNumber;
 import com.airsofka.flight.domain.flight.values.IsAvailable;
+import com.airsofka.flight.domain.flight.values.Prices;
 import com.airsofka.flight.domain.flight.values.RouteId;
 import com.airsofka.flight.domain.flight.values.StatusFlight;
 import com.airsofka.flight.domain.flight.values.TotalSeats;
@@ -23,7 +24,7 @@ import java.util.function.Consumer;
 
 public class FlightHandler extends DomainActionsContainer {
     public FlightHandler(Flight flight) {
-
+        addAction(createFlight(flight));
         addAction(removeFlight(flight));
         addAction(assingRoute(flight));
         addAction(changedRoute(flight));
@@ -36,8 +37,10 @@ public class FlightHandler extends DomainActionsContainer {
         return (FlightCreated event) -> {
             flight.setFlightNumber(FlightNumber.of(event.getFlightNumber()));
             flight.setTotalSeats(TotalSeats.of(184));
-            flight.initializeSeats();
+           flight.setSeats(flight.initializeSeats());
+            System.out.println(flight.getSeats().size());
             flight.setStatusFlight(StatusFlight.of("Ready"));
+            flight.setPrices(Prices.of(event.getPrice()));
             if (event.getRouteId() != null) {
                 flight.setRouteId(RouteId.of(event.getRouteId()));
             }
@@ -61,7 +64,8 @@ public class FlightHandler extends DomainActionsContainer {
 
     public Consumer<? extends DomainEvent> assingRoute(Flight flight) {
         return (AssignedRoute event) -> {
-            if (flight.getRouteId() != null) {
+            System.out.println("asdasdadasdadasd:"+event.getRouteId());
+            if (event.getRouteId() != null) {
                 flight.setRouteId(RouteId.of(event.getRouteId()));
             }else {
                 throw new IllegalArgumentException("RouteId cannot be null.");

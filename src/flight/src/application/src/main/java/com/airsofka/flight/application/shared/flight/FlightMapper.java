@@ -2,6 +2,8 @@ package com.airsofka.flight.application.shared.flight;
 
 import com.airsofka.flight.domain.flight.Flight;
 
+import java.util.stream.Collectors;
+
 public class FlightMapper {
     public static FlightResponse mapToResponse(Flight flight) {
         return new FlightResponse(
@@ -12,17 +14,18 @@ public class FlightMapper {
                 flight.getArrivalTime().getValue().toString(),
                 flight.getStatusFlight().getValue(),
                 new FlightResponse.PricesInfo(
-                        flight.getPrices().getAdultPrice(),
-                        flight.getPrices().getChildPrice(),
-                        flight.getPrices().getInfantPrice()
-                ),
+                        flight.getPrices() != null ? flight.getPrices().getAdultPrice() : 0.0,
+                        flight.getPrices() != null ? flight.getPrices().getChildPrice() : 0.0,
+                        flight.getPrices() != null ? flight.getPrices().getInfantPrice() : 0.0
+                )
+                ,
                 flight.getSeats().stream().map(seat -> new FlightResponse.seat(
                         seat.getIdentity().getValue(),
                         seat.getSeatNumber().getValue(),
                         seat.getSeatClass().getValue(),
                         seat.getIsAvailable().getValue(),
                         seat.getPriceSeat().getValue()
-                )).collect(java.util.stream.Collectors.toList())
+                )).collect(Collectors.toList())
         );
     }
 }

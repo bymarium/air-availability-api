@@ -11,4 +11,6 @@ public class UseCaseConfig {
     public CreateFlightUseCase createFlightUseCase(MongoAdapter adapter){
         return new CreateFlightUseCase(adapter);
     }
+
+
 }

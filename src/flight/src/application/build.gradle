@@ -7,7 +7,7 @@ dependencies {
     implementation(project(':shared:application'))
     implementation(project(':shared:domain'))
     implementation(project(':flight:domain'))
-    implementation(project(':flight:application'))
+
 }
 test {
     useJUnitPlatform()

@@ -43,10 +43,10 @@ public class Flight extends AggregateRoot<FlightId> {
 
     //#region Constructors
 
-    public Flight(String flightNumber, String routeId, Date departureTime, Date arrivalTime) {
+    public Flight(String flightNumber, String routeId, Double price, Date departureTime, Date arrivalTime) {
         super(new FlightId());
         subscribe(new FlightHandler(this));
-        apply(new FlightCreated(this.getIdentity().getValue(), flightNumber, routeId, departureTime, arrivalTime));
+        apply(new FlightCreated(this.getIdentity().getValue(), flightNumber, routeId,price, departureTime, arrivalTime));
     }
 
     private Flight(FlightId identity) {
@@ -126,8 +126,8 @@ public class Flight extends AggregateRoot<FlightId> {
         apply(new FlightRemoved(flightId));
     }
 
-    public void assingRoute( String seatId) {
-        apply(new AssignedRoute(seatId));
+    public void assingRoute( String routeId) {
+        apply(new AssignedRoute(routeId));
     }
 
     public void changedRoute( String routeId) {
