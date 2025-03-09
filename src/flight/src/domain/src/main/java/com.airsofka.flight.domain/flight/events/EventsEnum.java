@@ -5,7 +5,7 @@ public enum EventsEnum {
     ASSIGNED_ROUTE,
     REMOVED_FLIGHT,
     UPDATED_FLIGHT,
-    STATE_CHANGED,
+    STATUS_CHANGED,
     CHANGED_ROUTE,
     CHANGED_SEAT,
 }

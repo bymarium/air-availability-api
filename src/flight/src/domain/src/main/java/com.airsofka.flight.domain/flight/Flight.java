@@ -1,8 +1,13 @@
 package com.airsofka.flight.domain.flight;
 
 import com.airsofka.flight.domain.flight.entities.Seat;
+import com.airsofka.flight.domain.flight.events.AssignedRoute;
 import com.airsofka.flight.domain.flight.events.FlightCreated;
 import com.airsofka.flight.domain.flight.events.FlightRemoved;
+import com.airsofka.flight.domain.flight.events.RouteChanged;
+import com.airsofka.flight.domain.flight.events.SeatChanged;
+import com.airsofka.flight.domain.flight.events.StatusChanged;
+import com.airsofka.flight.domain.flight.events.UpdateFlight;
 import com.airsofka.flight.domain.flight.values.ArrivalTime;
 import com.airsofka.flight.domain.flight.values.DepartureTime;
 import com.airsofka.flight.domain.flight.values.FlightId;
@@ -10,6 +15,7 @@ import com.airsofka.flight.domain.flight.values.FlightNumber;
 import com.airsofka.flight.domain.flight.values.IsAvailable;
 import com.airsofka.flight.domain.flight.values.PriceSeat;
 import com.airsofka.flight.domain.flight.values.Prices;
+import com.airsofka.flight.domain.flight.values.RouteId;
 import com.airsofka.flight.domain.flight.values.SeatClass;
 import com.airsofka.flight.domain.flight.values.SeatId;
 import com.airsofka.flight.domain.flight.values.SeatInfo;
@@ -20,11 +26,13 @@ import com.airsofka.shared.domain.generic.AggregateRoot;
 import com.airsofka.shared.domain.generic.DomainEvent;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
 public class Flight extends AggregateRoot<FlightId> {
     private FlightNumber flightNumber;
+    private RouteId routeId;
     private DepartureTime departureTime;
     private ArrivalTime arrivalTime;
     private Prices prices;
@@ -33,22 +41,16 @@ public class Flight extends AggregateRoot<FlightId> {
     private StatusFlight statusFlight;
 
     //#region Constructors
-    private Flight(FlightId identity, FlightNumber flightNumber, DepartureTime departureTime, ArrivalTime arrivalTime, Prices prices, TotalSeats totalSeats, List<Seat> seats, StatusFlight statusFlight) {
-        super(identity);
-        this.flightNumber = flightNumber;
-        this.departureTime = departureTime;
-        this.arrivalTime = arrivalTime;
-        this.prices = prices;
-        this.totalSeats = totalSeats;
-        this.seats = seats;
-        this.statusFlight = statusFlight;
+
+    public Flight(String flightNumber, String identity, String routeId, Date departureTime, Date arrivalTime) {
+        super(new FlightId());
+        subscribe(new FlightHandler(this));
+        apply(new FlightCreated(identity, flightNumber, routeId, departureTime, arrivalTime));
     }
 
-    public Flight(FlightId identity, FlightNumber flightNumber) {
-        super(new FlightId());
-//        subscribe(new FlightHandler(this));
-        apply(new FlightCreated(identity.getValue(), flightNumber.getValue()));
-        this.flightNumber = flightNumber;
+    private Flight(FlightId identity) {
+        super(identity);
+        subscribe(new FlightHandler(this));
     }
     //#endregion
     //#region Getter & Setter
@@ -109,26 +111,54 @@ public class Flight extends AggregateRoot<FlightId> {
         this.statusFlight = statusFlight;
     }
 
+    public RouteId getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(RouteId routeId) {
+        this.routeId = routeId;
+    }
+
     //#endregion
     //#region Domain Events
-    public void RemoveFlight(String flightId) {
+    public void removeFlight(String flightId) {
         apply(new FlightRemoved(flightId));
+    }
+
+    public void assingRoute( String seatId) {
+        apply(new AssignedRoute(seatId));
+    }
+
+    public void changedRoute(String flightId, String routeId) {
+        apply(new RouteChanged(flightId, routeId));
+    }
+
+    public void changedSeat(String flightId, String seatId) {
+        apply(new SeatChanged(flightId, seatId));
+    }
+
+    public void changeStatusFlight(String flightId, String status) {
+        apply(new StatusChanged(flightId, status));
+    }
+
+    public void updateFlight(String flightId, String flightNumber, String routeId, String seatId) {
+        apply(new UpdateFlight(flightId, flightNumber, routeId, seatId));
     }
     //#endregion
 
     //#region public methods
-    private List<Seat> initializeSeats() {
+    public List<Seat> initializeSeats() {
         List<Seat> seats = new ArrayList<>();
         for (int row = 1; row <= 33; row++) {
-            for (int seatNumberInRow = 1; seatNumberInRow <= 6; seatNumberInRow++) {
-                if (row >= 12 && row <= 16) {
-                    continue;
-                }
-
-                SeatInfo info = getSeatClassAndPrice(row);
+            if (row >= 12 && row <= 16) {
+                continue;
+            }
+            String[] columns = getColumnsByRow(row);
+            SeatInfo info = getSeatClassAndPrice(row);
+            for (String column : columns) {
                 seats.add(new Seat(
-                        SeatId.of(String.format("%s-%s", row, seatNumberInRow)),
-                        SeatNumber.of(String.format("%s-%s", row, seatNumberInRow)),
+                        SeatId.of(String.format("%s-%s", row, column)),
+                        SeatNumber.of(String.format("%s-%s", row, column)),
                         SeatClass.of(info.getSeatClass()),
                         IsAvailable.of(true),
                         PriceSeat.of(info.getPrice())
@@ -137,7 +167,16 @@ public class Flight extends AggregateRoot<FlightId> {
         }
         return seats;
     }
-    private SeatInfo  getSeatClassAndPrice(int row) {
+
+    private String[] getColumnsByRow(int row) {
+        if (row >= 1 && row <= 4) {
+            return new String[]{"A", "B", "E", "F"};
+        } else {
+            return new String[]{"A", "B", "C", "D", "E", "F"};
+        }
+    }
+
+    private SeatInfo getSeatClassAndPrice(int row) {
         return switch (row) {
             case 1, 2, 3, 4 -> new SeatInfo("Business Class", 150.0);
             case 5, 6, 7, 8 -> new SeatInfo("Economy Extra", 120.0);
@@ -147,11 +186,14 @@ public class Flight extends AggregateRoot<FlightId> {
             default -> throw new IllegalArgumentException("row no available: " + row);
         };
     }
+    public Seat getSeatById(String seatId) {
+        return seats.stream().filter(seat -> seat.getIdentity().getValue().equals(seatId)).findFirst().orElse(null);
+    }
 
     //#endregion
     //#region static methods
-    public static Flight from(final String identity, final List<DomainEvent> events){
-        Flight flight = new Flight(FlightId.of(identity), FlightNumber.of(events.get(0).getName()));
+    public static Flight from(final String identity, final List<DomainEvent> events) {
+        Flight flight = new Flight(FlightId.of(identity));
         events.forEach(flight::apply);
         return flight;
     }

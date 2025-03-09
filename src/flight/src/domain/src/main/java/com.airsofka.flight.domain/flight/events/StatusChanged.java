@@ -1,10 +1,13 @@
 package com.airsofka.flight.domain.flight.events;
 
-public class StatusChanged {
+import com.airsofka.shared.domain.generic.DomainEvent;
+
+public class StatusChanged extends DomainEvent {
     private String flightId;
     private String status;
 
     public StatusChanged(String flightId, String status) {
+        super(EventsEnum.STATUS_CHANGED.name());
         this.flightId = flightId;
         this.status = status;
     }
