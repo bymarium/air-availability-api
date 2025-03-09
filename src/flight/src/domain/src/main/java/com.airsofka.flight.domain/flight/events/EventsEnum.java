@@ -8,4 +8,5 @@ public enum EventsEnum {
     STATUS_CHANGED,
     CHANGED_ROUTE,
     CHANGED_SEAT,
+    SEAT_ENABLED
 }

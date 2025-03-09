@@ -5,17 +5,20 @@ import com.airsofka.flight.domain.flight.events.FlightCreated;
 import com.airsofka.flight.domain.flight.events.FlightRemoved;
 import com.airsofka.flight.domain.flight.events.RouteChanged;
 import com.airsofka.flight.domain.flight.events.SeatChanged;
+import com.airsofka.flight.domain.flight.events.SeatEnabled;
 import com.airsofka.flight.domain.flight.events.StatusChanged;
 import com.airsofka.flight.domain.flight.events.UpdateFlight;
 import com.airsofka.flight.domain.flight.values.ArrivalTime;
 import com.airsofka.flight.domain.flight.values.DepartureTime;
 import com.airsofka.flight.domain.flight.values.FlightNumber;
+import com.airsofka.flight.domain.flight.values.IsAvailable;
 import com.airsofka.flight.domain.flight.values.RouteId;
 import com.airsofka.flight.domain.flight.values.StatusFlight;
 import com.airsofka.flight.domain.flight.values.TotalSeats;
 import com.airsofka.shared.domain.generic.DomainActionsContainer;
 import com.airsofka.shared.domain.generic.DomainEvent;
 
+import java.util.Date;
 import java.util.function.Consumer;
 
 public class FlightHandler extends DomainActionsContainer {
@@ -78,19 +81,36 @@ public class FlightHandler extends DomainActionsContainer {
 
     public Consumer<? extends DomainEvent> changedSeat(Flight flight) {
         return (SeatChanged event) -> {
-            
+            if (flight.getSeatById(event.getSeatId()) != null) {
+                flight.getSeatById(event.getSeatId()).setIsAvailable(IsAvailable.of(false));
+            }
         };
     }
 
     public Consumer<? extends DomainEvent> changeStatusFlight(Flight flight) {
         return (StatusChanged event) -> {
-            flight.changeStatusFlight(event.getFlightId(), event.getStatus());
+            if (flight.getStatusFlight() != null) {
+                flight.setStatusFlight(StatusFlight.of(event.getStatus()));
+            }
+            if (event.getStatus().equals("Maintenance") || event.getStatus().equals("Cancelled") || event.getStatus().equals("Out of Service")) {
+                flight.setDepartureTime(DepartureTime.of(new Date()));
+                flight.setArrivalTime(ArrivalTime.of(new Date()));
+            }
         };
     }
 
     public Consumer<? extends DomainEvent> updateFlight(Flight flight) {
         return (UpdateFlight event) -> {
             flight.updateFlight(event.getFlightId(), event.getFlightNumber(), event.getRouteId(), event.getSeatId());
+        };
+    }
+
+    public Consumer<? extends DomainEvent> enableSeat(Flight flight) {
+        return (SeatEnabled event) -> {
+            if (flight.getSeatById(event.getSeatId()) == null) {
+                throw new IllegalArgumentException("Seat not found.");
+            }
+            flight.getSeatById(event.getSeatId()).setIsAvailable(IsAvailable.of(true));
         };
     }
 }

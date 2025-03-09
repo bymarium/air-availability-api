@@ -2,11 +2,15 @@ package com.airsofka.flight.domain.flight.events;
 
 import com.airsofka.shared.domain.generic.DomainEvent;
 
+import java.util.Date;
+
 public class UpdateFlight extends DomainEvent {
     private String flightId;
     private String flightNumber;
     private String routeId;
     private String seatId;
+    private Date departureTime;
+    private Date arrivalTime;
 
     public UpdateFlight(String flightId, String flightNumber, String routeId, String seatId) {
         super(EventsEnum.UPDATED_FLIGHT.name());

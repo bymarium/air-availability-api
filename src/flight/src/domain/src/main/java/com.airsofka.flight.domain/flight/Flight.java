@@ -6,6 +6,7 @@ import com.airsofka.flight.domain.flight.events.FlightCreated;
 import com.airsofka.flight.domain.flight.events.FlightRemoved;
 import com.airsofka.flight.domain.flight.events.RouteChanged;
 import com.airsofka.flight.domain.flight.events.SeatChanged;
+import com.airsofka.flight.domain.flight.events.SeatEnabled;
 import com.airsofka.flight.domain.flight.events.StatusChanged;
 import com.airsofka.flight.domain.flight.events.UpdateFlight;
 import com.airsofka.flight.domain.flight.values.ArrivalTime;
@@ -143,6 +144,9 @@ public class Flight extends AggregateRoot<FlightId> {
 
     public void updateFlight(String flightId, String flightNumber, String routeId, String seatId) {
         apply(new UpdateFlight(flightId, flightNumber, routeId, seatId));
+    }
+    public void enableSeat(String seatId) {
+        apply(new SeatEnabled(seatId));
     }
     //#endregion
 
