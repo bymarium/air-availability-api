@@ -23,4 +23,105 @@ import java.util.List;
 
 
 public class Flight extends AggregateRoot<FlightId> {
+    private FlightNumber flightNumber;
+    private DepartureTime departureTime;
+    private ArrivalTime arrivalTime;
+    private Prices prices;
+    private TotalSeats totalSeats;
+    private List<Seat> seats;
+    private StatusFlight statusFlight;
+
+    //#region Constructors
+    private Flight(FlightId identity, FlightNumber flightNumber, DepartureTime departureTime, ArrivalTime arrivalTime, Prices prices, TotalSeats totalSeats, List<Seat> seats, StatusFlight statusFlight) {
+        super(identity);
+        this.flightNumber = flightNumber;
+        this.departureTime = departureTime;
+        this.arrivalTime = arrivalTime;
+        this.prices = prices;
+        this.totalSeats = totalSeats;
+        this.seats = seats;
+        this.statusFlight = statusFlight;
+    }
+
+    public Flight(FlightId identity, FlightNumber flightNumber) {
+        super(new FlightId());
+//        subscribe(new FlightHandler(this));
+        apply(new FlightCreated(identity.getValue(), flightNumber.getValue()));
+        this.flightNumber = flightNumber;
+    }
+    //#endregion
+    //#region Getter & Setter
+
+
+    public FlightNumber getFlightNumber() {
+        return flightNumber;
+    }
+
+    public void setFlightNumber(FlightNumber flightNumber) {
+        this.flightNumber = flightNumber;
+    }
+
+    public DepartureTime getDepartureTime() {
+        return departureTime;
+    }
+
+    public void setDepartureTime(DepartureTime departureTime) {
+        this.departureTime = departureTime;
+    }
+
+    public ArrivalTime getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void setArrivalTime(ArrivalTime arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
+    public Prices getPrices() {
+        return prices;
+    }
+
+    public void setPrices(Prices prices) {
+        this.prices = prices;
+    }
+
+    public TotalSeats getTotalSeats() {
+        return totalSeats;
+    }
+
+    public void setTotalSeats(TotalSeats totalSeats) {
+        this.totalSeats = totalSeats;
+    }
+
+    public List<Seat> getSeats() {
+        return seats;
+    }
+
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
+    }
+
+    public StatusFlight getStatusFlight() {
+        return statusFlight;
+    }
+
+    public void setStatusFlight(StatusFlight statusFlight) {
+        this.statusFlight = statusFlight;
+    }
+
+    //#endregion
+    //#region Domain Events
+
+    //#endregion
+
+    //#region public methods
+
+    //#endregion
+    //#region static methods
+    public static Flight from(final String identity, final List<DomainEvent> events){
+        Flight flight = new Flight(FlightId.of(identity), FlightNumber.of(events.get(0).getName()));
+        events.forEach(flight::apply);
+        return flight;
+    }
+    //#endregion
 }
