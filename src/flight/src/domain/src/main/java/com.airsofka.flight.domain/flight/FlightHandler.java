@@ -19,6 +19,7 @@ import com.airsofka.flight.domain.flight.values.TotalSeats;
 import com.airsofka.shared.domain.generic.DomainActionsContainer;
 import com.airsofka.shared.domain.generic.DomainEvent;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.function.Consumer;
 
@@ -36,11 +37,11 @@ public class FlightHandler extends DomainActionsContainer {
     public Consumer<? extends DomainEvent> createFlight(Flight flight) {
         return (FlightCreated event) -> {
             flight.setFlightNumber(FlightNumber.of(event.getFlightNumber()));
-            flight.setTotalSeats(TotalSeats.of(184));
-           flight.setSeats(flight.initializeSeats());
-            System.out.println(flight.getSeats().size());
+            flight.setTotalSeats(TotalSeats.of(160));
             flight.setStatusFlight(StatusFlight.of("Ready"));
             flight.setPrices(Prices.of(event.getPrice()));
+            flight.setSeats(flight.initializeSeats());
+
             if (event.getRouteId() != null) {
                 flight.setRouteId(RouteId.of(event.getRouteId()));
             }

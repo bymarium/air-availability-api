@@ -2,4 +2,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
     implementation(project(':shared:domain'))
     implementation(project(':flight:application'))
+    implementation(project(':flight:domain'))
+
 }

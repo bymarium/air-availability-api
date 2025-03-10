@@ -15,4 +15,5 @@ public class MonoConfig {
     public MongoAdapter mongoAdapter(IEventsRepository repository){
         return new MongoAdapter(repository);
     }
+
 }

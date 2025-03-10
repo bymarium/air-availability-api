@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api/create-flight")
+@RequestMapping("/api/flight")
 public class CreateFlightController {
     private final CreateFlightUseCase createFlightUseCase;
 

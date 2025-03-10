@@ -4,12 +4,12 @@ import com.airsofka.shared.domain.generic.IValueObject;
 import utils.Validator;
 
 public class Prices implements IValueObject {
-    private double adultPrice;
+    private double priceStandar;
     private double childPrice;
     private double infantPrice;
 
     public Prices(double adultPrice) {
-        this.adultPrice = adultPrice;
+        this.priceStandar = adultPrice;
         setPrices();
     }
 
@@ -22,22 +22,22 @@ public class Prices implements IValueObject {
 
     @Override
     public void validate() {
-        Validator.validatePositive(adultPrice);
+        Validator.validatePositive(priceStandar);
         Validator.validatePositive(childPrice);
         Validator.validatePositive(infantPrice);
     }
 
     void setPrices() {
-        this.childPrice = this.adultPrice * 0.75;
-        this.infantPrice = this.adultPrice * 0.45;
+        this.childPrice = this.priceStandar * 0.75;
+        this.infantPrice = this.priceStandar * 0.45;
     }
 
-    public double getAdultPrice() {
-        return adultPrice;
+    public double getPriceStandar() {
+        return priceStandar;
     }
 
-    public void setAdultPrice(double adultPrice) {
-        this.adultPrice = adultPrice;
+    public void setPriceStandar(double priceStandar) {
+        this.priceStandar = priceStandar;
     }
 
     public double getChildPrice() {

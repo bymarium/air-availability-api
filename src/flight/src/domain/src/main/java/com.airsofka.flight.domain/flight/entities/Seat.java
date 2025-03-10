@@ -20,6 +20,15 @@ public class Seat extends Entity<SeatId> {
         this.isAvailable = isAvailable;
         this.priceSeat = priceSeat;
     }
+
+    public Seat(SeatNumber seatNumber, SeatClass seatClass, IsAvailable isAvailable, PriceSeat priceSeat) {
+        super(new SeatId());
+        this.seatNumber = seatNumber;
+        this.seatClass = seatClass;
+        this.isAvailable = isAvailable;
+        this.priceSeat = priceSeat;
+    }
+
     public SeatNumber getSeatNumber() {
         return seatNumber;
     }
