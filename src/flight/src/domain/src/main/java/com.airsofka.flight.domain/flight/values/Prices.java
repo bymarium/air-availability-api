@@ -4,12 +4,14 @@ import com.airsofka.shared.domain.generic.IValueObject;
 import utils.Validator;
 
 public class Prices implements IValueObject {
-    private double priceStandar;
-    private double childPrice;
-    private double infantPrice;
+    private Double priceStandard;
+    private Double childPrice;
+    private Double infantPrice;
+    private Double tax;
 
     public Prices(double adultPrice) {
-        this.priceStandar = adultPrice;
+        this.priceStandard = adultPrice;
+        this.tax = 1.2;
         setPrices();
     }
 
@@ -22,22 +24,23 @@ public class Prices implements IValueObject {
 
     @Override
     public void validate() {
-        Validator.validatePositive(priceStandar);
+        Validator.validatePositive(priceStandard);
         Validator.validatePositive(childPrice);
         Validator.validatePositive(infantPrice);
     }
 
     void setPrices() {
-        this.childPrice = this.priceStandar * 0.75;
-        this.infantPrice = this.priceStandar * 0.45;
+        this.priceStandard = this.priceStandard * this.tax;
+        this.childPrice = this.priceStandard * 0.75 * this.tax;
+        this.infantPrice = this.priceStandard * 0.45 * this.tax;
     }
 
-    public double getPriceStandar() {
-        return priceStandar;
+    public double getPriceStandard() {
+        return priceStandard;
     }
 
-    public void setPriceStandar(double priceStandar) {
-        this.priceStandar = priceStandar;
+    public void setPriceStandard(double priceStandard) {
+        this.priceStandard = priceStandard;
     }
 
     public double getChildPrice() {
@@ -56,4 +59,23 @@ public class Prices implements IValueObject {
         this.infantPrice = infantPrice;
     }
 
+    public void setPriceStandard(Double priceStandard) {
+        this.priceStandard = priceStandard;
+    }
+
+    public void setChildPrice(Double childPrice) {
+        this.childPrice = childPrice;
+    }
+
+    public void setInfantPrice(Double infantPrice) {
+        this.infantPrice = infantPrice;
+    }
+
+    public Double getTax() {
+        return tax;
+    }
+
+    public void setTax(Double tax) {
+        this.tax = tax;
+    }
 }

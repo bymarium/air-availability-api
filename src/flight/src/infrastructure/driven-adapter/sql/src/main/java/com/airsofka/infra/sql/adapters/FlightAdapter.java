@@ -19,11 +19,11 @@ import java.util.stream.Collectors;
 public class FlightAdapter {
     public static FlightEntity toEntity(Flight flight) {
         FlightEntity entity = new FlightEntity();
-//        entity.setId(flight.getIdentity().getValue());
+       entity.setId(flight.getIdentity().getValue());
         entity.setFlightNumber(flight.getFlightNumber().getValue());
         entity.setDepartureTime(flight.getDepartureTime().getValue());
         entity.setArrivalTime(flight.getArrivalTime().getValue());
-        PriceEntity price = new PriceEntity(flight.getPrices().getPriceStandar());
+        PriceEntity price = new PriceEntity(flight.getPrices().getPriceStandard());
         entity.setPrice(price);
         entity.setRouteId(flight.getRouteId().getValue());
         entity.setStatus(flight.getStatusFlight().getValue());

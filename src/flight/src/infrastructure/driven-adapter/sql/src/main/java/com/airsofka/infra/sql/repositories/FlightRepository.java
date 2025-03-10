@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface FlightRepository extends JpaRepository<FlightEntity, Long> {
+public interface FlightRepository extends JpaRepository<FlightEntity, String> {
 }

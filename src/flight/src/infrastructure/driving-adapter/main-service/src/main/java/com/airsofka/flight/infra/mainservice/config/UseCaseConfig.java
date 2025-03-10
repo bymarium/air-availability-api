@@ -16,8 +16,8 @@ public class UseCaseConfig {
     }
 
     @Bean
-    public UpdateFlightUseCase updateFlightUseCase(MongoAdapter adapter){
-        return new UpdateFlightUseCase(adapter);
+    public UpdateFlightUseCase updateFlightUseCase(MongoAdapter adapter, MySQLAdapter mysqlAdapter){
+        return new UpdateFlightUseCase(adapter,mysqlAdapter);
     }
 
 }

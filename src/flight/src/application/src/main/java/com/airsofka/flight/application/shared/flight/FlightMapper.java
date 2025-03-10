@@ -14,7 +14,7 @@ public class FlightMapper {
                 flight.getArrivalTime().getValue().toString(),
                 flight.getStatusFlight().getValue(),
                 new FlightResponse.PricesInfo(
-                        flight.getPrices() != null ? flight.getPrices().getPriceStandar() : 0.0,
+                        flight.getPrices() != null ? flight.getPrices().getPriceStandard() : 0.0,
                         flight.getPrices() != null ? flight.getPrices().getChildPrice() : 0.0,
                         flight.getPrices() != null ? flight.getPrices().getInfantPrice() : 0.0
                 )

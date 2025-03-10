@@ -18,6 +18,7 @@ import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "flights")
@@ -27,8 +28,8 @@ import java.util.List;
 @Setter
 public class FlightEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id", length = 36, nullable = false, updatable = false)
+    private String id;
     @Column(unique = true)
     private String flightNumber;
     private String routeId;

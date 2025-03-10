@@ -5,5 +5,6 @@ import com.airsofka.flight.domain.flight.Flight;
 
 public interface IFlightRepositoryPort {
     void saveFlight(Flight flight);
+    void updateFlight(Flight flight);
 
 }

@@ -25,6 +25,7 @@ public class PriceEntity {
     private Double priceStandard;
     private Double childPrice;
     private Double infantPrice;
+    private Double tax;
     @ManyToOne
     @JoinColumn(name = "flight_id")  // O cualquier otro nombre de columna
     private FlightEntity flight;
@@ -33,5 +34,6 @@ public class PriceEntity {
         this.priceStandard = price;
         this.childPrice = price * 0.75;
         this.infantPrice = price * 0.45;
+        this.tax = 1.2;
     }
 }
