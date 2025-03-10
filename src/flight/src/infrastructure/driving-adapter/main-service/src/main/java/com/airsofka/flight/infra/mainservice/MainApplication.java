@@ -7,8 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {
-        "com.airsofka.flight.infra.mainservice.config",
-        "com.airsofka.flight.infra.mainservice.controller",
+        "com.airsofka.flight.infra",
         "com.airsofka.infra.sql.repositories",
         "com.airsofka.infra.sql.adapters"
 })

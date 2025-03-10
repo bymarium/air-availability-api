@@ -106,12 +106,14 @@ public class FlightHandler extends DomainActionsContainer {
 
     public Consumer<? extends DomainEvent> updateFlight(Flight flight) {
         return (UpdateFlight event) -> {
+
             if(flight.getDepartureTime().getValue().after(event.getArrivalTime())){
                 throw new IllegalArgumentException("Departure time cannot be after arrival time.");
             }
             flight.setDepartureTime(DepartureTime.of(event.getDepartureTime()));
             flight.setArrivalTime(ArrivalTime.of(event.getArrivalTime()));
-
+            flight.setRouteId(RouteId.of(event.getRouteId()));
+            flight.setFlightNumber(FlightNumber.of(event.getFlightNumber()));
         };
     }
 

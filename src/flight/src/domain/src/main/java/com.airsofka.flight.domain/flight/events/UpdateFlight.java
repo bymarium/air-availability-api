@@ -18,6 +18,8 @@ public class UpdateFlight extends DomainEvent {
         this.flightNumber = flightNumber;
         this.routeId = routeId;
         this.seatId = seatId;
+        this.departureTime = departureTime;
+        this.arrivalTime = arrivalTime;
     }
 
     public String getFlightId() {
