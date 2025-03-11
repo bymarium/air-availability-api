@@ -2,6 +2,7 @@ package com.airsofka.flight.infra.mainservice.config;
 
 import com.airsofka.flight.application.flight.createFlight.CreateFlightUseCase;
 import com.airsofka.flight.application.flight.updateFlight.UpdateFlightUseCase;
+import com.airsofka.flight.application.route.displayRoute.DisplayRouteUseCase;
 import com.airsofka.infra.mongo.adapters.MongoAdapter;
 import com.airsofka.flight.application.route.createRoute.CreateRouteUseCase;
 
@@ -24,4 +25,8 @@ public class UseCaseConfig {
 
     @Bean
     public CreateRouteUseCase createRouteUseCase(MongoAdapter adapter){ return new CreateRouteUseCase(adapter); }
+
+    @Bean
+    public DisplayRouteUseCase displayRouteUseCase(MongoAdapter adapter){ return new DisplayRouteUseCase(adapter); }
+
 }
