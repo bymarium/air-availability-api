@@ -39,6 +39,7 @@ public class MySQLAdapter implements IFlightRepositoryPort {
         flightRepository.save(flightEntity);
     }
     @Override
+    @Transactional
     public void updateFlight(Flight flight) {
         FlightEntity  flightFound= flightRepository.findById(flight.getIdentity().getValue()).orElseThrow(()-> new RuntimeException("Flight not found"));
         flightFound.setFlightNumber(flight.getFlightNumber().getValue());
@@ -47,8 +48,6 @@ public class MySQLAdapter implements IFlightRepositoryPort {
         flightFound.setStatus(flight.getStatusFlight().getValue());
         flightFound.setRouteId(flight.getRouteId().getValue());
 
-        Prices prices = new Prices(flight.getPrices().getStandardPrice());
-
         PriceEntity price = flightFound.getPrice();
 
         if (price == null) {
@@ -56,10 +55,12 @@ public class MySQLAdapter implements IFlightRepositoryPort {
         }
         price.setPriceStandard(flight.getPrices().getStandardPrice());
         price.setTax(flight.getPrices().getTax());
+        flightFound.getPrice().getPassengerPrices().forEach(passengerPrice -> {
 
-
-
-
+            passengerPrice.setBasePrice(flight.getPrices().getPassengerPrices().stream().filter(pp -> pp.getType().equals(passengerPrice.getType())).findFirst().get().getPrice());
+            passengerPrice.setTax(flight.getPrices().getPassengerPrices().stream().filter(pp -> pp.getType().equals(passengerPrice.getType())).findFirst().get().getTax());
+            passengerPrice.setTotalPrice(flight.getPrices().getPassengerPrices().stream().filter(pp -> pp.getType().equals(passengerPrice.getType())).findFirst().get().getTotalPrice());
+        });
 
         flightRepository.save(flightFound);
     }

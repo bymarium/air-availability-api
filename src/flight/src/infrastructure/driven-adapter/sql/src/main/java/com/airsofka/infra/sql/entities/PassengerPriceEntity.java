@@ -22,7 +22,7 @@ public class PassengerPriceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String type;  // Adulto, niño, infante, etc.
+    private String type;
     private Double basePrice;
     private Double tax;
     private Double totalPrice;

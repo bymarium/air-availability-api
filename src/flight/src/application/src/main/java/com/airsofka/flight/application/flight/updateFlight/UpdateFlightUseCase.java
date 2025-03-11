@@ -27,7 +27,7 @@ public class UpdateFlightUseCase implements ICommandUseCase<UpdateFlightRequest,
                     Flight flight = Flight.from(request.getAggregateId(), events);
                     System.out.println(request.getPrice());
                     flight.updateFlight(request.getFlightNumber(), request.getRouteId(), request.getSeatId(), request.getDepartureTime(), request.getArrivalTime(),request.getPrice());
-//                    flightRepository.updateFlight(flight);
+                    flightRepository.updateFlight(flight);
                     flight.getUncommittedEvents().forEach(repository::save);
                     flight.markEventsAsCommitted();
                     return mapToResponse(flight);
