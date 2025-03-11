@@ -32,6 +32,7 @@ public class FlightHandler extends DomainActionsContainer {
         addAction(changedSeat(flight));
         addAction(changeStatusFlight(flight));
         addAction(updateFlight(flight));
+        addAction(enableSeat(flight));
     }
 
     public Consumer<? extends DomainEvent> createFlight(Flight flight) {
@@ -89,6 +90,7 @@ public class FlightHandler extends DomainActionsContainer {
         return (SeatChanged event) -> {
             if (flight.getSeatById(event.getSeatId()) != null) {
                 flight.getSeatById(event.getSeatId()).setIsAvailable(IsAvailable.of(false));
+                flight.setTotalSeats(TotalSeats.of(flight.getTotalSeats().getValue() - 1));
             }
         };
     }
@@ -124,6 +126,7 @@ public class FlightHandler extends DomainActionsContainer {
                 throw new IllegalArgumentException("Seat not found.");
             }
             flight.getSeatById(event.getSeatId()).setIsAvailable(IsAvailable.of(true));
+            flight.setTotalSeats(TotalSeats.of(flight.getTotalSeats().getValue() + 1));
         };
     }
 }

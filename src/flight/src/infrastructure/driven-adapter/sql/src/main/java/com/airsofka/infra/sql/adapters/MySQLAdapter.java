@@ -4,8 +4,7 @@ import com.airsofka.flight.application.shared.flight.FlightListResponse;
 import com.airsofka.flight.application.shared.ports.IFlightRepositoryPort;
 import com.airsofka.flight.domain.flight.Flight;
 
-import com.airsofka.flight.domain.flight.entities.Seat;
-import com.airsofka.flight.domain.flight.values.SeatId;
+
 import com.airsofka.infra.sql.entities.FlightEntity;
 import com.airsofka.infra.sql.entities.PriceEntity;
 import com.airsofka.infra.sql.entities.SeatEntity;
