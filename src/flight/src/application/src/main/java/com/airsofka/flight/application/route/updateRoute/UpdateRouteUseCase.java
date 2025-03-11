@@ -26,7 +26,7 @@ public class UpdateRouteUseCase implements ICommandUseCase<UpdateRouteRequest, M
                     route.updateRoute(request.getOrigin(), request.getDuration(), request.getDestination());
                     route.getUncommittedEvents().forEach(repository::save);
                     route.markEventsAsCommitted();
-                    routeRepositoryPort.updateRoute(route);
+                    routeRepositoryPort.updateRoute(request.getId(), request.getOrigin(), request.getDuration(), request.getDestination());
                     return RouteMapper.mapToResponse(route);
                 });
     }

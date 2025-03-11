@@ -29,12 +29,12 @@ public class MySQLAdapterRoute implements IRouteRepositoryPort {
     }
 
     @Override
-    public void updateRoute(Route route) {
-        RouteEntity routeFound = routeRepository.findById(Long.parseLong(route.getIdentity().getValue()))
+    public void updateRoute(Long id, String origin, Integer duration, String destination) {
+        RouteEntity routeFound = routeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Route not found"));
-        routeFound.setOrigin(route.getOrigin().getValue());
-        routeFound.setDuration(route.getDuration().getValue());
-        routeFound.setDestination(route.getDestination().getValue());
+        routeFound.setOrigin(origin);
+        routeFound.setDuration(duration);
+        routeFound.setDestination(destination);
         routeRepository.save(routeFound);
     }
 

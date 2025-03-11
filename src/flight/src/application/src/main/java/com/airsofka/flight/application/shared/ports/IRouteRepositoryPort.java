@@ -8,7 +8,7 @@ import java.util.List;
 public interface IRouteRepositoryPort {
     void saveRoute(Route route);
 
-    void updateRoute(Route route);
+    void updateRoute(Long id, String origin, Integer duration, String destination);
 
     RouteResponse findById(String aggregateId);
 
