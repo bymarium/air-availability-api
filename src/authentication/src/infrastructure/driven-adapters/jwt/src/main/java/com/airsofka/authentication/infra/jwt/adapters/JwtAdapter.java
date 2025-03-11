@@ -1,4 +1,27 @@
 package com.airsofka.authentication.infra.jwt.adapters;
 
-public class JwtAdapter {
+import com.airsofka.authentication.application.shared.ports.IJwtServicePort;
+import com.airsofka.authentication.infra.jwt.utils.JwtUtil;
+
+public class JwtAdapter implements IJwtServicePort {
+  private final JwtUtil jwtUtil;
+
+  public JwtAdapter(JwtUtil jwtUtil) {
+    this.jwtUtil = jwtUtil;
+  }
+
+  @Override
+  public String createToken(String id, String subject) {
+    return jwtUtil.create(id, subject);
+  }
+
+  @Override
+  public String getId(String jwt) {
+    return jwtUtil.getKey(jwt);
+  }
+
+  @Override
+  public String getSubject(String jwt) {
+    return jwtUtil.getValue(jwt);
+  }
 }

@@ -1,6 +1,7 @@
 package com.airsofka.authentication.application.authenticateuser;
 
 import com.airsofka.authentication.application.shared.ports.IEventsRepositoryPort;
+import com.airsofka.authentication.application.shared.ports.IJwtServicePort;
 import com.airsofka.authentication.application.shared.ports.IUserRepositoryPort;
 import com.airsofka.authentication.domain.user.User;
 import com.airsofka.shared.application.ICommandUseCase;
@@ -12,10 +13,12 @@ import java.util.Comparator;
 public class AuthenticateUserUseCase implements ICommandUseCase<AuthenticateUserRequest, Mono<AuthenticateUserResponse>> {
   private final IEventsRepositoryPort repository;
   private final IUserRepositoryPort userRepository;
+  private final IJwtServicePort jwtService;
 
-  public AuthenticateUserUseCase(IEventsRepositoryPort repository, IUserRepositoryPort userRepository) {
+  public AuthenticateUserUseCase(IEventsRepositoryPort repository, IUserRepositoryPort userRepository, IJwtServicePort jwtService) {
     this.repository = repository;
     this.userRepository = userRepository;
+    this.jwtService = jwtService;
   }
 
   @Override
@@ -31,7 +34,9 @@ public class AuthenticateUserUseCase implements ICommandUseCase<AuthenticateUser
         user.markEventsAsCommitted();
 
         userRepository.save(user);
-        return new AuthenticateUserResponse(user.getEmail().getValue(), user.getIsAuthenticated().getValue(), "token here");
+
+        String token = jwtService.createToken(user.getIdentity().getValue(), user.getEmail().getValue());
+        return new AuthenticateUserResponse(user.getEmail().getValue(), user.getIsAuthenticated().getValue(), token);
       });
   }
 }
