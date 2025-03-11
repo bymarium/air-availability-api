@@ -7,9 +7,10 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {
-        "com.airsofka.flight.infra",
+        "com.airsofka.flight",
         "com.airsofka.infra.sql.repositories",
-        "com.airsofka.infra.sql.adapters"
+        "com.airsofka.infra.sql.adapters",
+
 })
 public class MainApplication {
     public static void main(String[] args) {

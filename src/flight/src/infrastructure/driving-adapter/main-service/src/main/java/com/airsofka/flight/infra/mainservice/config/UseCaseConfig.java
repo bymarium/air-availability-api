@@ -1,6 +1,11 @@
 package com.airsofka.flight.infra.mainservice.config;
 
+import com.airsofka.flight.application.flight.changeRoute.ChangeRouteUseCase;
+import com.airsofka.flight.application.flight.changeSeat.ChangeSeatUseCase;
+import com.airsofka.flight.application.flight.changeStatus.ChangeStatusUseCase;
 import com.airsofka.flight.application.flight.createFlight.CreateFlightUseCase;
+import com.airsofka.flight.application.flight.getFlights.GetFlightUseCase;
+import com.airsofka.flight.application.flight.removeFlight.RemoveFlightUseCase;
 import com.airsofka.flight.application.flight.updateFlight.UpdateFlightUseCase;
 import com.airsofka.infra.mongo.adapters.MongoAdapter;
 
@@ -16,8 +21,28 @@ public class UseCaseConfig {
     }
 
     @Bean
-    public UpdateFlightUseCase updateFlightUseCase(MongoAdapter adapter){
-        return new UpdateFlightUseCase(adapter);
+    public UpdateFlightUseCase updateFlightUseCase(MongoAdapter adapter, MySQLAdapter mysqlAdapter){
+        return new UpdateFlightUseCase(adapter,mysqlAdapter);
+    }
+    @Bean
+    public GetFlightUseCase getFlightUseCase(MySQLAdapter mysqlAdapter){
+        return new GetFlightUseCase(mysqlAdapter);
+    }
+    @Bean
+    public ChangeStatusUseCase changeStatusUseCase(MongoAdapter adapter, MySQLAdapter mysqlAdapter){
+        return new ChangeStatusUseCase(adapter,mysqlAdapter);
+    }
+    @Bean
+    public ChangeRouteUseCase changeRouteUseCase(MongoAdapter adapter, MySQLAdapter mysqlAdapter){
+        return new ChangeRouteUseCase(adapter,mysqlAdapter);
+    }
+    @Bean
+    public ChangeSeatUseCase changeSeatUseCase(MongoAdapter adapter, MySQLAdapter mysqlAdapter){
+        return new ChangeSeatUseCase(adapter,mysqlAdapter);
+    }
+    @Bean
+    public RemoveFlightUseCase removeFlightUseCase(MongoAdapter adapter, MySQLAdapter mysqlAdapter){
+        return new RemoveFlightUseCase(adapter,mysqlAdapter);
     }
 
 }

@@ -6,18 +6,20 @@ import java.util.Date;
 
 public class CreateFlightRequest extends Request {
     private final String flightNumber;
+    private final String flightModel;
     private final String routeId;
     private final Double price;
     private final Date departureTime;
     private final Date arrivalTime;
 
-    public CreateFlightRequest(String aggregateId, String flightNumber, String routeId, Double price, Date departureTime, Date arrivalTime) {
+    public CreateFlightRequest(String aggregateId, String flightNumber,String flightModel, String routeId, Double price, Date departureTime, Date arrivalTime) {
         super(aggregateId);
         this.flightNumber = flightNumber;
         this.routeId = routeId;
         this.price = price;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
+        this.flightModel = flightModel;
     }
 
     public String getFlightNumber() {
@@ -38,5 +40,9 @@ public class CreateFlightRequest extends Request {
 
     public Double getPrice() {
         return price;
+    }
+
+    public String getFlightModel() {
+        return flightModel;
     }
 }

@@ -10,6 +10,7 @@ import com.airsofka.flight.domain.flight.events.StatusChanged;
 import com.airsofka.flight.domain.flight.events.UpdateFlight;
 import com.airsofka.flight.domain.flight.values.ArrivalTime;
 import com.airsofka.flight.domain.flight.values.DepartureTime;
+import com.airsofka.flight.domain.flight.values.FlightModel;
 import com.airsofka.flight.domain.flight.values.FlightNumber;
 import com.airsofka.flight.domain.flight.values.IsAvailable;
 import com.airsofka.flight.domain.flight.values.Prices;
@@ -28,15 +29,17 @@ public class FlightHandler extends DomainActionsContainer {
         addAction(createFlight(flight));
         addAction(removeFlight(flight));
         addAction(assingRoute(flight));
-        addAction(changedRoute(flight));
+        addAction(changeRoute(flight));
         addAction(changedSeat(flight));
         addAction(changeStatusFlight(flight));
         addAction(updateFlight(flight));
+        addAction(enableSeat(flight));
     }
 
     public Consumer<? extends DomainEvent> createFlight(Flight flight) {
         return (FlightCreated event) -> {
             flight.setFlightNumber(FlightNumber.of(event.getFlightNumber()));
+            flight.setFlightModel(FlightModel.of(event.getFlightModel()));
             flight.setTotalSeats(TotalSeats.of(160));
             flight.setStatusFlight(StatusFlight.of("Ready"));
             flight.setPrices(Prices.of(event.getPrice()));
@@ -57,15 +60,12 @@ public class FlightHandler extends DomainActionsContainer {
 
     public Consumer<? extends DomainEvent> removeFlight(Flight flight) {
         return (FlightRemoved event) -> {
-            flight.removeFlight(event.getFlightId());
-            flight.getSeats().clear();
-            flight.initializeSeats();
+            flight.setStatusFlight(StatusFlight.of("Removed"));
         };
     }
 
     public Consumer<? extends DomainEvent> assingRoute(Flight flight) {
         return (AssignedRoute event) -> {
-            System.out.println("asdasdadasdadasd:"+event.getRouteId());
             if (event.getRouteId() != null) {
                 flight.setRouteId(RouteId.of(event.getRouteId()));
             }else {
@@ -74,9 +74,10 @@ public class FlightHandler extends DomainActionsContainer {
         };
     }
 
-    public Consumer<? extends DomainEvent> changedRoute(Flight flight) {
+    public Consumer<? extends DomainEvent> changeRoute(Flight flight) {
         return (RouteChanged event) -> {
-            if (flight.getRouteId() != null) {
+            System.out.println("changed route"+ event.getRouteId());
+            if (event.getRouteId() != null) {
                 flight.setRouteId(RouteId.of(event.getRouteId()));
             }else {
                 throw new IllegalArgumentException("RouteId cannot be null.");
@@ -88,6 +89,7 @@ public class FlightHandler extends DomainActionsContainer {
         return (SeatChanged event) -> {
             if (flight.getSeatById(event.getSeatId()) != null) {
                 flight.getSeatById(event.getSeatId()).setIsAvailable(IsAvailable.of(false));
+                flight.setTotalSeats(TotalSeats.of(flight.getTotalSeats().getValue() - 1));
             }
         };
     }
@@ -123,6 +125,7 @@ public class FlightHandler extends DomainActionsContainer {
                 throw new IllegalArgumentException("Seat not found.");
             }
             flight.getSeatById(event.getSeatId()).setIsAvailable(IsAvailable.of(true));
+            flight.setTotalSeats(TotalSeats.of(flight.getTotalSeats().getValue() + 1));
         };
     }
 }

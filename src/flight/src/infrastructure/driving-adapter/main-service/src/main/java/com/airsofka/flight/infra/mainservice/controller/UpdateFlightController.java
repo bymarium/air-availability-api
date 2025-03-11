@@ -1,6 +1,5 @@
 package com.airsofka.flight.infra.mainservice.controller;
 
-import com.airsofka.flight.application.flight.createFlight.CreateFlightRequest;
 import com.airsofka.flight.application.flight.updateFlight.UpdateFlightRequest;
 import com.airsofka.flight.application.flight.updateFlight.UpdateFlightUseCase;
 import com.airsofka.flight.application.shared.flight.FlightResponse;
@@ -12,9 +11,9 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/api/flight")
-public class UpdateFlighController {
+public class UpdateFlightController {
     private final UpdateFlightUseCase updateFlightUseCase;
-    public UpdateFlighController(UpdateFlightUseCase updateFlightUseCase) {
+    public UpdateFlightController(UpdateFlightUseCase updateFlightUseCase) {
         this.updateFlightUseCase = updateFlightUseCase;
     }
     @PutMapping

@@ -1,7 +1,5 @@
 package com.airsofka.infra.sql.entities;
 
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,18 +16,18 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "seat")
 @Entity
-public class SeatEntity {
+@Table(name = "passenger_price")
+public class PassengerPriceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long seatId;
-    @Column(nullable = false)
-    private String seatNumber;
-    private String seatClass;
-    private Boolean isAvailable;
-    private Double priceSeat;
+    private Long id;
+    private String type;  // Adulto, niño, infante, etc.
+    private Double basePrice;
+    private Double tax;
+    private Double totalPrice;
+
     @ManyToOne
-    @JoinColumn(name = "flight_id")  // O cualquier otro nombre de columna
-    private FlightEntity flight;
+    @JoinColumn(name = "price_id")
+    private PriceEntity price;
 }

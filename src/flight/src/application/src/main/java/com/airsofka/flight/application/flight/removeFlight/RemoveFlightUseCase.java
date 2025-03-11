@@ -1,4 +1,4 @@
-package com.airsofka.flight.application.flight.changeStatus;
+package com.airsofka.flight.application.flight.removeFlight;
 
 import com.airsofka.flight.application.shared.flight.FlightResponse;
 import com.airsofka.flight.application.shared.ports.IEventsRepositoryPort;
@@ -9,22 +9,23 @@ import reactor.core.publisher.Mono;
 
 import static com.airsofka.flight.application.shared.flight.FlightMapper.mapToResponse;
 
-public class ChangeStatusUseCase implements ICommandUseCase<ChangeStatusRequest, Mono<FlightResponse>> {
+public class RemoveFlightUseCase implements ICommandUseCase<RemoveFlightRequest, Mono<FlightResponse>> {
     private final IEventsRepositoryPort repository;
-    private final IFlightRepositoryPort flightRepositoryPort;
-    public ChangeStatusUseCase(IEventsRepositoryPort repository, IFlightRepositoryPort flightRepositoryPort) {
-        this.flightRepositoryPort = flightRepositoryPort;
+    private final IFlightRepositoryPort flightRepository;
+
+    public RemoveFlightUseCase(IEventsRepositoryPort repository, IFlightRepositoryPort flightRepository) {
+        this.flightRepository = flightRepository;
         this.repository = repository;
     }
 
     @Override
-    public Mono<FlightResponse> execute(ChangeStatusRequest request) {
+    public Mono<FlightResponse> execute(RemoveFlightRequest request) {
         return repository.findEventsByAggregateId(request.getAggregateId())
                 .collectList()
                 .map(events -> {
                     Flight flight = Flight.from(request.getAggregateId(), events);
-                    flight.changeStatusFlight(request.getStatus());
-                    flightRepositoryPort.updateStatus(flight);
+                    flight.removeFlight(request.getAggregateId());
+                    flightRepository.removeFlight(request.getAggregateId());
                     flight.getUncommittedEvents().forEach(repository::save);
                     flight.markEventsAsCommitted();
                     return mapToResponse(flight);

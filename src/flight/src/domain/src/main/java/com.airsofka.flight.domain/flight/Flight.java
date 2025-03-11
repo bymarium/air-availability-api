@@ -9,20 +9,8 @@ import com.airsofka.flight.domain.flight.events.SeatChanged;
 import com.airsofka.flight.domain.flight.events.SeatEnabled;
 import com.airsofka.flight.domain.flight.events.StatusChanged;
 import com.airsofka.flight.domain.flight.events.UpdateFlight;
-import com.airsofka.flight.domain.flight.values.ArrivalTime;
-import com.airsofka.flight.domain.flight.values.DepartureTime;
-import com.airsofka.flight.domain.flight.values.FlightId;
-import com.airsofka.flight.domain.flight.values.FlightNumber;
-import com.airsofka.flight.domain.flight.values.IsAvailable;
-import com.airsofka.flight.domain.flight.values.PriceSeat;
-import com.airsofka.flight.domain.flight.values.Prices;
-import com.airsofka.flight.domain.flight.values.RouteId;
-import com.airsofka.flight.domain.flight.values.SeatClass;
-import com.airsofka.flight.domain.flight.values.SeatId;
-import com.airsofka.flight.domain.flight.values.SeatInfo;
-import com.airsofka.flight.domain.flight.values.SeatNumber;
-import com.airsofka.flight.domain.flight.values.StatusFlight;
-import com.airsofka.flight.domain.flight.values.TotalSeats;
+
+import com.airsofka.flight.domain.flight.values.*;
 import com.airsofka.shared.domain.generic.AggregateRoot;
 import com.airsofka.shared.domain.generic.DomainEvent;
 
@@ -33,6 +21,7 @@ import java.util.List;
 
 public class Flight extends AggregateRoot<FlightId> {
     private FlightNumber flightNumber;
+    private FlightModel flightModel;
     private RouteId routeId;
     private DepartureTime departureTime;
     private ArrivalTime arrivalTime;
@@ -43,10 +32,10 @@ public class Flight extends AggregateRoot<FlightId> {
 
     //#region Constructors
 
-    public Flight(String flightNumber, String routeId, Double price, Date departureTime, Date arrivalTime) {
+    public Flight(String flightNumber, String routeId, Double price, Date departureTime, Date arrivalTime,String flightModel) {
         super(new FlightId());
         subscribe(new FlightHandler(this));
-        apply(new FlightCreated(this.getIdentity().getValue(), flightNumber, routeId,price, departureTime, arrivalTime));
+        apply(new FlightCreated(this.getIdentity().getValue(), flightNumber, flightModel,routeId,price, departureTime, arrivalTime));
     }
 
     private Flight(FlightId identity) {
@@ -55,6 +44,15 @@ public class Flight extends AggregateRoot<FlightId> {
     }
     //#endregion
     //#region Getter & Setter
+
+
+    public FlightModel getFlightModel() {
+        return flightModel;
+    }
+
+    public void setFlightModel(FlightModel flightModel) {
+        this.flightModel = flightModel;
+    }
 
     public FlightNumber getFlightNumber() {
         return flightNumber;
@@ -130,7 +128,7 @@ public class Flight extends AggregateRoot<FlightId> {
         apply(new AssignedRoute(routeId));
     }
 
-    public void changedRoute( String routeId) {
+    public void changeRoute(String routeId) {
         apply(new RouteChanged(this.getIdentity().getValue(), routeId));
     }
 
@@ -148,6 +146,7 @@ public class Flight extends AggregateRoot<FlightId> {
     public void enableSeat(String seatId) {
         apply(new SeatEnabled(seatId));
     }
+
     //#endregion
 
     //#region public methods
@@ -165,7 +164,8 @@ public class Flight extends AggregateRoot<FlightId> {
                         SeatNumber.of(String.format("%s-%s", row, column)),
                         SeatClass.of(info.getSeatClass()),
                         IsAvailable.of(true),
-                        PriceSeat.of(info.getPrice())
+                        PriceSeat.of(info.getPrice()),
+                        LocationSeat.of(row, column)
                 ));
             }
         }
@@ -182,11 +182,11 @@ public class Flight extends AggregateRoot<FlightId> {
 
     private SeatInfo getSeatClassAndPrice(int row) {
         return switch (row) {
-            case 1, 2, 3, 4 -> new SeatInfo("Business Class", getPrices().getPriceStandar()*0.40);
-            case 5, 6, 7, 8 -> new SeatInfo("Economy Extra", getPrices().getPriceStandar()*0.30);
-            case 9, 10, 11, 19, 20 -> new SeatInfo("Favorable", getPrices().getPriceStandar()*0.20);
-            case 17, 18 -> new SeatInfo("Exit", getPrices().getPriceStandar()*0.25);
-            case 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33 -> new SeatInfo("Regular", getPrices().getPriceStandar()*0.1);
+            case 1, 2, 3, 4 -> new SeatInfo("Business Class", getPrices().getStandardPrice()*0.40);
+            case 5, 6, 7, 8 -> new SeatInfo("Economy Extra", getPrices().getStandardPrice()*0.30);
+            case 9, 10, 11, 19, 20 -> new SeatInfo("Favorable", getPrices().getStandardPrice()*0.20);
+            case 17, 18 -> new SeatInfo("Exit", getPrices().getStandardPrice()*0.25);
+            case 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33 -> new SeatInfo("Regular", getPrices().getStandardPrice()*0.1);
             default -> throw new IllegalArgumentException("row no available: " + row);
         };
     }

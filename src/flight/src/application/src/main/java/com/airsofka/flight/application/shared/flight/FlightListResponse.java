@@ -1,21 +1,21 @@
 package com.airsofka.flight.application.shared.flight;
 
-
-
+import java.util.Date;
 import java.util.List;
 
-public class FlightResponse {
+public class FlightListResponse {
     private final String flightId;
     private final String flightNumber;
     private final String flightModel;
     private final String routeId;
-    private final String departureTime;
-    private final String arrivalTime;
+    private final Date departureTime;
+    private final Date arrivalTime;
     private final String status;
     private final PricesInfo prices;
-    private final List<seat> seats;
+    private final Integer seats;
+    private final Double tax;
 
-    public FlightResponse(String flightId, String flightNumber, String flightModel, String routeId, String departureTime, String arrivalTime, String status, PricesInfo prices, List<seat> seats) {
+    public FlightListResponse(String flightId, String flightNumber, String flightModel, String routeId, Date departureTime, Date arrivalTime, String status, PricesInfo prices, Integer seats, Double tax) {
         this.flightId = flightId;
         this.flightNumber = flightNumber;
         this.flightModel = flightModel;
@@ -25,6 +25,7 @@ public class FlightResponse {
         this.status = status;
         this.prices = prices;
         this.seats = seats;
+        this.tax = tax;
     }
 
     // Getters
@@ -40,11 +41,11 @@ public class FlightResponse {
         return routeId;
     }
 
-    public String getDepartureTime() {
+    public Date getDepartureTime() {
         return departureTime;
     }
 
-    public String getArrivalTime() {
+    public Date getArrivalTime() {
         return arrivalTime;
     }
 
@@ -56,65 +57,16 @@ public class FlightResponse {
         return prices;
     }
 
-    public List<seat> getSeats() {
+    public Integer getSeats() {
         return seats;
+    }
+
+    public Double getTax() {
+        return tax;
     }
 
     public String getFlightModel() {
         return flightModel;
-    }
-
-    public static class seat {
-        private final String seatId;
-        private final String seatNumber;
-        private final String seatClass;
-        private final boolean isAvailable;
-        private final double price;
-        private final int row;
-        private final String column;
-
-        public seat(String seatId, String seatNumber, String seatClass, boolean isAvailable, double price, int row, String column) {
-            this.seatId = seatId;
-            this.seatNumber = seatNumber;
-            this.seatClass = seatClass;
-            this.isAvailable = isAvailable;
-            this.price = price;
-            this.row = row;
-            this.column = column;
-        }
-
-        // Getters
-        public String getSeatId() {
-            return seatId;
-        }
-
-        public String getSeatNumber() {
-            return seatNumber;
-        }
-
-        public String getSeatClass() {
-            return seatClass;
-        }
-
-        public boolean getIsAvailable() {
-            return isAvailable;
-        }
-
-        public double getPrice() {
-            return price;
-        }
-
-        public boolean isAvailable() {
-            return isAvailable;
-        }
-
-        public int getRow() {
-            return row;
-        }
-
-        public String getColumn() {
-            return column;
-        }
     }
     public static class PricesInfo {
 

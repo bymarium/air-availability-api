@@ -9,14 +9,20 @@ public class FlightMapper {
         return new FlightResponse(
                 flight.getIdentity().getValue(),
                 flight.getFlightNumber().getValue(),
+                flight.getFlightModel().getValue(),
                 flight.getRouteId().getValue(),
                 flight.getDepartureTime().getValue().toString(),
                 flight.getArrivalTime().getValue().toString(),
                 flight.getStatusFlight().getValue(),
                 new FlightResponse.PricesInfo(
-                        flight.getPrices() != null ? flight.getPrices().getPriceStandar() : 0.0,
-                        flight.getPrices() != null ? flight.getPrices().getChildPrice() : 0.0,
-                        flight.getPrices() != null ? flight.getPrices().getInfantPrice() : 0.0
+                        flight.getPrices() != null ? flight.getPrices().getStandardPrice() : 0.0,
+                        flight.getPrices().getPassengerPrices().stream().map(price -> new FlightResponse.PricePassengerInfo(
+                                price.getType(),
+                                price.getPrice(),
+                                price.getTax(),
+                                price.getTotalPrice()
+                        )).collect(Collectors.toList()),
+                        flight.getPrices() != null ? flight.getPrices().getTax() : 0.0
                 )
                 ,
                 flight.getSeats().stream().map(seat -> new FlightResponse.seat(
@@ -24,8 +30,11 @@ public class FlightMapper {
                         seat.getSeatNumber().getValue(),
                         seat.getSeatClass().getValue(),
                         seat.getIsAvailable().getValue(),
-                        seat.getPriceSeat().getValue()
+                        seat.getPriceSeat().getValue(),
+                        seat.getLocationSeat().getRow(),
+                        seat.getLocationSeat().getColumn()
                 )).collect(Collectors.toList())
         );
     }
+
 }

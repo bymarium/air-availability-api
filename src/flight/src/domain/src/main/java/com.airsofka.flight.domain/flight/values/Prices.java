@@ -3,57 +3,60 @@ package com.airsofka.flight.domain.flight.values;
 import com.airsofka.shared.domain.generic.IValueObject;
 import utils.Validator;
 
-public class Prices implements IValueObject {
-    private double priceStandar;
-    private double childPrice;
-    private double infantPrice;
+import java.util.List;
+import java.util.Map;
 
-    public Prices(double adultPrice) {
-        this.priceStandar = adultPrice;
-        setPrices();
+public class Prices implements IValueObject {
+    private final Double standardPrice;
+    private final Double tax;
+    private final List<PassengerPrice> passengerPrices;
+
+    public Prices(double standardPrice) {
+        this.standardPrice = standardPrice;
+        this.tax = 0.2;
+        this.passengerPrices = generatePrices();
+        validate();
     }
 
-    public static Prices of(double adultPrice) {
-        Prices prices = new Prices(adultPrice);
-        prices.setPrices();
-        prices.validate();
-        return prices;
+    public static Prices of(double standardPrice) {
+        return new Prices(standardPrice);
     }
 
     @Override
     public void validate() {
-        Validator.validatePositive(priceStandar);
-        Validator.validatePositive(childPrice);
-        Validator.validatePositive(infantPrice);
+        Validator.validatePositive(standardPrice);
     }
 
-    void setPrices() {
-        this.childPrice = this.priceStandar * 0.75;
-        this.infantPrice = this.priceStandar * 0.45;
+    private List<PassengerPrice> generatePrices() {
+        Map<String, Double> priceMultipliers = Map.of(
+                "economyBasic", 1.0,
+                "economyClassic", 1.1,
+                "economyFull", 1.25,
+                "businessBasic", 1.5,
+                "businessFull", 2.0
+        );
+
+        return priceMultipliers.entrySet().stream()
+                .map(entry -> createPassengerPrice(entry.getKey(), entry.getValue()))
+                .toList();
     }
 
-    public double getPriceStandar() {
-        return priceStandar;
+    private PassengerPrice createPassengerPrice(String type, double multiplier) {
+        double finalPrice = standardPrice * multiplier;
+        return PassengerPrice.of(type, finalPrice, tax * finalPrice, finalPrice * tax+finalPrice);
     }
 
-    public void setPriceStandar(double priceStandar) {
-        this.priceStandar = priceStandar;
+    public Double getStandardPrice() {
+        return standardPrice;
     }
 
-    public double getChildPrice() {
-        return childPrice;
+    public Double getTax() {
+        return tax;
     }
 
-    public void setChildPrice(double childPrice) {
-        this.childPrice = childPrice;
+    public List<PassengerPrice> getPassengerPrices() {
+        return passengerPrices;
     }
 
-    public double getInfantPrice() {
-        return infantPrice;
-    }
-
-    public void setInfantPrice(double infantPrice) {
-        this.infantPrice = infantPrice;
-    }
 
 }

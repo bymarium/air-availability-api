@@ -18,6 +18,7 @@ import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "flights")
@@ -27,10 +28,11 @@ import java.util.List;
 @Setter
 public class FlightEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id", length = 36, nullable = false, updatable = false)
+    private String id;
     @Column(unique = true)
     private String flightNumber;
+    private String flightModel;
     private String routeId;
     @Column(nullable = false)
     private Date departureTime;
@@ -40,17 +42,17 @@ public class FlightEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "price_id", referencedColumnName = "id")
     private PriceEntity price;
-
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)
     private List<SeatEntity> seats;
     private Integer seatsCount;
 
-    public FlightEntity(String flightNumber, String routeId, Date departureTime, Date arrivalTime, String status, PriceEntity price) {
+    public FlightEntity(String flightNumber, String flightModel,String routeId, Date departureTime, Date arrivalTime, String status, PriceEntity price) {
         this.flightNumber = flightNumber;
         this.routeId = routeId;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.status = status;
         this.price = price;
+        this.flightModel = flightModel;
     }
 }
