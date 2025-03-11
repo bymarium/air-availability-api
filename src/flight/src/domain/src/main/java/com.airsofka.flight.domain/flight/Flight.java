@@ -130,7 +130,7 @@ public class Flight extends AggregateRoot<FlightId> {
         apply(new AssignedRoute(routeId));
     }
 
-    public void changedRoute( String routeId) {
+    public void changeRoute(String routeId) {
         apply(new RouteChanged(this.getIdentity().getValue(), routeId));
     }
 

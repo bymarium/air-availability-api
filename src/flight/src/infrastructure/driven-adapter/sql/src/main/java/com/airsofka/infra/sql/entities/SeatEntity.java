@@ -29,7 +29,6 @@ public class SeatEntity {
     private String seatClass;
     private Boolean isAvailable;
     private Double priceSeat;
-
     @ManyToOne
     @JoinColumn(name = "flight_id")  // O cualquier otro nombre de columna
     private FlightEntity flight;

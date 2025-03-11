@@ -28,7 +28,7 @@ public class FlightHandler extends DomainActionsContainer {
         addAction(createFlight(flight));
         addAction(removeFlight(flight));
         addAction(assingRoute(flight));
-        addAction(changedRoute(flight));
+        addAction(changeRoute(flight));
         addAction(changedSeat(flight));
         addAction(changeStatusFlight(flight));
         addAction(updateFlight(flight));
@@ -74,9 +74,10 @@ public class FlightHandler extends DomainActionsContainer {
         };
     }
 
-    public Consumer<? extends DomainEvent> changedRoute(Flight flight) {
+    public Consumer<? extends DomainEvent> changeRoute(Flight flight) {
         return (RouteChanged event) -> {
-            if (flight.getRouteId() != null) {
+            System.out.println("changed route"+ event.getRouteId());
+            if (event.getRouteId() != null) {
                 flight.setRouteId(RouteId.of(event.getRouteId()));
             }else {
                 throw new IllegalArgumentException("RouteId cannot be null.");

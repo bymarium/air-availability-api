@@ -36,6 +36,7 @@ public class FlightAdapter {
                     seatEntity.setSeatClass(seat.getSeatClass().getValue());
                     seatEntity.setIsAvailable(seat.getIsAvailable().getValue());
                     seatEntity.setPriceSeat(seat.getPriceSeat().getValue());
+                    seatEntity.setFlight(entity);
                     return seatEntity;
                 }
         ).collect(Collectors.toList());

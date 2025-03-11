@@ -8,7 +8,18 @@ import java.util.List;
 
 public interface IFlightRepositoryPort {
     void saveFlight(Flight flight);
+
     void updateFlight(Flight flight);
+
     List<FlightListResponse> findAll();
+
     FlightListResponse findById(String aggregateId);
+
+    void updateStatus(Flight flight);
+
+    void changeRoute(Flight flight);
+
+    void changeSeat(String aggregateId, String seatId);
+
+    void enableSeat(String aggregateId, String seatId);
 }

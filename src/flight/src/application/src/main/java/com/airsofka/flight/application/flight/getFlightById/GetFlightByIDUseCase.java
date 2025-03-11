@@ -3,9 +3,9 @@ package com.airsofka.flight.application.flight.getFlightById;
 import com.airsofka.flight.application.shared.flight.FlightListResponse;
 import com.airsofka.flight.application.shared.ports.IFlightRepositoryPort;
 
-public class GetFlightByIdUseCase {
+public class GetFlightByIDUseCase {
     private final IFlightRepositoryPort repository;
-    public GetFlightByIdUseCase(IFlightRepositoryPort repository) {
+    public GetFlightByIDUseCase(IFlightRepositoryPort repository) {
         this.repository = repository;
     }
 
