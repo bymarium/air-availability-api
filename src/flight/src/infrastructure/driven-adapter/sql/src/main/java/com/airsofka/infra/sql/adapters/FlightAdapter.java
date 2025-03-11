@@ -101,18 +101,23 @@ public class FlightAdapter {
                 entity.getDepartureTime(),
                 entity.getArrivalTime(),
                 entity.getStatus(),
-                new FlightListResponse.PricesInfo(
-                        entity.getPrice().getPriceStandard(),
-                        entity.getPrice().getPassengerPrices().stream().map(pp -> new FlightListResponse.PricePassengerInfo(
-                                pp.getType(),
-                                pp.getBasePrice(),
-                                pp.getTax(),
-                                pp.getTotalPrice()
-                        )).collect(Collectors.toList()),
-                        entity.getPrice().getTax()
-                ),
                 entity.getSeats().size(),
-                entity.getPrice().getTax()
+                entity.getPrice().getTax(),
+                entity.getPrice().getPassengerPrices().get(0).getBasePrice(),
+                entity.getPrice().getPassengerPrices().get(0).getTax(),
+                entity.getPrice().getPassengerPrices().get(0).getTotalPrice(),
+                entity.getPrice().getPassengerPrices().get(1).getBasePrice(),
+                entity.getPrice().getPassengerPrices().get(1).getTax(),
+                entity.getPrice().getPassengerPrices().get(1).getTotalPrice(),
+                entity.getPrice().getPassengerPrices().get(2).getBasePrice(),
+                entity.getPrice().getPassengerPrices().get(2).getTax(),
+                entity.getPrice().getPassengerPrices().get(2).getTotalPrice(),
+                entity.getPrice().getPassengerPrices().get(3).getBasePrice(),
+                entity.getPrice().getPassengerPrices().get(3).getTax(),
+                entity.getPrice().getPassengerPrices().get(3).getTotalPrice(),
+                entity.getPrice().getPassengerPrices().get(4).getBasePrice(),
+                entity.getPrice().getPassengerPrices().get(4).getTax(),
+                entity.getPrice().getPassengerPrices().get(4).getTotalPrice()
         );
     }
 }

@@ -6,6 +6,7 @@ import com.airsofka.flight.domain.flight.Flight;
 
 
 import com.airsofka.flight.domain.flight.values.PassengerPrice;
+import com.airsofka.flight.domain.flight.values.Prices;
 import com.airsofka.infra.sql.entities.FlightEntity;
 import com.airsofka.infra.sql.entities.PassengerPriceEntity;
 import com.airsofka.infra.sql.entities.PriceEntity;
@@ -46,29 +47,18 @@ public class MySQLAdapter implements IFlightRepositoryPort {
         flightFound.setStatus(flight.getStatusFlight().getValue());
         flightFound.setRouteId(flight.getRouteId().getValue());
 
+        Prices prices = new Prices(flight.getPrices().getStandardPrice());
 
         PriceEntity price = flightFound.getPrice();
+
         if (price == null) {
             throw new RuntimeException("Price information not found for this flight.");
         }
         price.setPriceStandard(flight.getPrices().getStandardPrice());
         price.setTax(flight.getPrices().getTax());
-//        List<PassengerPriceEntity> existingPassengerPrices = price.getPassengerPrices();
-//
-//        for (PassengerPriceEntity existingPP : existingPassengerPrices) {
-//
-//            Optional<PassengerPrice> updatedPP = flight.getPrices().getPassengerPrices().stream()
-//                    .filter(pp -> pp.getType().equals(existingPP.getType()))
-//                    .findFirst();
-//
-//            if (updatedPP.isPresent()) {
-//
-//                PassengerPrice pp = updatedPP.get();
-//                existingPP.setBasePrice(pp.getPrice());
-//                existingPP.setTax(pp.getTax());
-//                existingPP.setTotalPrice(pp.getTotalPrice());
-//            }
-//        }
+
+
+
 
 
         flightRepository.save(flightFound);
@@ -130,6 +120,8 @@ public class MySQLAdapter implements IFlightRepositoryPort {
     public void removeFlight(String aggregateId) {
         flightRepository.deleteById(aggregateId);
     }
+
+
 
 
 }
