@@ -32,6 +32,7 @@ public class FlightEntity {
     private String id;
     @Column(unique = true)
     private String flightNumber;
+    private String flightModel;
     private String routeId;
     @Column(nullable = false)
     private Date departureTime;

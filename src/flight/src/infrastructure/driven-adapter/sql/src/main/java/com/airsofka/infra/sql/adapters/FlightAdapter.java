@@ -24,10 +24,11 @@ public class FlightAdapter {
         entity.setFlightNumber(flight.getFlightNumber().getValue());
         entity.setDepartureTime(flight.getDepartureTime().getValue());
         entity.setArrivalTime(flight.getArrivalTime().getValue());
-        PriceEntity price = new PriceEntity(flight.getPrices().getPriceStandard());
+        PriceEntity price = new PriceEntity(flight.getPrices().getStandardPrice());
         entity.setPrice(price);
         entity.setRouteId(flight.getRouteId().getValue());
         entity.setStatus(flight.getStatusFlight().getValue());
+        entity.setFlightModel(flight.getFlightModel().getValue());
 //        entity.setSeats(flight.getSeats());
         List<SeatEntity> seatEntities = flight.getSeats().stream().map(
                 seat -> {
@@ -51,7 +52,8 @@ public class FlightAdapter {
                 entity.getRouteId(),
                 entity.getPrice().getPriceStandard(),
                 entity.getDepartureTime(),
-                entity.getArrivalTime()
+                entity.getArrivalTime(),
+                entity.getFlightModel()
         );
         flight.setStatusFlight(StatusFlight.of(entity.getStatus()));
         List<Seat> seats = entity.getSeats().stream().map(
@@ -73,6 +75,7 @@ public class FlightAdapter {
         return new FlightListResponse(
                 entity.getId(),
                 entity.getFlightNumber(),
+                entity.getFlightModel(),
                 entity.getRouteId(),
                 entity.getDepartureTime(),
                 entity.getArrivalTime(),

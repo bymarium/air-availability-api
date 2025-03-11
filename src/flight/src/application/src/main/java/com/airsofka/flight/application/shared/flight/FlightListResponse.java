@@ -5,6 +5,7 @@ import java.util.Date;
 public class FlightListResponse {
     private final String flightId;
     private final String flightNumber;
+    private final String flightModel;
     private final String routeId;
     private final Date departureTime;
     private final Date arrivalTime;
@@ -13,9 +14,10 @@ public class FlightListResponse {
     private final Integer seats;
     private final Double tax;
 
-    public FlightListResponse(String flightId, String flightNumber, String routeId, Date departureTime, Date arrivalTime, String status, Double prices, Integer seats, Double tax) {
+    public FlightListResponse(String flightId, String flightNumber, String flightModel, String routeId, Date departureTime, Date arrivalTime, String status, Double prices, Integer seats, Double tax) {
         this.flightId = flightId;
         this.flightNumber = flightNumber;
+        this.flightModel = flightModel;
         this.routeId = routeId;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
@@ -60,5 +62,9 @@ public class FlightListResponse {
 
     public Double getTax() {
         return tax;
+    }
+
+    public String getFlightModel() {
+        return flightModel;
     }
 }

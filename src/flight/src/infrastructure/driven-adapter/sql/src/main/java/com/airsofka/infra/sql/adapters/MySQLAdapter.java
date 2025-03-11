@@ -41,7 +41,7 @@ public class MySQLAdapter implements IFlightRepositoryPort {
         flightFound.setArrivalTime(flight.getArrivalTime().getValue());
         flightFound.setStatus(flight.getStatusFlight().getValue());
         flightFound.setRouteId(flight.getRouteId().getValue());
-        flightFound.setPrice(new PriceEntity(flight.getPrices().getPriceStandard()));
+        flightFound.setPrice(new PriceEntity(flight.getPrices().getStandardPrice()));
         flightRepository.save(flightFound);
     }
     @Override

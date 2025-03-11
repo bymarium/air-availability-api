@@ -9,14 +9,15 @@ public class FlightMapper {
         return new FlightResponse(
                 flight.getIdentity().getValue(),
                 flight.getFlightNumber().getValue(),
+                flight.getFlightModel().getValue(),
                 flight.getRouteId().getValue(),
                 flight.getDepartureTime().getValue().toString(),
                 flight.getArrivalTime().getValue().toString(),
                 flight.getStatusFlight().getValue(),
                 new FlightResponse.PricesInfo(
-                        flight.getPrices() != null ? flight.getPrices().getPriceStandard() : 0.0,
-                        flight.getPrices() != null ? flight.getPrices().getChildPrice() : 0.0,
-                        flight.getPrices() != null ? flight.getPrices().getInfantPrice() : 0.0,
+                        flight.getPrices() != null ? flight.getPrices().getStandardPrice() : 0.0,
+                        flight.getPrices() != null ? flight.getPrices().getExecutivePrice() : 0.0,
+                        flight.getPrices() != null ? flight.getPrices().getFullPrice() : 0.0,
                         flight.getPrices() != null ? flight.getPrices().getTax() : 0.0
                 )
                 ,

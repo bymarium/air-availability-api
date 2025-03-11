@@ -7,6 +7,7 @@ import java.util.List;
 public class FlightResponse {
     private final String flightId;
     private final String flightNumber;
+    private final String flightModel;
     private final String routeId;
     private final String departureTime;
     private final String arrivalTime;
@@ -14,9 +15,10 @@ public class FlightResponse {
     private final PricesInfo prices;
     private final List<seat> seats;
 
-    public FlightResponse(String flightId, String flightNumber, String routeId, String departureTime, String arrivalTime, String status, PricesInfo prices, List<seat> seats) {
+    public FlightResponse(String flightId, String flightNumber, String flightModel, String routeId, String departureTime, String arrivalTime, String status, PricesInfo prices, List<seat> seats) {
         this.flightId = flightId;
         this.flightNumber = flightNumber;
+        this.flightModel = flightModel;
         this.routeId = routeId;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;

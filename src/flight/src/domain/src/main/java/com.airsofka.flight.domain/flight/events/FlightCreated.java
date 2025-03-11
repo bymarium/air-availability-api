@@ -6,16 +6,18 @@ import java.util.Date;
 
 public class FlightCreated extends DomainEvent {
     private String flightId;
+    private String flightModel;
     private String flightNumber;
     private String routeId;
     private Double price;
     private Date departureTime;
     private Date arrivalTime;
 
-    public FlightCreated(String flightId, String flightNumber, String routeId, Double price, Date departureTime, Date arrivalTime) {
+    public FlightCreated(String flightId, String flightNumber,String flightModel, String routeId, Double price, Date departureTime, Date arrivalTime) {
         super(EventsEnum.CREATED_FLIGHT.name());
         this.flightId = flightId;
         this.flightNumber = flightNumber;
+        this.flightModel = flightModel;
         this.routeId = routeId;
         this.price = price;
         this.departureTime = departureTime;
@@ -69,5 +71,13 @@ public class FlightCreated extends DomainEvent {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getFlightModel() {
+        return flightModel;
+    }
+
+    public void setFlightModel(String flightModel) {
+        this.flightModel = flightModel;
     }
 }

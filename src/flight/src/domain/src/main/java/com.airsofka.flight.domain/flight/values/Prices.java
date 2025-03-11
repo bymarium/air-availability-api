@@ -4,13 +4,13 @@ import com.airsofka.shared.domain.generic.IValueObject;
 import utils.Validator;
 
 public class Prices implements IValueObject {
-    private Double priceStandard;
-    private Double childPrice;
-    private Double infantPrice;
+    private Double standardPrice;
+    private Double executivePrice;
+    private Double fullPrice;
     private Double tax;
 
     public Prices(double adultPrice) {
-        this.priceStandard = adultPrice;
+        this.standardPrice = adultPrice;
         this.tax = 1.2;
         setPrices();
     }
@@ -24,51 +24,51 @@ public class Prices implements IValueObject {
 
     @Override
     public void validate() {
-        Validator.validatePositive(priceStandard);
-        Validator.validatePositive(childPrice);
-        Validator.validatePositive(infantPrice);
+        Validator.validatePositive(standardPrice);
+        Validator.validatePositive(executivePrice);
+        Validator.validatePositive(fullPrice);
     }
 
     void setPrices() {
-        this.priceStandard = this.priceStandard * this.tax;
-        this.childPrice = this.priceStandard * 0.75 * this.tax;
-        this.infantPrice = this.priceStandard * 0.45 * this.tax;
+        this.standardPrice = this.standardPrice * this.tax;
+        this.executivePrice = this.standardPrice * 0.75 * this.tax;
+        this.fullPrice = this.standardPrice * 0.45 * this.tax;
     }
 
-    public double getPriceStandard() {
-        return priceStandard;
+    public double getStandardPrice() {
+        return standardPrice;
     }
 
-    public void setPriceStandard(double priceStandard) {
-        this.priceStandard = priceStandard;
+    public void setStandardPrice(double standardPrice) {
+        this.standardPrice = standardPrice;
     }
 
-    public double getChildPrice() {
-        return childPrice;
+    public double getExecutivePrice() {
+        return executivePrice;
     }
 
-    public void setChildPrice(double childPrice) {
-        this.childPrice = childPrice;
+    public void setExecutivePrice(double executivePrice) {
+        this.executivePrice = executivePrice;
     }
 
-    public double getInfantPrice() {
-        return infantPrice;
+    public double getFullPrice() {
+        return fullPrice;
     }
 
-    public void setInfantPrice(double infantPrice) {
-        this.infantPrice = infantPrice;
+    public void setFullPrice(double fullPrice) {
+        this.fullPrice = fullPrice;
     }
 
     public void setPriceStandard(Double priceStandard) {
-        this.priceStandard = priceStandard;
+        this.standardPrice = priceStandard;
     }
 
     public void setChildPrice(Double childPrice) {
-        this.childPrice = childPrice;
+        this.executivePrice = childPrice;
     }
 
     public void setInfantPrice(Double infantPrice) {
-        this.infantPrice = infantPrice;
+        this.fullPrice = infantPrice;
     }
 
     public Double getTax() {
