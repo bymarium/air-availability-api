@@ -4,15 +4,8 @@ import com.airsofka.shared.application.Request;
 
 public class DeleteRouteRequest extends Request {
 
-    private String routerId;
-
-    public DeleteRouteRequest(String aggregateId, String routerId) {
+    public DeleteRouteRequest(String aggregateId) {
         super(aggregateId);
-        this.routerId = routerId;
 
-    }
-
-    public String getRouterId() {
-        return routerId;
     }
 }
