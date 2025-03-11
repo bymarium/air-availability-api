@@ -5,7 +5,9 @@ import com.airsofka.flight.application.shared.ports.IFlightRepositoryPort;
 import com.airsofka.flight.domain.flight.Flight;
 
 
+import com.airsofka.flight.domain.flight.values.PassengerPrice;
 import com.airsofka.infra.sql.entities.FlightEntity;
+import com.airsofka.infra.sql.entities.PassengerPriceEntity;
 import com.airsofka.infra.sql.entities.PriceEntity;
 import com.airsofka.infra.sql.entities.SeatEntity;
 import com.airsofka.infra.sql.repositories.FlightRepository;
@@ -14,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -41,7 +45,32 @@ public class MySQLAdapter implements IFlightRepositoryPort {
         flightFound.setArrivalTime(flight.getArrivalTime().getValue());
         flightFound.setStatus(flight.getStatusFlight().getValue());
         flightFound.setRouteId(flight.getRouteId().getValue());
-        flightFound.setPrice(new PriceEntity(flight.getPrices().getStandardPrice()));
+
+
+        PriceEntity price = flightFound.getPrice();
+        if (price == null) {
+            throw new RuntimeException("Price information not found for this flight.");
+        }
+        price.setPriceStandard(flight.getPrices().getStandardPrice());
+        price.setTax(flight.getPrices().getTax());
+//        List<PassengerPriceEntity> existingPassengerPrices = price.getPassengerPrices();
+//
+//        for (PassengerPriceEntity existingPP : existingPassengerPrices) {
+//
+//            Optional<PassengerPrice> updatedPP = flight.getPrices().getPassengerPrices().stream()
+//                    .filter(pp -> pp.getType().equals(existingPP.getType()))
+//                    .findFirst();
+//
+//            if (updatedPP.isPresent()) {
+//
+//                PassengerPrice pp = updatedPP.get();
+//                existingPP.setBasePrice(pp.getPrice());
+//                existingPP.setTax(pp.getTax());
+//                existingPP.setTotalPrice(pp.getTotalPrice());
+//            }
+//        }
+
+
         flightRepository.save(flightFound);
     }
     @Override

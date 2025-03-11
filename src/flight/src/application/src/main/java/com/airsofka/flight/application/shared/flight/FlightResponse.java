@@ -60,6 +60,10 @@ public class FlightResponse {
         return seats;
     }
 
+    public String getFlightModel() {
+        return flightModel;
+    }
+
     public static class seat {
         private final String seatId;
         private final String seatNumber;
