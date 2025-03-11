@@ -1,5 +1,6 @@
 package com.airsofka.infra.sql.adapters;
 
+import com.airsofka.flight.domain.flight.Flight;
 import com.airsofka.flight.domain.flight.entities.Seat;
 import com.airsofka.flight.domain.flight.values.IsAvailable;
 import com.airsofka.flight.domain.flight.values.PriceSeat;

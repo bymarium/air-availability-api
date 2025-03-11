@@ -2,7 +2,7 @@ package com.airsofka.flight.application.route.createRoute;
 
 import com.airsofka.flight.application.shared.ports.IEventsRepositoryPort;
 import com.airsofka.flight.application.shared.route.RouteResponse;
-//import com.airsofka.flight.domain.route.Route;
+import com.airsofka.flight.domain.route.Route;
 import com.airsofka.shared.application.ICommandUseCase;
 import reactor.core.publisher.Mono;
 
@@ -17,15 +17,15 @@ public class CreateRouteUseCase implements ICommandUseCase<CreateRouteRequest, M
 
     @Override
     public Mono<RouteResponse> execute(CreateRouteRequest request) {
-//        Route route = new Route(
-//                request.getOrigin(),
-//                request.getDuration(),
-//                request.getDestination()
-//        );
+        Route route = new Route(
+                request.getOrigin(),
+                request.getDuration(),
+                request.getDestination()
+        );
 
-//        route.getUncommittedEvents().forEach(repository::save);
-//        route.markEventsAsCommitted();
+        route.getUncommittedEvents().forEach(repository::save);
+        route.markEventsAsCommitted();
 
-        return null
+        return Mono.just(mapToResponse(route));
     }
 }
