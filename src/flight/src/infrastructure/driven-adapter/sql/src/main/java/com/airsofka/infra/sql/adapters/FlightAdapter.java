@@ -30,7 +30,6 @@ public class FlightAdapter {
         entity.setRouteId(flight.getRouteId().getValue());
         entity.setStatus(flight.getStatusFlight().getValue());
         entity.setFlightModel(flight.getFlightModel().getValue());
-
         PriceEntity price = new PriceEntity();
         price.setPriceStandard(flight.getPrices().getStandardPrice());
         price.setTax(flight.getPrices().getTax());
@@ -85,8 +84,7 @@ public class FlightAdapter {
                             SeatClass.of(seat.getSeatClass()),
                             IsAvailable.of(seat.getIsAvailable()),
                             PriceSeat.of(seat.getPriceSeat())
-
-                            ,LocationSeat.of(Integer.parseInt(seat.getSeatNumber().split("-")[0]), seat.getSeatNumber().split("-")[1])
+                            , LocationSeat.of(Integer.parseInt(seat.getSeatNumber().split("-")[0]), seat.getSeatNumber().split("-")[1])
                     );
                 }).collect(Collectors.toList());
         flight.setSeats(seats);
@@ -103,7 +101,16 @@ public class FlightAdapter {
                 entity.getDepartureTime(),
                 entity.getArrivalTime(),
                 entity.getStatus(),
-                entity.getPrice().getPriceStandard(),
+                new FlightListResponse.PricesInfo(
+                        entity.getPrice().getPriceStandard(),
+                        entity.getPrice().getPassengerPrices().stream().map(pp -> new FlightListResponse.PricePassengerInfo(
+                                pp.getType(),
+                                pp.getBasePrice(),
+                                pp.getTax(),
+                                pp.getTotalPrice()
+                        )).collect(Collectors.toList()),
+                        entity.getPrice().getTax()
+                ),
                 entity.getSeats().size(),
                 entity.getPrice().getTax()
         );
