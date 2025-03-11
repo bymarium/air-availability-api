@@ -147,7 +147,6 @@ public class Flight extends AggregateRoot<FlightId> {
         apply(new SeatEnabled(seatId));
     }
 
-
     //#endregion
 
     //#region public methods
@@ -165,7 +164,8 @@ public class Flight extends AggregateRoot<FlightId> {
                         SeatNumber.of(String.format("%s-%s", row, column)),
                         SeatClass.of(info.getSeatClass()),
                         IsAvailable.of(true),
-                        PriceSeat.of(info.getPrice())
+                        PriceSeat.of(info.getPrice()),
+                        LocationSeat.of(row, column)
                 ));
             }
         }

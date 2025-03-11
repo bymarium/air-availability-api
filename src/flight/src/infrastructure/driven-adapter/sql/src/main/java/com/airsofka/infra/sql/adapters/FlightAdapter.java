@@ -4,11 +4,14 @@ import com.airsofka.flight.application.shared.flight.FlightListResponse;
 import com.airsofka.flight.domain.flight.Flight;
 import com.airsofka.flight.domain.flight.entities.Seat;
 import com.airsofka.flight.domain.flight.values.IsAvailable;
+import com.airsofka.flight.domain.flight.values.LocationSeat;
 import com.airsofka.flight.domain.flight.values.PriceSeat;
 import com.airsofka.flight.domain.flight.values.SeatClass;
+import com.airsofka.flight.domain.flight.values.SeatId;
 import com.airsofka.flight.domain.flight.values.SeatNumber;
 import com.airsofka.flight.domain.flight.values.StatusFlight;
 import com.airsofka.infra.sql.entities.FlightEntity;
+import com.airsofka.infra.sql.entities.PassengerPriceEntity;
 import com.airsofka.infra.sql.entities.PriceEntity;
 import com.airsofka.infra.sql.entities.SeatEntity;
 import org.springframework.stereotype.Component;
@@ -24,12 +27,29 @@ public class FlightAdapter {
         entity.setFlightNumber(flight.getFlightNumber().getValue());
         entity.setDepartureTime(flight.getDepartureTime().getValue());
         entity.setArrivalTime(flight.getArrivalTime().getValue());
-        PriceEntity price = new PriceEntity(flight.getPrices().getStandardPrice());
-        entity.setPrice(price);
         entity.setRouteId(flight.getRouteId().getValue());
         entity.setStatus(flight.getStatusFlight().getValue());
         entity.setFlightModel(flight.getFlightModel().getValue());
-//        entity.setSeats(flight.getSeats());
+        PriceEntity price = new PriceEntity();
+        price.setPriceStandard(flight.getPrices().getStandardPrice());
+        price.setTax(flight.getPrices().getTax());
+
+        List<PassengerPriceEntity> passengerPrices = flight.getPrices().getPassengerPrices()
+                .stream()
+                .map(pp -> new PassengerPriceEntity(
+                        null,
+                        pp.getType(),
+                        pp.getPrice(),
+                        pp.getTax(),
+                        pp.getTotalPrice(),
+                        price
+                ))
+                .collect(Collectors.toList());
+        price.setPassengerPrices(passengerPrices);
+        price.setFlight(entity);
+        entity.setPrice(price);
+
+
         List<SeatEntity> seatEntities = flight.getSeats().stream().map(
                 seat -> {
                     SeatEntity seatEntity = new SeatEntity();
@@ -59,11 +79,12 @@ public class FlightAdapter {
         List<Seat> seats = entity.getSeats().stream().map(
                 seat -> {
                     return new Seat(
-//                            SeatId.of(seat.getSeatId()),
+                            SeatId.of(seat.getSeatId().toString()),
                             SeatNumber.of(seat.getSeatNumber()),
                             SeatClass.of(seat.getSeatClass()),
                             IsAvailable.of(seat.getIsAvailable()),
                             PriceSeat.of(seat.getPriceSeat())
+                            , LocationSeat.of(Integer.parseInt(seat.getSeatNumber().split("-")[0]), seat.getSeatNumber().split("-")[1])
                     );
                 }).collect(Collectors.toList());
         flight.setSeats(seats);
@@ -80,7 +101,16 @@ public class FlightAdapter {
                 entity.getDepartureTime(),
                 entity.getArrivalTime(),
                 entity.getStatus(),
-                entity.getPrice().getPriceStandard(),
+                new FlightListResponse.PricesInfo(
+                        entity.getPrice().getPriceStandard(),
+                        entity.getPrice().getPassengerPrices().stream().map(pp -> new FlightListResponse.PricePassengerInfo(
+                                pp.getType(),
+                                pp.getBasePrice(),
+                                pp.getTax(),
+                                pp.getTotalPrice()
+                        )).collect(Collectors.toList()),
+                        entity.getPrice().getTax()
+                ),
                 entity.getSeats().size(),
                 entity.getPrice().getTax()
         );
