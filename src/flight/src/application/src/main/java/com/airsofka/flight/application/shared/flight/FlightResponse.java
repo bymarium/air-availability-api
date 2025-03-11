@@ -70,13 +70,17 @@ public class FlightResponse {
         private final String seatClass;
         private final boolean isAvailable;
         private final double price;
+        private final int row;
+        private final String column;
 
-        public seat(String seatId, String seatNumber, String seatClass, boolean isAvailable, double price) {
+        public seat(String seatId, String seatNumber, String seatClass, boolean isAvailable, double price, int row, String column) {
             this.seatId = seatId;
             this.seatNumber = seatNumber;
             this.seatClass = seatClass;
             this.isAvailable = isAvailable;
             this.price = price;
+            this.row = row;
+            this.column = column;
         }
 
         // Getters
@@ -99,26 +103,38 @@ public class FlightResponse {
         public double getPrice() {
             return price;
         }
+
+        public boolean isAvailable() {
+            return isAvailable;
+        }
+
+        public int getRow() {
+            return row;
+        }
+
+        public String getColumn() {
+            return column;
+        }
     }
     public static class PricesInfo {
 
-        private final Double standarPrice;
+        private final Double standardPrice;
         private final List<PricePassengerInfo> passengerPrices;
         private final Double tax;
 
         public PricesInfo(Double standarPrice, List<PricePassengerInfo> passengerPrices, Double tax) {
-            this.standarPrice = standarPrice;
+            this.standardPrice = standarPrice;
             this.passengerPrices = passengerPrices;
             this.tax = tax;
         }
 
         // Getters
         public Double getPrice() {
-            return standarPrice;
+            return standardPrice;
         }
 
-        public Double getStandarPrice() {
-            return standarPrice;
+        public Double getStandardPrice() {
+            return standardPrice;
         }
 
         public List<PricePassengerInfo> getPassengerPrices() {

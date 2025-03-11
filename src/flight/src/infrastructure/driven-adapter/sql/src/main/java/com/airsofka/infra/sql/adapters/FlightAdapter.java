@@ -4,8 +4,10 @@ import com.airsofka.flight.application.shared.flight.FlightListResponse;
 import com.airsofka.flight.domain.flight.Flight;
 import com.airsofka.flight.domain.flight.entities.Seat;
 import com.airsofka.flight.domain.flight.values.IsAvailable;
+import com.airsofka.flight.domain.flight.values.LocationSeat;
 import com.airsofka.flight.domain.flight.values.PriceSeat;
 import com.airsofka.flight.domain.flight.values.SeatClass;
+import com.airsofka.flight.domain.flight.values.SeatId;
 import com.airsofka.flight.domain.flight.values.SeatNumber;
 import com.airsofka.flight.domain.flight.values.StatusFlight;
 import com.airsofka.infra.sql.entities.FlightEntity;
@@ -78,11 +80,13 @@ public class FlightAdapter {
         List<Seat> seats = entity.getSeats().stream().map(
                 seat -> {
                     return new Seat(
-//                            SeatId.of(seat.getSeatId()),
+                            SeatId.of(seat.getSeatId().toString()),
                             SeatNumber.of(seat.getSeatNumber()),
                             SeatClass.of(seat.getSeatClass()),
                             IsAvailable.of(seat.getIsAvailable()),
                             PriceSeat.of(seat.getPriceSeat())
+
+                            ,LocationSeat.of(Integer.parseInt(seat.getSeatNumber().split("-")[0]), seat.getSeatNumber().split("-")[1])
                     );
                 }).collect(Collectors.toList());
         flight.setSeats(seats);

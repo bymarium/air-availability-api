@@ -30,7 +30,9 @@ public class FlightMapper {
                         seat.getSeatNumber().getValue(),
                         seat.getSeatClass().getValue(),
                         seat.getIsAvailable().getValue(),
-                        seat.getPriceSeat().getValue()
+                        seat.getPriceSeat().getValue(),
+                        seat.getLocationSeat().getRow(),
+                        seat.getLocationSeat().getColumn()
                 )).collect(Collectors.toList())
         );
     }

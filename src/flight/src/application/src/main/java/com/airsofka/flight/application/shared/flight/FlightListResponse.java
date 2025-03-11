@@ -1,6 +1,7 @@
 package com.airsofka.flight.application.shared.flight;
 
 import java.util.Date;
+import java.util.List;
 
 public class FlightListResponse {
     private final String flightId;
@@ -13,6 +14,7 @@ public class FlightListResponse {
     private final Double prices;
     private final Integer seats;
     private final Double tax;
+//    private final List<String> seats;
 
     public FlightListResponse(String flightId, String flightNumber, String flightModel, String routeId, Date departureTime, Date arrivalTime, String status, Double prices, Integer seats, Double tax) {
         this.flightId = flightId;
