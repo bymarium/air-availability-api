@@ -1,6 +1,7 @@
 package com.airsofka.authentication.infra.mysql.entities;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,6 +31,7 @@ public class UserSql {
     private String nacionality;
     private String methodAuthentication;
     private String role;
+    @Column(nullable = false, columnDefinition = "TINYINT(1)")
     private Boolean isFrequent;
 
     public UserSql(String id,String name, String role, Boolean isFrequent, String methodAuthentication) {

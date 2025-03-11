@@ -1,7 +1,9 @@
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation(project(':authentication:mongo'))
+    implementation(project(':authentication:mysql'))
     implementation(project(':authentication:application'))
     implementation(project(':shared:application'))
 }

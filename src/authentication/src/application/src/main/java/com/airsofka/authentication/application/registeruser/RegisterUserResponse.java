@@ -23,10 +23,11 @@ public class RegisterUserResponse {
         this.isFrequent = isFrequent;
     }
 
-    public RegisterUserResponse(String name, String email, String role, String methodAuthentication) {
+    public RegisterUserResponse(String name, String email, String role,Boolean isFrequent ,String methodAuthentication) {
         this.name = name;
         this.email = email;
         this.role = role;
+        this.isFrequent = isFrequent;
         this.methodAuthentication = methodAuthentication;
     }
 

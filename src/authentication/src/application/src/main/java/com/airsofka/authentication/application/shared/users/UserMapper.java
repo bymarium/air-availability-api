@@ -20,7 +20,7 @@ public class UserMapper {
         user.setDocumentID(DocumentID.of(userRequest.getDocumentId()));
         user.setPhoneNumber(PhoneNumber.of(userRequest.getPhoneNumber()));
         user.setNacionality(Nacionality.of(userRequest.getNacionality()));
-        user.setMethodAuthentication(MethodAuthentication.of(userRequest.getMethodAuthentication()));
+        user.setMethodAuthentication(MethodAuthentication.of("LOCAL"));
         return user;
     }
 
@@ -28,6 +28,7 @@ public class UserMapper {
         User user = new User();
         user.setName(Name.of(userRequest.getName()));
         user.setEmail(Email.of(userRequest.getEmail()));
+        user.setMethodAuthentication(MethodAuthentication.of("GOOGLE"));
         return user;
     }
 

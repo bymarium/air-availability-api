@@ -1,5 +1,6 @@
 package com.airsofka.authentication.domain.user;
 
+import com.airsofka.authentication.domain.user.events.RegisteredUser;
 import com.airsofka.authentication.domain.user.values.DocumentID;
 import com.airsofka.authentication.domain.user.values.Email;
 import com.airsofka.authentication.domain.user.values.IsFrequent;
@@ -14,7 +15,7 @@ import com.airsofka.authentication.domain.user.values.UserId;
 import com.airsofka.shared.domain.generic.AggregateRoot;
 
 public class User extends AggregateRoot<UserId> {
-  private Name name;
+  private Name fullName;
   private Email email;
   private Password password;
   private DocumentID documentID;
@@ -39,11 +40,11 @@ public class User extends AggregateRoot<UserId> {
 
   // region Getters and Setters
   public Name getName() {
-    return name;
+    return fullName;
   }
 
   public void setName(Name name) {
-    this.name = name;
+    this.fullName = name;
   }
 
   public Email getEmail() {
@@ -112,7 +113,14 @@ public class User extends AggregateRoot<UserId> {
   // endregion
 
   // region Domain Actions
-  
+  public void registerUser(String name, String email, String password, String documentId, String phoneNumber, String nacionality){
+    apply(new RegisteredUser(name, email, password, documentId,phoneNumber, nacionality));
+  }
+
+//  public void registerUser(String name, String email){
+//    apply(new RegisteredUser(name,email));
+//  }
+
   // endregion
 
   // region Public Methods

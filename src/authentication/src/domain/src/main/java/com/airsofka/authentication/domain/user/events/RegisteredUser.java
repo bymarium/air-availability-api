@@ -4,7 +4,7 @@ import com.airsofka.shared.domain.generic.DomainEvent;
 
 public class RegisteredUser  extends DomainEvent {
 
-    private String name;
+    private String fullName;
     private String email;
     private String password;
 
@@ -15,29 +15,29 @@ public class RegisteredUser  extends DomainEvent {
 
     public RegisteredUser(String name, String email, String password, String documentId, String phoneNumber, String nacionality) {
         super(EventsEnum.REGISTERED_USER.name());
-        this.name = name;
+        this.fullName = name;
         this.email = email;
         this.password = password;
         this.documentId = documentId;
         this.phoneNumber = phoneNumber;
         this.nacionality = nacionality;
-
+        this.methodAuthentication = MethodRegister.LOCAL.name();
     }
 
-    public RegisteredUser(String name, String email) {
-        super(EventsEnum.REGISTERED_USER.name());
-        this.email = email;
-        this.methodAuthentication = MethodRegister.GOOGLE.name();
-    }
+//    public RegisteredUser(String name, String email) {
+//        super(EventsEnum.REGISTERED_USER.name());
+//        this.email = email;
+//        this.methodAuthentication = MethodRegister.GOOGLE.name();
+//    }
 
     @Override
     public String getName() {
-        return name;
+        return fullName;
     }
 
     @Override
     public void setName(String name) {
-        this.name = name;
+        this.fullName = name;
     }
 
     public String getEmail() {

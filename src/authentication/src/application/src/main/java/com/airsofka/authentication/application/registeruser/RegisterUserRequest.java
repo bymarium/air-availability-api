@@ -11,9 +11,8 @@ public class RegisterUserRequest extends Request {
   private String documentId;
   private String phoneNumber;
   private String nacionality;
-  private String methodAuthentication;
 
-  public RegisterUserRequest(String aggregateId, String name, String email, String password, String documentId, String phoneNumber, String nacionality, String methodAuthentication) {
+  public RegisterUserRequest(String aggregateId, String name, String email, String password, String documentId, String phoneNumber, String nacionality) {
     super(aggregateId);
     this.name = name;
     this.email = email;
@@ -21,14 +20,13 @@ public class RegisterUserRequest extends Request {
     this.documentId = documentId;
     this.phoneNumber = phoneNumber;
     this.nacionality = nacionality;
-    this.methodAuthentication = methodAuthentication;
   }
 
-  public RegisterUserRequest(String aggregateId, String name, String email) {
-    super(aggregateId);
-    this.name = name;
-    this.email = email;
-  }
+//  public RegisterUserRequest(String aggregateId, String name, String email) {
+//    super(aggregateId);
+//    this.name = name;
+//    this.email = email;
+//  }
 
   public String getName() {
     return name;
@@ -78,13 +76,6 @@ public class RegisterUserRequest extends Request {
     this.nacionality = nacionality;
   }
 
-  public String getMethodAuthentication() {
-    return methodAuthentication;
-  }
-
-  public void setMethodAuthentication(String methodAuthentication) {
-    this.methodAuthentication = methodAuthentication;
-  }
 
 
 
