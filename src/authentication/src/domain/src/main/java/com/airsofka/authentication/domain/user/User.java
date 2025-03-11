@@ -29,6 +29,7 @@ public class User extends AggregateRoot<UserId> {
     super(new UserId());
     role = Role.of(RoleEnum.USER.name());
     isFrequent = IsFrequent.of(false);
+    subscribe(new UserHandler(this));
   }
 
   private User(UserId identity) {
@@ -111,7 +112,7 @@ public class User extends AggregateRoot<UserId> {
   // endregion
 
   // region Domain Actions
-
+  
   // endregion
 
   // region Public Methods
