@@ -1,7 +1,6 @@
 package com.airsofka.infra.sql.adapters;
 
 import com.airsofka.flight.application.shared.ports.IFlightRepositoryPort;
-import com.airsofka.flight.domain.flight.Flight;
 
 import com.airsofka.infra.sql.entities.FlightEntity;
 import com.airsofka.infra.sql.repositories.FlightRepository;

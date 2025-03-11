@@ -1,7 +1,5 @@
 package com.airsofka.flight.application.shared.flight;
 
-import com.airsofka.flight.domain.flight.Flight;
-
 import java.util.stream.Collectors;
 
 public class FlightMapper {

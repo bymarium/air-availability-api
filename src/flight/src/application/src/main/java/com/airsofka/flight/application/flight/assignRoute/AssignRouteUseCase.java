@@ -2,7 +2,6 @@ package com.airsofka.flight.application.flight.assignRoute;
 
 import com.airsofka.flight.application.shared.flight.FlightResponse;
 import com.airsofka.flight.application.shared.ports.IEventsRepositoryPort;
-import com.airsofka.flight.domain.flight.Flight;
 import com.airsofka.shared.application.ICommandUseCase;
 import reactor.core.publisher.Mono;
 
