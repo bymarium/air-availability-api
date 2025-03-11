@@ -1,5 +1,6 @@
 package com.airsofka.infra.sql.adapters;
 
+import com.airsofka.flight.application.shared.flight.FlightListResponse;
 import com.airsofka.flight.domain.flight.Flight;
 import com.airsofka.flight.domain.flight.entities.Seat;
 import com.airsofka.flight.domain.flight.values.IsAvailable;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 public class FlightAdapter {
     public static FlightEntity toEntity(Flight flight) {
         FlightEntity entity = new FlightEntity();
-       entity.setId(flight.getIdentity().getValue());
+        entity.setId(flight.getIdentity().getValue());
         entity.setFlightNumber(flight.getFlightNumber().getValue());
         entity.setDepartureTime(flight.getDepartureTime().getValue());
         entity.setArrivalTime(flight.getArrivalTime().getValue());
@@ -42,6 +43,7 @@ public class FlightAdapter {
         entity.setSeatsCount(entity.getSeats().size());
         return entity;
     }
+
     public static Flight toDomain(FlightEntity entity) {
         Flight flight = new Flight(
                 entity.getFlightNumber(),
@@ -51,7 +53,7 @@ public class FlightAdapter {
                 entity.getArrivalTime()
         );
         flight.setStatusFlight(StatusFlight.of(entity.getStatus()));
-        List <Seat> seats= entity.getSeats().stream().map(
+        List<Seat> seats = entity.getSeats().stream().map(
                 seat -> {
                     return new Seat(
 //                            SeatId.of(seat.getSeatId()),
@@ -64,5 +66,19 @@ public class FlightAdapter {
         flight.setSeats(seats);
 
         return flight;
+    }
+
+    public static FlightListResponse toResponse(FlightEntity entity) {
+        return new FlightListResponse(
+                entity.getId(),
+                entity.getFlightNumber(),
+                entity.getRouteId(),
+                entity.getDepartureTime(),
+                entity.getArrivalTime(),
+                entity.getStatus(),
+                entity.getPrice().getPriceStandard(),
+                entity.getSeats().size(),
+                entity.getPrice().getTax()
+        );
     }
 }

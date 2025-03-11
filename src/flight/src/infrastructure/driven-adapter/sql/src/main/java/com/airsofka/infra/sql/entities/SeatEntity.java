@@ -24,7 +24,7 @@ public class SeatEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seatId;
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String seatNumber;
     private String seatClass;
     private Boolean isAvailable;

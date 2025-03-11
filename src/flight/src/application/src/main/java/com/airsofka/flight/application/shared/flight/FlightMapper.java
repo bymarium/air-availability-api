@@ -16,7 +16,8 @@ public class FlightMapper {
                 new FlightResponse.PricesInfo(
                         flight.getPrices() != null ? flight.getPrices().getPriceStandard() : 0.0,
                         flight.getPrices() != null ? flight.getPrices().getChildPrice() : 0.0,
-                        flight.getPrices() != null ? flight.getPrices().getInfantPrice() : 0.0
+                        flight.getPrices() != null ? flight.getPrices().getInfantPrice() : 0.0,
+                        flight.getPrices() != null ? flight.getPrices().getTax() : 0.0
                 )
                 ,
                 flight.getSeats().stream().map(seat -> new FlightResponse.seat(
@@ -28,4 +29,5 @@ public class FlightMapper {
                 )).collect(Collectors.toList())
         );
     }
+
 }

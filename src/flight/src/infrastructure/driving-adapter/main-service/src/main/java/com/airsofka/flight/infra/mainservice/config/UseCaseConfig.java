@@ -1,6 +1,7 @@
 package com.airsofka.flight.infra.mainservice.config;
 
 import com.airsofka.flight.application.flight.createFlight.CreateFlightUseCase;
+import com.airsofka.flight.application.flight.getFlights.GetFlightUseCase;
 import com.airsofka.flight.application.flight.updateFlight.UpdateFlightUseCase;
 import com.airsofka.infra.mongo.adapters.MongoAdapter;
 
@@ -18,6 +19,10 @@ public class UseCaseConfig {
     @Bean
     public UpdateFlightUseCase updateFlightUseCase(MongoAdapter adapter, MySQLAdapter mysqlAdapter){
         return new UpdateFlightUseCase(adapter,mysqlAdapter);
+    }
+    @Bean
+    public GetFlightUseCase getFlightUseCase(MySQLAdapter mysqlAdapter){
+        return new GetFlightUseCase(mysqlAdapter);
     }
 
 }

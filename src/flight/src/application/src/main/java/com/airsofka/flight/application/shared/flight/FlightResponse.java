@@ -98,11 +98,14 @@ public class FlightResponse {
         private final Double priceStandar;
         private final Double childPrice;
         private final Double infantPrice;
+        private final Double tax;
 
-        public PricesInfo(Double priceStandar, Double childPrice, Double infantPrice) {
+        public PricesInfo(Double priceStandar, Double childPrice, Double infantPrice, Double tax) {
             this.priceStandar = priceStandar;
             this.childPrice = childPrice;
             this.infantPrice = infantPrice;
+            this.tax = tax;
+
         }
 
         // Getters
@@ -117,6 +120,7 @@ public class FlightResponse {
         public Double getInfantPrice() {
             return infantPrice;
         }
+
 
 
     }
