@@ -5,6 +5,7 @@ import com.airsofka.flight.application.flight.changeSeat.ChangeSeatUseCase;
 import com.airsofka.flight.application.flight.changeStatus.ChangeStatusUseCase;
 import com.airsofka.flight.application.flight.createFlight.CreateFlightUseCase;
 import com.airsofka.flight.application.flight.getFlights.GetFlightUseCase;
+import com.airsofka.flight.application.flight.removeFlight.RemoveFlightUseCase;
 import com.airsofka.flight.application.flight.updateFlight.UpdateFlightUseCase;
 import com.airsofka.infra.mongo.adapters.MongoAdapter;
 
@@ -38,6 +39,10 @@ public class UseCaseConfig {
     @Bean
     public ChangeSeatUseCase changeSeatUseCase(MongoAdapter adapter, MySQLAdapter mysqlAdapter){
         return new ChangeSeatUseCase(adapter,mysqlAdapter);
+    }
+    @Bean
+    public RemoveFlightUseCase removeFlightUseCase(MongoAdapter adapter, MySQLAdapter mysqlAdapter){
+        return new RemoveFlightUseCase(adapter,mysqlAdapter);
     }
 
 }

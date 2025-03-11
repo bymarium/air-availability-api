@@ -97,6 +97,11 @@ public class MySQLAdapter implements IFlightRepositoryPort {
         seat.setIsAvailable(true);
         flightRepository.save(flightFound);
     }
+    @Override
+    @Transactional
+    public void removeFlight(String aggregateId) {
+        flightRepository.deleteById(aggregateId);
+    }
 
 
 }

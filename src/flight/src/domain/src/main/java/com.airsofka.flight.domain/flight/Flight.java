@@ -148,6 +148,8 @@ public class Flight extends AggregateRoot<FlightId> {
     public void enableSeat(String seatId) {
         apply(new SeatEnabled(seatId));
     }
+
+
     //#endregion
 
     //#region public methods

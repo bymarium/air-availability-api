@@ -57,9 +57,9 @@ public class FlightHandler extends DomainActionsContainer {
 
     public Consumer<? extends DomainEvent> removeFlight(Flight flight) {
         return (FlightRemoved event) -> {
-            flight.removeFlight(event.getFlightId());
-            flight.getSeats().clear();
-            flight.initializeSeats();
+            flight.setStatusFlight(StatusFlight.of("Removed"));
+//            flight.getSeats().clear();
+//            flight.initializeSeats();
         };
     }
 

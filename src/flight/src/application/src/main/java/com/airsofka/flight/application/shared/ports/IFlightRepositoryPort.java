@@ -22,4 +22,6 @@ public interface IFlightRepositoryPort {
     void changeSeat(String aggregateId, String seatId);
 
     void enableSeat(String aggregateId, String seatId);
+
+    void removeFlight(String aggregateId);
 }
