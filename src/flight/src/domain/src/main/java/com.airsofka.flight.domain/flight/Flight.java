@@ -140,8 +140,8 @@ public class Flight extends AggregateRoot<FlightId> {
         apply(new StatusChanged(this.getIdentity().getValue(), status));
     }
 
-    public void updateFlight( String flightNumber, String routeId, String seatId,Date departureTime, Date arrivalTime) {
-        apply(new UpdateFlight(this.getIdentity().getValue(), flightNumber, routeId, seatId, departureTime, arrivalTime));
+    public void updateFlight( String flightNumber, String routeId, String seatId,Date departureTime, Date arrivalTime, Double price) {
+        apply(new UpdateFlight(this.getIdentity().getValue(), flightNumber, routeId, seatId, departureTime, arrivalTime, price));
     }
     public void enableSeat(String seatId) {
         apply(new SeatEnabled(seatId));

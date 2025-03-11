@@ -104,9 +104,6 @@ public class FlightResponse {
             return price;
         }
 
-        public boolean isAvailable() {
-            return isAvailable;
-        }
 
         public int getRow() {
             return row;
