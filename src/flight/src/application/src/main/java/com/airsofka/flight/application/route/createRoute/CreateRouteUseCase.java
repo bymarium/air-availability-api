@@ -1,6 +1,7 @@
 package com.airsofka.flight.application.route.createRoute;
 
 import com.airsofka.flight.application.shared.ports.IEventsRepositoryPort;
+import com.airsofka.flight.application.shared.ports.IRouteRepositoryPort;
 import com.airsofka.flight.application.shared.route.RouteResponse;
 import com.airsofka.flight.domain.route.Route;
 import com.airsofka.shared.application.ICommandUseCase;
@@ -10,9 +11,11 @@ import static com.airsofka.flight.application.shared.route.RouteMapper.mapToResp
 
 public class CreateRouteUseCase implements ICommandUseCase<CreateRouteRequest, Mono<RouteResponse>> {
     private final IEventsRepositoryPort repository;
+    private final IRouteRepositoryPort routeRepositoryPort;
 
-    public CreateRouteUseCase(IEventsRepositoryPort repository) {
+    public CreateRouteUseCase(IEventsRepositoryPort repository, IRouteRepositoryPort routeRepositoryPort) {
         this.repository = repository;
+        this.routeRepositoryPort = routeRepositoryPort;
     }
 
     @Override
@@ -23,6 +26,7 @@ public class CreateRouteUseCase implements ICommandUseCase<CreateRouteRequest, M
                 request.getDestination()
         );
 
+        routeRepositoryPort.saveRoute(route);
         route.getUncommittedEvents().forEach(repository::save);
         route.markEventsAsCommitted();
 
