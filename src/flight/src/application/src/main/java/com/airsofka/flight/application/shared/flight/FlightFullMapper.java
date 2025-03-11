@@ -16,6 +16,12 @@ public class FlightFullMapper {
     double executivePrice = flight.getBusinessBasicPrice() != null ? flight.getBusinessBasicPrice() : 0.0;
     double executiveFullPrice = flight.getBusinessFullPrice() != null ? flight.getBusinessFullPrice() : 0.0;
 
+    double standardTax = flight.getTaxEconomyBasicPrice() != null ? flight.getTaxEconomyBasicPrice() : 0.0;
+    double economicTax = flight.getTaxEconomyClassicPrice() != null ? flight.getTaxEconomyClassicPrice() : 0.0;
+    double favorableTax = flight.getTaxEconomyFullPrice() != null ? flight.getTaxEconomyFullPrice() : 0.0;
+    double executiveTax = flight.getTaxBusinessBasicPrice() != null ? flight.getTaxBusinessBasicPrice() : 0.0;
+    double executiveFullTax = flight.getTaxBusinessFullPrice() != null ? flight.getTaxBusinessFullPrice() : 0.0;
+
     return new FlightFullResponse(
       flight.getFlightId(),
       flight.getFlightNumber(),
@@ -26,7 +32,13 @@ public class FlightFullMapper {
       route.getDestination(),
       flight.getDepartureTime().toString(),
       flight.getArrivalTime().toString(),
-      ,
+      new FlightFullResponse.TaxesInfo(
+        standardTax,
+        economicTax,
+        favorableTax,
+        executiveTax,
+        executiveFullTax
+      ),
       new FlightFullResponse.PricesInfo(
         standardPrice,
         economicPrice,
