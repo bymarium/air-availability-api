@@ -42,17 +42,17 @@ public class FlightEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "price_id", referencedColumnName = "id")
     private PriceEntity price;
-
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL)
     private List<SeatEntity> seats;
     private Integer seatsCount;
 
-    public FlightEntity(String flightNumber, String routeId, Date departureTime, Date arrivalTime, String status, PriceEntity price) {
+    public FlightEntity(String flightNumber, String flightModel,String routeId, Date departureTime, Date arrivalTime, String status, PriceEntity price) {
         this.flightNumber = flightNumber;
         this.routeId = routeId;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.status = status;
         this.price = price;
+        this.flightModel = flightModel;
     }
 }

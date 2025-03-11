@@ -140,13 +140,12 @@ public class Flight extends AggregateRoot<FlightId> {
         apply(new StatusChanged(this.getIdentity().getValue(), status));
     }
 
-    public void updateFlight( String flightNumber, String routeId, String seatId,Date departureTime, Date arrivalTime) {
-        apply(new UpdateFlight(this.getIdentity().getValue(), flightNumber, routeId, seatId, departureTime, arrivalTime));
+    public void updateFlight( String flightNumber, String routeId, String seatId,Date departureTime, Date arrivalTime, Double price) {
+        apply(new UpdateFlight(this.getIdentity().getValue(), flightNumber, routeId, seatId, departureTime, arrivalTime, price));
     }
     public void enableSeat(String seatId) {
         apply(new SeatEnabled(seatId));
     }
-
 
     //#endregion
 
@@ -165,7 +164,8 @@ public class Flight extends AggregateRoot<FlightId> {
                         SeatNumber.of(String.format("%s-%s", row, column)),
                         SeatClass.of(info.getSeatClass()),
                         IsAvailable.of(true),
-                        PriceSeat.of(info.getPrice())
+                        PriceSeat.of(info.getPrice()),
+                        LocationSeat.of(row, column)
                 ));
             }
         }
