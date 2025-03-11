@@ -2,6 +2,7 @@ package com.airsofka.flight.domain.flight.entities;
 
 import com.airsofka.flight.domain.flight.values.IsAvailable;
 import com.airsofka.flight.domain.flight.values.PriceSeat;
+import com.airsofka.flight.domain.flight.values.LocationSeat;
 import com.airsofka.flight.domain.flight.values.SeatClass;
 import com.airsofka.flight.domain.flight.values.SeatId;
 import com.airsofka.flight.domain.flight.values.SeatNumber;
@@ -12,21 +13,25 @@ public class Seat extends Entity<SeatId> {
     private SeatClass seatClass;
     private IsAvailable isAvailable;
     private PriceSeat priceSeat;
+    private LocationSeat locationSeat;
 
-    public Seat(SeatId identity, SeatNumber seatNumber, SeatClass seatClass, IsAvailable isAvailable, PriceSeat priceSeat) {
+    public Seat(SeatId identity, SeatNumber seatNumber, SeatClass seatClass, IsAvailable isAvailable, PriceSeat priceSeat, LocationSeat locationSeat) {
         super(identity);
         this.seatNumber = seatNumber;
         this.seatClass = seatClass;
         this.isAvailable = isAvailable;
         this.priceSeat = priceSeat;
+        this.locationSeat = locationSeat;
     }
 
-    public Seat(SeatNumber seatNumber, SeatClass seatClass, IsAvailable isAvailable, PriceSeat priceSeat) {
+
+    public Seat(SeatNumber seatNumber, SeatClass seatClass, IsAvailable isAvailable, PriceSeat priceSeat, LocationSeat locationSeat) {
         super(new SeatId());
         this.seatNumber = seatNumber;
         this.seatClass = seatClass;
         this.isAvailable = isAvailable;
         this.priceSeat = priceSeat;
+        this.locationSeat = locationSeat;
     }
 
     public SeatNumber getSeatNumber() {
@@ -59,5 +64,13 @@ public class Seat extends Entity<SeatId> {
 
     public void setPriceSeat(PriceSeat priceSeat) {
         this.priceSeat = priceSeat;
+    }
+
+    public LocationSeat getLocationSeat() {
+        return locationSeat;
+    }
+
+    public void setLocationSeat(LocationSeat locationSeat) {
+        this.locationSeat = locationSeat;
     }
 }

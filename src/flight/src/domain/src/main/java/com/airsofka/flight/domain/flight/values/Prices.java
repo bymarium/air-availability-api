@@ -3,79 +3,60 @@ package com.airsofka.flight.domain.flight.values;
 import com.airsofka.shared.domain.generic.IValueObject;
 import utils.Validator;
 
-public class Prices implements IValueObject {
-    private Double standardPrice;
-    private Double executivePrice;
-    private Double fullPrice;
-    private Double tax;
+import java.util.List;
+import java.util.Map;
 
-    public Prices(double adultPrice) {
-        this.standardPrice = adultPrice;
-        this.tax = 1.2;
-        setPrices();
+public class Prices implements IValueObject {
+    private final Double standardPrice;
+    private final Double tax;
+    private final List<PassengerPrice> passengerPrices;
+
+    public Prices(double standardPrice) {
+        this.standardPrice = standardPrice;
+        this.tax = 0.2;
+        this.passengerPrices = generatePrices();
+        validate();
     }
 
-    public static Prices of(double adultPrice) {
-        Prices prices = new Prices(adultPrice);
-        prices.setPrices();
-        prices.validate();
-        return prices;
+    public static Prices of(double standardPrice) {
+        return new Prices(standardPrice);
     }
 
     @Override
     public void validate() {
         Validator.validatePositive(standardPrice);
-        Validator.validatePositive(executivePrice);
-        Validator.validatePositive(fullPrice);
     }
 
-    void setPrices() {
-        this.standardPrice = this.standardPrice * this.tax;
-        this.executivePrice = this.standardPrice * 0.75 * this.tax;
-        this.fullPrice = this.standardPrice * 0.45 * this.tax;
+    private List<PassengerPrice> generatePrices() {
+        Map<String, Double> priceMultipliers = Map.of(
+                "economyBasic", 1.0,
+                "economyClassic", 1.1,
+                "economyFull", 1.25,
+                "businessBasic", 1.5,
+                "businessFull", 2.0
+        );
+
+        return priceMultipliers.entrySet().stream()
+                .map(entry -> createPassengerPrice(entry.getKey(), entry.getValue()))
+                .toList();
     }
 
-    public double getStandardPrice() {
+    private PassengerPrice createPassengerPrice(String type, double multiplier) {
+        double finalPrice = standardPrice * multiplier;
+        return PassengerPrice.of(type, finalPrice, tax * finalPrice, finalPrice * tax+finalPrice);
+    }
+
+    public Double getStandardPrice() {
         return standardPrice;
-    }
-
-    public void setStandardPrice(double standardPrice) {
-        this.standardPrice = standardPrice;
-    }
-
-    public double getExecutivePrice() {
-        return executivePrice;
-    }
-
-    public void setExecutivePrice(double executivePrice) {
-        this.executivePrice = executivePrice;
-    }
-
-    public double getFullPrice() {
-        return fullPrice;
-    }
-
-    public void setFullPrice(double fullPrice) {
-        this.fullPrice = fullPrice;
-    }
-
-    public void setPriceStandard(Double priceStandard) {
-        this.standardPrice = priceStandard;
-    }
-
-    public void setChildPrice(Double childPrice) {
-        this.executivePrice = childPrice;
-    }
-
-    public void setInfantPrice(Double infantPrice) {
-        this.fullPrice = infantPrice;
     }
 
     public Double getTax() {
         return tax;
     }
 
-    public void setTax(Double tax) {
-        this.tax = tax;
+    public List<PassengerPrice> getPassengerPrices() {
+        return passengerPrices;
     }
+
+
 }

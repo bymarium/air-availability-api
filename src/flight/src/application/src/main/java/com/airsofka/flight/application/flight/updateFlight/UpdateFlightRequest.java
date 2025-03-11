@@ -10,14 +10,16 @@ public class UpdateFlightRequest extends Request {
     private final String seatId;
     private final Date departureTime;
     private final Date arrivalTime;
+    private final Double price;
 
-    public UpdateFlightRequest(String aggregateId, String flightNumber, String routeId, String seatId, Date departureTime, Date arrivalTime) {
+    public UpdateFlightRequest(String aggregateId, String flightNumber, String routeId, String seatId, Date departureTime, Date arrivalTime, Double price) {
         super(aggregateId);
         this.flightNumber = flightNumber;
         this.routeId = routeId;
         this.seatId = seatId;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
+        this.price = price;
     }
 
     public String getFlightNumber() {
@@ -36,5 +38,9 @@ public class UpdateFlightRequest extends Request {
 
     public Date getArrivalTime() {
         return arrivalTime;
+    }
+
+    public Double getPrice() {
+        return price;
     }
 }
