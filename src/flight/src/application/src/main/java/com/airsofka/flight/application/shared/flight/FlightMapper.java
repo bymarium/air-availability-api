@@ -16,8 +16,12 @@ public class FlightMapper {
                 flight.getStatusFlight().getValue(),
                 new FlightResponse.PricesInfo(
                         flight.getPrices() != null ? flight.getPrices().getStandardPrice() : 0.0,
-                        flight.getPrices() != null ? flight.getPrices().getExecutivePrice() : 0.0,
-                        flight.getPrices() != null ? flight.getPrices().getFullPrice() : 0.0,
+                        flight.getPrices().getPassengerPrices().stream().map(price -> new FlightResponse.PricePassengerInfo(
+                                price.getType(),
+                                price.getPrice(),
+                                price.getTax(),
+                                price.getTotalPrice()
+                        )).collect(Collectors.toList()),
                         flight.getPrices() != null ? flight.getPrices().getTax() : 0.0
                 )
                 ,

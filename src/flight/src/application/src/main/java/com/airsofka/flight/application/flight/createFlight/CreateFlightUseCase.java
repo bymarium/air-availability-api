@@ -31,7 +31,7 @@ public class CreateFlightUseCase implements ICommandUseCase<CreateFlightRequest,
                 request.getArrivalTime(),
                 request.getFlightModel());
         flight.initializeSeats();
-        flightRepositoryPort.saveFlight(flight);
+//        flightRepositoryPort.saveFlight(flight);
         flight.getUncommittedEvents().forEach(repository::save);
         flight.markEventsAsCommitted();
 

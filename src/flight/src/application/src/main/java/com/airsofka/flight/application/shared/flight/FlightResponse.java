@@ -97,33 +97,61 @@ public class FlightResponse {
         }
     }
     public static class PricesInfo {
-        private final Double priceStandar;
-        private final Double childPrice;
-        private final Double infantPrice;
+
+        private final Double standarPrice;
+        private final List<PricePassengerInfo> passengerPrices;
         private final Double tax;
 
-        public PricesInfo(Double priceStandar, Double childPrice, Double infantPrice, Double tax) {
-            this.priceStandar = priceStandar;
-            this.childPrice = childPrice;
-            this.infantPrice = infantPrice;
+        public PricesInfo(Double standarPrice, List<PricePassengerInfo> passengerPrices, Double tax) {
+            this.standarPrice = standarPrice;
+            this.passengerPrices = passengerPrices;
             this.tax = tax;
-
         }
 
         // Getters
         public Double getPrice() {
-            return priceStandar;
+            return standarPrice;
         }
 
-        public Double getChildPrice() {
-            return childPrice;
+        public Double getStandarPrice() {
+            return standarPrice;
         }
 
-        public Double getInfantPrice() {
-            return infantPrice;
+        public List<PricePassengerInfo> getPassengerPrices() {
+            return passengerPrices;
         }
 
+        public Double getTax() {
+            return tax;
+        }
+    }
+    public static class PricePassengerInfo {
+        private final String type;
+        private final Double price;
+        private final Double tax;
+        private final Double totalPrice;
 
+        public PricePassengerInfo(String type, Double price, Double tax, Double totalPrice) {
+            this.type = type;
+            this.price = price;
+            this.tax = tax;
+            this.totalPrice = totalPrice;
+        }   // Getters
 
+        public Double getPrice() {
+            return price;
+        }
+
+        public Double getTax() {
+            return tax;
+        }
+
+        public Double getTotalPrice() {
+            return totalPrice;
+        }
+
+        public String getType() {
+            return type;
+        }
     }
 }
