@@ -7,6 +7,7 @@ import com.airsofka.infra.sql.entities.RouteEntity;
 import com.airsofka.infra.sql.repositories.IRouteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
 
 
 @Component
@@ -36,13 +37,15 @@ public class MySQLAdapterRoute implements IRouteRepositoryPort {
         routeFound.setDuration(duration);
         routeFound.setDestination(destination);
         routeRepository.save(routeFound);
-    }
 
+    }
     @Override
-    public RouteResponse findById(String aggregateId) {
-        RouteEntity route = routeRepository.findById(Long.parseLong(aggregateId))
-                .orElseThrow(() -> new RuntimeException("Route not found"));
-        return RouteAdapter.toResponse(route);
+    public Mono<Route> findById(Long id) {
+        return Mono.fromCallable(() -> {
+            RouteEntity route = routeRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Route not found"));
+            return RouteAdapter.toDomain(route);
+        });
     }
 
     @Override

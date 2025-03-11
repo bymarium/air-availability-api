@@ -9,6 +9,7 @@ import com.airsofka.flight.application.flight.removeFlight.RemoveFlightUseCase;
 import com.airsofka.flight.application.flight.updateFlight.UpdateFlightUseCase;
 import com.airsofka.flight.application.route.deleteRoute.DeleteRouteUseCase;
 //import com.airsofka.flight.application.route.displayRoute.DisplayRouteUseCase;
+import com.airsofka.flight.application.route.displayRoute.DisplayRouteUseCase;
 import com.airsofka.flight.application.route.updateRoute.UpdateRouteUseCase;
 import com.airsofka.infra.mongo.adapters.MongoAdapter;
 import com.airsofka.flight.application.route.createRoute.CreateRouteUseCase;
@@ -61,6 +62,6 @@ public class UseCaseConfig {
     @Bean
     public UpdateRouteUseCase updateRouteUseCase(MongoAdapter adapter, MySQLAdapterRoute mysqlAdapter){ return new UpdateRouteUseCase(adapter, mysqlAdapter); }
 
-//    @Bean
-//    public DisplayRouteUseCase displayRouteUseCase(MongoAdapter adapter, MySQLAdapterRoute mysqlAdapter){ return new DisplayRouteUseCase(adapter, mysqlAdapter); }
+    @Bean
+    public DisplayRouteUseCase displayRouteUseCase(MongoAdapter adapter, MySQLAdapterRoute mysqlAdapter){ return new DisplayRouteUseCase(adapter, mysqlAdapter); }
 }

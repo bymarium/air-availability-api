@@ -4,7 +4,14 @@ import com.airsofka.shared.application.Request;
 
 public class DisplayRouteRequest extends Request {
 
-    public DisplayRouteRequest(String aggregateId) {
+    private Long id;
+
+    public DisplayRouteRequest(String aggregateId, Long id) {
         super(aggregateId);
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
