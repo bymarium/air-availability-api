@@ -12,6 +12,7 @@ import com.airsofka.infra.mongo.adapters.MongoAdapter;
 import com.airsofka.flight.application.route.createRoute.CreateRouteUseCase;
 
 import com.airsofka.infra.sql.adapters.MySQLAdapter;
+import com.airsofka.infra.sql.adapters.MySQLAdapterRoute;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -49,8 +50,8 @@ public class UseCaseConfig {
 
 
     @Bean
-    public CreateRouteUseCase createRouteUseCase(MongoAdapter adapter, MySQLAdapter mysqlAdapter){ return new CreateRouteUseCase(adapter, mysqlAdapter); }
+    public CreateRouteUseCase createRouteUseCase(MongoAdapter adapter, MySQLAdapterRoute mysqlAdapter){ return new CreateRouteUseCase(adapter, mysqlAdapter); }
 
     @Bean
-    public DeleteRouteUseCase deleteRouteUseCase(MongoAdapter adapter, MySQLAdapter mysqlAdapter){ return new DeleteRouteUseCase(adapter, mysqlAdapter); }
+    public DeleteRouteUseCase deleteRouteUseCase(MongoAdapter adapter, MySQLAdapterRoute mysqlAdapter){ return new DeleteRouteUseCase(adapter, mysqlAdapter); }
 }
