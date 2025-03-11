@@ -2,8 +2,6 @@ package com.airsofka.flight.application.shared.flight;
 
 import lombok.Getter;
 
-import java.util.Objects;
-
 @Getter
 public class FlightFullResponse {
   private final String flightId;
@@ -15,10 +13,10 @@ public class FlightFullResponse {
   private final String destination;
   private final String departureTime;
   private final String arrivalTime;
-  private final Double tax;
+  private final TaxesInfo tax;
   private final PricesInfo prices;
 
-  public FlightFullResponse(String flightId, String flightNumber, String aircraftModel, String duration, String operatingAirline, String origin, String destination, String departureTime, String arrivalTime, Double tax, PricesInfo prices) {
+  public FlightFullResponse(String flightId, String flightNumber, String aircraftModel, String duration, String operatingAirline, String origin, String destination, String departureTime, String arrivalTime, TaxesInfo tax, PricesInfo prices) {
     this.flightId = flightId;
     this.flightNumber = flightNumber;
     this.aircraftModel = aircraftModel;
@@ -46,6 +44,23 @@ public class FlightFullResponse {
       this.favorablePrice = favorablePrice;
       this.executivePrice = executivePrice;
       this.executiveFullPrice = executiveFullPrice;
+    }
+  }
+
+  @Getter
+  public static class TaxesInfo{
+    private final double standardTax;
+    private final double economicTax;
+    private final double favorableTax;
+    private final double executiveTax;
+    private final double executiveFullTax;
+
+    public TaxesInfo(double standardTax, double economicTax, double favorableTax, double executiveTax, double executiveFullTax) {
+      this.standardTax = standardTax;
+      this.economicTax = economicTax;
+      this.favorableTax = favorableTax;
+      this.executiveTax = executiveTax;
+      this.executiveFullTax = executiveFullTax;
     }
   }
 }

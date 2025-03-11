@@ -10,11 +10,11 @@ public class FlightFullMapper {
     String duration = calculateDuration(flight.getDepartureTime(), flight.getArrivalTime());
     String operatingAirline = "Copa Airlines";
 
-    double standardPrice = flight.getStandardPrice() != null ? flight.getStandardPrice() : 0.0;
-    double economicPrice = flight.getEconomicPrice() != null ? flight.getEconomicPrice() : 0.0;
-    double favorablePrice = flight.getFavorablePrice() != null ? flight.getFavorablePrice() : 0.0;
-    double executivePrice = flight.getExecutivePrice() != null ? flight.getExecutivePrice() : 0.0;
-    double executiveFullPrice = flight.getExecutiveFullPrice() != null ? flight.getExecutiveFullPrice() : 0.0;
+    double standardPrice = flight.getEconomyBasicPrice() != null ? flight.getEconomyBasicPrice() : 0.0;
+    double economicPrice = flight.getEconomyClassicPrice() != null ? flight.getEconomyClassicPrice() : 0.0;
+    double favorablePrice = flight.getEconomyFullPrice() != null ? flight.getEconomyFullPrice() : 0.0;
+    double executivePrice = flight.getBusinessBasicPrice() != null ? flight.getBusinessBasicPrice() : 0.0;
+    double executiveFullPrice = flight.getBusinessFullPrice() != null ? flight.getBusinessFullPrice() : 0.0;
 
     return new FlightFullResponse(
       flight.getFlightId(),
@@ -26,6 +26,7 @@ public class FlightFullMapper {
       route.getDestination(),
       flight.getDepartureTime().toString(),
       flight.getArrivalTime().toString(),
+      ,
       new FlightFullResponse.PricesInfo(
         standardPrice,
         economicPrice,

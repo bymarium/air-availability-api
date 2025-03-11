@@ -1,7 +1,6 @@
 package com.airsofka.flight.application.flight.searchFlights;
 
 import com.airsofka.flight.application.shared.flight.FlightFullMapper;
-import com.airsofka.flight.application.shared.flight.FlightMapper;
 import com.airsofka.flight.application.shared.flight.FlightResponse;
 import com.airsofka.flight.application.shared.flight.FlightListResponse;
 import com.airsofka.flight.application.shared.ports.IFlightRepositoryPort;
