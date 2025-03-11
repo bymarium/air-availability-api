@@ -3,6 +3,7 @@ package com.airsofka.flight.infra.mainservice.config;
 import com.airsofka.flight.application.flight.createFlight.CreateFlightUseCase;
 import com.airsofka.flight.application.flight.updateFlight.UpdateFlightUseCase;
 import com.airsofka.infra.mongo.adapters.MongoAdapter;
+import com.airsofka.flight.application.route.createRoute.CreateRouteUseCase;
 
 import com.airsofka.infra.sql.adapters.MySQLAdapter;
 import org.springframework.context.annotation.Bean;
@@ -20,4 +21,7 @@ public class UseCaseConfig {
         return new UpdateFlightUseCase(adapter);
     }
 
+
+    @Bean
+    public CreateRouteUseCase createRouteUseCase(MongoAdapter adapter){ return new CreateRouteUseCase(adapter); }
 }
