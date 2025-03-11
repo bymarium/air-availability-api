@@ -12,5 +12,5 @@ public interface IRouteRepositoryPort {
 
     RouteResponse findById(String aggregateId);
 
-    void removeRoute(String aggregateId);
+    void removeRoute(Long id);
 }

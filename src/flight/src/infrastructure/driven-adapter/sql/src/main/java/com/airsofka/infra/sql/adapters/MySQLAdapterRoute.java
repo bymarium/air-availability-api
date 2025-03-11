@@ -46,7 +46,7 @@ public class MySQLAdapterRoute implements IRouteRepositoryPort {
     }
 
     @Override
-    public void removeRoute(String aggregateId) {
-        routeRepository.deleteById(Long.parseLong(aggregateId));
+    public void removeRoute(Long id) {
+        routeRepository.deleteById(id);
     }
 }

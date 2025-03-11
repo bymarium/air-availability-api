@@ -26,7 +26,7 @@ public class DeleteRouteUseCase implements ICommandUseCase<DeleteRouteRequest, M
                     route.removeRoute(request.getAggregateId());
                     route.getUncommittedEvents().forEach(repository::save);
                     route.markEventsAsCommitted();
-                    routeRepositoryPort.removeRoute(request.getAggregateId());
+                    routeRepositoryPort.removeRoute(request.getId());
                     return RouteMapper.mapToResponse(route);
                 });
     }
