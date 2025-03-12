@@ -1,19 +1,17 @@
 package com.airsofka.admin.application.admin.generateanalytics;
 
-import com.airsofka.admin.application.shared.AdminResponse;
-import com.airsofka.admin.application.shared.ports.IEventRepositoryPort;
-import com.airsofka.shared.application.ICommandUseCase;
-import reactor.core.publisher.Mono;
+import com.airsofka.admin.application.shared.ports.IEventRepositoryAnalyticsPort;
+import com.airsofka.shared.application.IQueryUseCase;
 
-public class GenerateAnalyticsUseCase implements ICommandUseCase<GenerateAnalyticsRequest, Mono<AdminResponse>> {
-    private final IEventRepositoryPort repository;
+public class GenerateAnalyticsUseCase implements IQueryUseCase<GenerateAnalyticsResponse> {
+    private final IEventRepositoryAnalyticsPort repository;
 
-    public GenerateAnalyticsUseCase(IEventRepositoryPort repository) {
+    public GenerateAnalyticsUseCase(IEventRepositoryAnalyticsPort repository) {
         this.repository = repository;
     }
 
     @Override
-    public Mono<AdminResponse> execute(GenerateAnalyticsRequest request) {
-        return null;
+    public GenerateAnalyticsResponse execute() {
+        return repository.findAllBookings();
     }
 }

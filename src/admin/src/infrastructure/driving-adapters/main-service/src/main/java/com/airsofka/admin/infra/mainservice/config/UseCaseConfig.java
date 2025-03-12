@@ -6,6 +6,7 @@ import com.airsofka.admin.application.admin.generateanalytics.GenerateAnalyticsU
 import com.airsofka.admin.application.admin.getallbookings.GetAllBookingsUseCase;
 import com.airsofka.admin.application.admin.issuebooking.IssueBookingUseCase;
 import com.airsofka.admin.infra.mongo.adapters.MongoAdapter;
+import com.airsofka.admin.infra.mysql.adapters.AnalyticsAdapter;
 import com.airsofka.admin.infra.mysql.adapters.MysqlAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,8 +25,8 @@ public class UseCaseConfig {
     }
 
     @Bean
-    public GenerateAnalyticsUseCase generateAnalyticsUseCase(MongoAdapter adapter, MysqlAdapter mysqlAdapter) {
-        return new GenerateAnalyticsUseCase(adapter);
+    public GenerateAnalyticsUseCase generateAnalyticsUseCase(MongoAdapter adapter, AnalyticsAdapter mysqlAdapter) {
+        return new GenerateAnalyticsUseCase(mysqlAdapter);
     }
 
     @Bean
