@@ -1,7 +1,6 @@
 package com.airsofka.flight.domain.flight;
 
 import com.airsofka.flight.domain.flight.entities.Seat;
-import com.airsofka.flight.domain.flight.events.AssignedRoute;
 import com.airsofka.flight.domain.flight.events.FlightCreated;
 import com.airsofka.flight.domain.flight.events.FlightRemoved;
 import com.airsofka.flight.domain.flight.events.RouteChanged;
@@ -124,9 +123,7 @@ public class Flight extends AggregateRoot<FlightId> {
         apply(new FlightRemoved(flightId));
     }
 
-    public void assingRoute( String routeId) {
-        apply(new AssignedRoute(routeId));
-    }
+
 
     public void changeRoute(String routeId) {
         apply(new RouteChanged(this.getIdentity().getValue(), routeId));

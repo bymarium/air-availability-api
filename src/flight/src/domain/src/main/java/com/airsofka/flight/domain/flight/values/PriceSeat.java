@@ -4,7 +4,7 @@ import com.airsofka.shared.domain.generic.IValueObject;
 import utils.Validator;
 
 public class PriceSeat implements IValueObject {
-    private final double value;
+    private final Double value;
 
     private PriceSeat(double value) {
         this.value = value;

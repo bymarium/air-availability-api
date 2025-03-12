@@ -8,16 +8,15 @@ import com.airsofka.flight.domain.route.Route;
 import com.airsofka.shared.application.ICommandUseCase;
 import reactor.core.publisher.Mono;
 
-public class DisplayRouteUseCase implements ICommandUseCase<DisplayRouteRequest, Mono<RouteResponse>> {
+public class DisplayRouteUseCase implements ICommandUseCase<DisplayRouteRequest, RouteResponse> {
     private final IRouteRepositoryPort routeRepositoryPort;
 
     public DisplayRouteUseCase(IRouteRepositoryPort routeRepositoryPort) {
         this.routeRepositoryPort = routeRepositoryPort;
     }
 
-  @Override
-  public Mono<RouteResponse> execute(DisplayRouteRequest request) {
-    return routeRepositoryPort.findById(request.getId())
-            .map(RouteMapper::mapToResponse);
-  }
+    @Override
+    public RouteResponse execute(DisplayRouteRequest request) {
+        return routeRepositoryPort.findById(request.getAggregateId());
+    }
 }

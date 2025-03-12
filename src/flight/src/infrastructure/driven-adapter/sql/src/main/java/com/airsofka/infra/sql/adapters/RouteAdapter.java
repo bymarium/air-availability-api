@@ -10,7 +10,7 @@ public class RouteAdapter {
 
     public static RouteEntity toEntity(Route route) {
         RouteEntity entity = new RouteEntity();
-        entity.setAggregateId(route.getIdentity().getValue());
+        entity.setId(route.getIdentity().getValue());
         entity.setOrigin(route.getOrigin().getValue());
         entity.setDuration(route.getDuration().getValue());
         entity.setDestination(route.getDestination().getValue());
@@ -28,7 +28,7 @@ public class RouteAdapter {
 
     public static RouteResponse toResponse(RouteEntity entity) {
         return new RouteResponse(
-                entity.getId().toString(),
+                entity.getId(),
                 entity.getOrigin(),
                 entity.getDuration(),
                 entity.getDestination()

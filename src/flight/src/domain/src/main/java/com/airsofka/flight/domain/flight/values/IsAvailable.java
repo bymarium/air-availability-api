@@ -4,7 +4,7 @@ import com.airsofka.shared.domain.generic.IValueObject;
 import utils.Validator;
 
 public class IsAvailable implements IValueObject {
-    private final boolean value;
+    private final Boolean value;
 
     private IsAvailable(boolean value) {
         this.value = value;

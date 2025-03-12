@@ -6,11 +6,11 @@ import com.airsofka.flight.application.flight.changeStatus.ChangeStatusUseCase;
 import com.airsofka.flight.application.flight.createFlight.CreateFlightUseCase;
 import com.airsofka.flight.application.flight.getFlights.GetFlightUseCase;
 import com.airsofka.flight.application.flight.removeFlight.RemoveFlightUseCase;
-import com.airsofka.flight.application.flight.searchFlights.SearchFlightUseCase;
 import com.airsofka.flight.application.flight.updateFlight.UpdateFlightUseCase;
 import com.airsofka.flight.application.route.deleteRoute.DeleteRouteUseCase;
 //import com.airsofka.flight.application.route.displayRoute.DisplayRouteUseCase;
 import com.airsofka.flight.application.route.displayRoute.DisplayRouteUseCase;
+import com.airsofka.flight.application.route.listRoutes.ListRoutesUseCase;
 import com.airsofka.flight.application.route.updateRoute.UpdateRouteUseCase;
 import com.airsofka.infra.mongo.adapters.MongoAdapter;
 import com.airsofka.flight.application.route.createRoute.CreateRouteUseCase;
@@ -53,10 +53,6 @@ public class UseCaseConfig {
     public RemoveFlightUseCase removeFlightUseCase(MongoAdapter adapter, MySQLAdapter mysqlAdapter){
         return new RemoveFlightUseCase(adapter,mysqlAdapter);
     }
-    @Bean
-    public SearchFlightUseCase searchFlightUseCase(MySQLAdapter mysqlAdapter, MySQLAdapterRoute mysqlAdapterRoute){
-        return new SearchFlightUseCase(mysqlAdapter, mysqlAdapterRoute);
-    }
 
     @Bean
     public CreateRouteUseCase createRouteUseCase(MongoAdapter adapter, MySQLAdapterRoute mysqlAdapter){ return new CreateRouteUseCase(adapter, mysqlAdapter); }
@@ -68,5 +64,8 @@ public class UseCaseConfig {
     public UpdateRouteUseCase updateRouteUseCase(MongoAdapter adapter, MySQLAdapterRoute mysqlAdapter){ return new UpdateRouteUseCase(adapter, mysqlAdapter); }
 
     @Bean
-    public DisplayRouteUseCase displayRouteUseCase(MongoAdapter adapter, MySQLAdapterRoute mysqlAdapter){ return new DisplayRouteUseCase( mysqlAdapter); }
+    public DisplayRouteUseCase displayRouteUseCase(MongoAdapter adapter, MySQLAdapterRoute mysqlAdapter){ return new DisplayRouteUseCase(mysqlAdapter); }
+
+    @Bean
+    public ListRoutesUseCase listRoutesUseCase(MySQLAdapterRoute mysqlAdapter){ return new ListRoutesUseCase(mysqlAdapter); }
 }
