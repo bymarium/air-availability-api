@@ -1,5 +1,7 @@
 package com.airsofka.admin.application.shared;
 
+import com.airsofka.admin.domain.admin.values.State;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -45,6 +47,7 @@ public class AdminResponse {
     }
 
     public static class Booking {
+        private final String bookingId;
         private final LocalDateTime arrivalDate;
         private final String bookingCode;
         private final LocalDateTime creationDate;
@@ -58,7 +61,8 @@ public class AdminResponse {
         private final Double price;
         private final String state;
 
-        public Booking(LocalDateTime arrivalDate, String bookingCode, LocalDateTime creationDate, LocalDateTime departureDate, String destination, String email, String flightClass, String origin, List<Passenger> passengers, String paymentMethod, Double price, String state) {
+        public Booking(String bookingId, LocalDateTime arrivalDate, String bookingCode, LocalDateTime creationDate, LocalDateTime departureDate, String destination, String email, String flightClass, String origin, List<Passenger> passengers, String paymentMethod, Double price, String state) {
+            this.bookingId = bookingId;
             this.arrivalDate = arrivalDate;
             this.bookingCode = bookingCode;
             this.creationDate = creationDate;
@@ -71,6 +75,10 @@ public class AdminResponse {
             this.paymentMethod = paymentMethod;
             this.price = price;
             this.state = state;
+        }
+
+        public String getBookingId() {
+            return bookingId;
         }
 
         public LocalDateTime getArrivalDate() {
