@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Component
 public class MySQLAdapterRoute implements IRouteRepositoryPort {
@@ -49,5 +52,12 @@ public class MySQLAdapterRoute implements IRouteRepositoryPort {
     @Override
     public void removeRoute(String id) {
         routeRepository.deleteById(id);
+    }
+
+    @Override
+    public List<RouteResponse> findAll() {
+        return routeRepository.findAll().stream()
+                .map(RouteAdapter::toResponse)
+                .collect(Collectors.toList());
     }
 }
