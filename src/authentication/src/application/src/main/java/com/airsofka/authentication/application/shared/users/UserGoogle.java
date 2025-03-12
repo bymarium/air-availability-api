@@ -1,4 +1,4 @@
-package com.airsofka.authentication.application.registerusergoogle;
+package com.airsofka.authentication.application.shared.users;
 
 public class UserGoogle {
 

@@ -1,7 +1,7 @@
 package com.airsofka.authentication.infra.googleAuth.adapters;
 
 
-import com.airsofka.authentication.application.registerusergoogle.UserGoogle;
+import com.airsofka.authentication.application.shared.users.UserGoogle;
 import com.airsofka.authentication.application.shared.ports.IGoogleServicePort;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
@@ -27,8 +27,5 @@ public class GoogleAdapter implements IGoogleServicePort {
     public OidcUser getOidcUser(OidcUserRequest oidcUserRequest){
         return new OidcUserService().loadUser(oidcUserRequest);
     }
-
-
-
 
 }

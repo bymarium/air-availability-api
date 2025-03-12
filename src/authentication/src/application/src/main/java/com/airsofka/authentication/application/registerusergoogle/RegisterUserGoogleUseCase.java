@@ -3,11 +3,13 @@ package com.airsofka.authentication.application.registerusergoogle;
 import com.airsofka.authentication.application.shared.ports.IEventsRepositoryPort;
 import com.airsofka.authentication.application.shared.ports.IGoogleServicePort;
 import com.airsofka.authentication.application.shared.ports.IUserRepositoryPort;
+import com.airsofka.authentication.application.shared.users.UserGoogle;
+import com.airsofka.authentication.application.shared.users.UserGoogleRequest;
 import com.airsofka.authentication.domain.user.User;
 import com.airsofka.shared.application.ICommandUseCase;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 
-public class RegisterUserGoogleUseCase implements ICommandUseCase<RegisterUserGoogleRequest, OidcUser> {
+public class RegisterUserGoogleUseCase implements ICommandUseCase<UserGoogleRequest, OidcUser> {
 
     private final IEventsRepositoryPort eventsRepositoryPort;
     private final IUserRepositoryPort userRepositoryPort;
@@ -20,7 +22,7 @@ public class RegisterUserGoogleUseCase implements ICommandUseCase<RegisterUserGo
     }
 
     @Override
-    public OidcUser execute(RegisterUserGoogleRequest request) {
+    public OidcUser execute(UserGoogleRequest request) {
         UserGoogle userGoogle = googleServicePort.getUserGoogle(request.getUserRequest());
         User user = new User();
         user.registerGoogleUser(userGoogle.getName(), userGoogle.getEmail());

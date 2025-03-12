@@ -1,5 +1,7 @@
 package com.airsofka.authentication.domain.user;
 
+import com.airsofka.authentication.domain.user.events.AuthenticatedGoogleUser;
+import com.airsofka.authentication.domain.user.events.LoggedOutUser;
 import com.airsofka.authentication.domain.user.events.RegisteredGoogleUser;
 import com.airsofka.authentication.domain.user.events.RegisteredUser;
 import com.airsofka.authentication.domain.user.entities.Booking;
@@ -14,7 +16,6 @@ import com.airsofka.authentication.domain.user.values.Name;
 import com.airsofka.authentication.domain.user.values.Password;
 import com.airsofka.authentication.domain.user.values.PhoneNumber;
 import com.airsofka.authentication.domain.user.values.Role;
-import com.airsofka.authentication.domain.user.values.RoleEnum;
 import com.airsofka.authentication.domain.user.values.State;
 import com.airsofka.authentication.domain.user.values.StateEnum;
 import com.airsofka.authentication.domain.user.values.UserId;
@@ -42,14 +43,11 @@ public class User extends AggregateRoot<UserId> {
   public User() {
     super(new UserId());
     subscribe(new UserHandler(this));
-    role = Role.of(RoleEnum.USER.name());
-    state = State.of(StateEnum.ACTIVE.name());
-    isFrequent = IsFrequent.of(false);
-    isAuthenticated = IsAuthenticated.of(false);
   }
 
   private User(UserId identity) {
     super(identity);
+    subscribe(new UserHandler(this));
   }
   // endregion
 
@@ -156,13 +154,21 @@ public class User extends AggregateRoot<UserId> {
   public void registerUser(String name, String email, String password, String documentId, String phoneNumber, String nacionality){
     apply(new RegisteredUser(name, email, password, documentId,phoneNumber, nacionality));
   }
+
+  public void registerGoogleUser(String name, String email){
+    apply(new RegisteredGoogleUser(name,email));
+  }
+
   public void authenticateUser(String email, String password) {
     apply(new AuthenticatedUser(email, password));
   }
 
+  public void authenticateGoogleUser(String email, String fullName) {
+    apply(new AuthenticatedGoogleUser(email, fullName));
+  }
 
-  public void registerGoogleUser(String name, String email){
-    apply(new RegisteredGoogleUser(name,email));
+  public void loggedOutUser() {
+    apply(new LoggedOutUser());
   }
 
   // endregion

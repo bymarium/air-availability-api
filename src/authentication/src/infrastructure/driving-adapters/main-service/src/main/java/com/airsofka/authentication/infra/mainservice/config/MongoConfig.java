@@ -1,6 +1,5 @@
 package com.airsofka.authentication.infra.mainservice.config;
 
-
 import com.airsofka.authentication.infra.mongo.adapters.MongoAdapter;
 import com.airsofka.authentication.infra.mongo.repositories.IEventsRepository;
 import org.springframework.boot.autoconfigure.domain.EntityScan;

@@ -29,13 +29,22 @@ public class UserSql {
     private String nacionality;
     private String methodAuthentication;
     private String role;
+    private String state;
     @Column(nullable = false, columnDefinition = "TINYINT(1)")
     private Boolean isFrequent;
+    @Column(nullable = false, columnDefinition = "TINYINT(1)")
+    private Boolean isAuthenticated;
 
 
     public UserSql() {
         this.id = UUID.randomUUID().toString();
-        this.role="USER";
         this.isFrequent=false;
+        this.isAuthenticated=false;
+    }
+
+    public UserSql(String id){
+        this.id = id;
+        this.isFrequent=false;
+        this.isAuthenticated=false;
     }
 }

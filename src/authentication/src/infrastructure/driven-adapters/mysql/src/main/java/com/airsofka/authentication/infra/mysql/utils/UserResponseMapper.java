@@ -6,8 +6,9 @@ import com.airsofka.authentication.infra.mysql.entities.UserSql;
 public class UserResponseMapper {
 
     public static UserResponse mapperSql(UserSql userSql){
-        return new UserResponse(userSql.getName(), userSql.getEmail(), userSql.getDocumentId(),
-                userSql.getPhoneNumber(),userSql.getNacionality(),userSql.getMethodAuthentication(),userSql.getRole(),userSql.getIsFrequent());
+        return new UserResponse(userSql.getId(), userSql.getName(), userSql.getEmail(), userSql.getDocumentId(),
+                userSql.getPhoneNumber(),userSql.getNacionality(),userSql.getMethodAuthentication(),userSql.getState(),
+                userSql.getRole(),userSql.getIsFrequent(), userSql.getIsAuthenticated());
     }
 
 }

@@ -32,9 +32,9 @@ public class JwtUtil {
     Date now = new Date(nowMillis);
 
     JwtBuilder builder = Jwts.builder()
+      .setClaims(claims)
       .setId(id)
       .setSubject(subject)
-      .setClaims(claims)
       .setIssuedAt(now)
       .setIssuer(issuer)
       .signWith(getSigningKey(), SignatureAlgorithm.HS256);
