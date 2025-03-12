@@ -1,11 +1,7 @@
 package com.airsofka.authentication.infra.mainservice.config;
 
-import com.airsofka.authentication.application.registeruser.RegisterUserUseCase;
 import com.airsofka.authentication.application.registerusergoogle.RegisterUserGoogleRequest;
 import com.airsofka.authentication.application.registerusergoogle.RegisterUserGoogleUseCase;
-import com.airsofka.authentication.application.shared.ports.IUserRepositoryPort;
-import com.airsofka.authentication.infra.googleAuth.config.GoogleAuth;
-import com.airsofka.authentication.infra.mysql.repositories.IUserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,15 +17,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfig {
 
-//    private final GoogleAuth googleAuth;
-//    private final IUserRepository userRepository;
-//    private final IUserRepositoryPort userRepositoryPort;
-
-//    public SecurityConfig(IUserRepository userRepository, IUserRepositoryPort userRepositoryPort) {
-//        this.userRepository = userRepository;
-//        this.userRepositoryPort = userRepositoryPort;
-//        this.googleAuth = new GoogleAuth(userRepository,userRepositoryPort);
-//    }
 
     private final RegisterUserGoogleUseCase registerUserGoogleUseCase;
 
@@ -50,7 +37,7 @@ public class SecurityConfig {
                 formLogin(withDefaults())
                 .oauth2Login(oauth -> oauth
                         .userInfoEndpoint(userInfo -> userInfo
-                                .oidcUserService(this::processGoogleLogin) // <-- aquí integras tu metodo
+                                .oidcUserService(this::processGoogleLogin)
                         )
                 )
                 .build();
