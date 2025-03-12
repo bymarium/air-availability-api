@@ -8,6 +8,8 @@ import com.airsofka.flight.domain.route.Route;
 import com.airsofka.shared.application.ICommandUseCase;
 import reactor.core.publisher.Mono;
 
+import static com.airsofka.flight.application.shared.route.RouteMapper.mapToResponse;
+
 public class DeleteRouteUseCase implements ICommandUseCase<DeleteRouteRequest, Mono<RouteResponse>> {
     private final IEventsRepositoryPort repository;
     private final IRouteRepositoryPort routeRepositoryPort;
@@ -27,7 +29,7 @@ public class DeleteRouteUseCase implements ICommandUseCase<DeleteRouteRequest, M
                     route.getUncommittedEvents().forEach(repository::save);
                     route.markEventsAsCommitted();
                     routeRepositoryPort.removeRoute(request.getAggregateId());
-                    return RouteMapper.mapToResponse(route);
+                    return mapToResponse(route);
                 });
     }
 }

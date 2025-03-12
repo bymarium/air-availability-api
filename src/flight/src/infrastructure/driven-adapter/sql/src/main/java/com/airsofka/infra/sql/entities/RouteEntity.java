@@ -20,11 +20,6 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class RouteEntity {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
     @Column(name = "id", nullable = false, updatable = false, unique = true)
     private String id;
 

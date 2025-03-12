@@ -10,6 +10,7 @@ public class RouteAdapter {
 
     public static RouteEntity toEntity(Route route) {
         RouteEntity entity = new RouteEntity();
+        entity.setId(route.getIdentity().getValue());
         entity.setOrigin(route.getOrigin().getValue());
         entity.setDuration(route.getDuration().getValue());
         entity.setDestination(route.getDestination().getValue());
