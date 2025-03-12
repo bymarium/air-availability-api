@@ -1,6 +1,6 @@
 package com.airsofka.flight.infra.mainservice.controller;
 
-import com.airsofka.flight.application.flight.getSeatsByFlight.GetSeatByIDUseCase;
+import com.airsofka.flight.application.flight.getSeatsByFlight.GetSeatsByIdUseCase;
 import com.airsofka.flight.application.shared.flight.SeatResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:4200")
 
 public class GetSeatByIdController {
-    private final GetSeatByIDUseCase getSeatByIdUseCase;
+    private final GetSeatsByIdUseCase getSeatByIdUseCase;
 
-    public GetSeatByIdController(GetSeatByIDUseCase getSeatByIdUseCase) {
+    public GetSeatByIdController(GetSeatsByIdUseCase getSeatByIdUseCase) {
         this.getSeatByIdUseCase = getSeatByIdUseCase;
     }
 

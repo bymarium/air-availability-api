@@ -3,9 +3,9 @@ package com.airsofka.flight.application.flight.getSeatsByFlight;
 import com.airsofka.flight.application.shared.flight.SeatResponse;
 import com.airsofka.flight.application.shared.ports.IFlightRepositoryPort;
 
-public class GetSeatByIDUseCase {
+public class GetSeatsByIdUseCase {
     private final IFlightRepositoryPort repository;
-    public GetSeatByIDUseCase(IFlightRepositoryPort repository) {
+    public GetSeatsByIdUseCase(IFlightRepositoryPort repository) {
         this.repository = repository;
     }
 
