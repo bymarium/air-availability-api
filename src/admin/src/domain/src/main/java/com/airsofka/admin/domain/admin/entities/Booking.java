@@ -49,15 +49,35 @@ public class Booking extends Entity<BookingId> {
         this.price = price;
         this.state = state;
     }
+
+    public Booking() {
+        super(new BookingId());
+    }
     // endregion
 
     // region Public Methods
-    public void issue() {
+    public void issue(BookingCode bookingCode) {
+        if (!this.bookingCode.equals(bookingCode)) throw new IllegalArgumentException("Invalid booking code. Cannot issue this booking.");
 
+        String currentState = this.state.getValue().toLowerCase();
+
+        if (currentState.equals("issued")) throw new IllegalStateException("This booking is already issued.");
+
+        if (currentState.equals("canceled")) throw new IllegalStateException("A canceled booking cannot be issued.");
+
+        this.state = State.of("Issued");
     }
 
-    public void cancel() {
+    public void cancel(BookingCode bookingCode) {
+        if (!this.bookingCode.equals(bookingCode)) throw new IllegalArgumentException("Invalid booking code. Cannot cancel this booking.");
 
+        String currentState = this.state.getValue().toLowerCase();
+
+        if (currentState.equals("canceled")) throw new IllegalStateException("This booking is already canceled.");
+
+        if (currentState.equals("issued")) throw new IllegalStateException("An issued booking cannot be canceled.");
+
+        this.state = State.of("Canceled");
     }
 
     public void confirm() {
@@ -66,7 +86,6 @@ public class Booking extends Entity<BookingId> {
     // endregion
 
     // region Getters and Setters
-
     public ArrivalDate getArrivalDate() {
         return arrivalDate;
     }

@@ -5,6 +5,7 @@ include ':shared:application'
 include ':admin:domain'
 include ':admin:application'
 include ':admin:mongo'
+include ':admin:mysql'
 include ':admin:main-service'
 include ':authentication:domain'
 include ':authentication:application'
@@ -17,6 +18,7 @@ project(':shared:application').projectDir = file('./src/shared/src/application')
 project(':admin:domain').projectDir = file('./src/admin/src/domain')
 project(':admin:application').projectDir = file('./src/admin/src/application')
 project(':admin:mongo').projectDir = file('./src/admin/src/infrastructure/driven-adapters/mongo')
+project(':admin:mysql').projectDir = file('./src/admin/src/infrastructure/driven-adapters/mysql')
 project(':admin:main-service').projectDir = file('./src/admin/src/infrastructure/driving-adapters/main-service')
 project(':authentication:domain').projectDir = file('./src/authentication/src/domain')
 project(':authentication:application').projectDir = file('./src/authentication/src/application')

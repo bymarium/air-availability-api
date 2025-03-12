@@ -12,6 +12,7 @@ public class AdminMapper {
                 admin.getIdentity().getValue(),
                 admin.getBookings().stream().map(booking ->
                         new AdminResponse.Booking(
+                                booking.getIdentity().getValue(),
                                 booking.getArrivalDate().getValue(),
                                 booking.getBookingCode().getValue(),
                                 booking.getCreationDate().getValue(),
