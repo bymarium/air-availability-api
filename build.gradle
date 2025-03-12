@@ -7,14 +7,22 @@ plugins {
 group = 'com.airsofkaapi'
 version = '1'
 
+
+
 allprojects {
     repositories {
         mavenCentral()
     }
 }
-
 subprojects {
     apply plugin: 'java'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'org.springframework.boot'
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok:1.18.26'
+        annotationProcessor 'org.projectlombok:lombok:1.18.26'
+        testCompileOnly 'org.projectlombok:lombok:1.18.26'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.26'
+    }
 }
