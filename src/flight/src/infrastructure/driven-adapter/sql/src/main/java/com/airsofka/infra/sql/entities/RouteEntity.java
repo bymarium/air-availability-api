@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 @Getter
 @Setter
@@ -19,11 +20,8 @@ import lombok.Setter;
 @Entity
 public class RouteEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false, unique = true)
-    private String aggregateId;
+    @Column(name = "id", nullable = false, updatable = false, unique = true)
+    private String id;
 
     @Column(nullable = false)
     private String origin;

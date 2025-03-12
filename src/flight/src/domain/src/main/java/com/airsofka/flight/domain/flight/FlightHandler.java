@@ -1,6 +1,5 @@
 package com.airsofka.flight.domain.flight;
 
-import com.airsofka.flight.domain.flight.events.AssignedRoute;
 import com.airsofka.flight.domain.flight.events.FlightCreated;
 import com.airsofka.flight.domain.flight.events.FlightRemoved;
 import com.airsofka.flight.domain.flight.events.RouteChanged;
@@ -27,7 +26,6 @@ public class FlightHandler extends DomainActionsContainer {
     public FlightHandler(Flight flight) {
         addAction(createFlight(flight));
         addAction(removeFlight(flight));
-        addAction(assingRoute(flight));
         addAction(changeRoute(flight));
         addAction(changedSeat(flight));
         addAction(changeStatusFlight(flight));
@@ -63,15 +61,6 @@ public class FlightHandler extends DomainActionsContainer {
         };
     }
 
-    public Consumer<? extends DomainEvent> assingRoute(Flight flight) {
-        return (AssignedRoute event) -> {
-            if (event.getRouteId() != null) {
-                flight.setRouteId(RouteId.of(event.getRouteId()));
-            }else {
-                throw new IllegalArgumentException("RouteId cannot be null.");
-            }
-        };
-    }
 
     public Consumer<? extends DomainEvent> changeRoute(Flight flight) {
         return (RouteChanged event) -> {

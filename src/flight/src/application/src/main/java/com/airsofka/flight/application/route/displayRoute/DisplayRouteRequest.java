@@ -1,17 +1,14 @@
 package com.airsofka.flight.application.route.displayRoute;
 
 import com.airsofka.shared.application.Request;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
 public class DisplayRouteRequest extends Request {
 
-    private Long id;
-
-    public DisplayRouteRequest(String aggregateId, Long id) {
+    @JsonCreator
+    public DisplayRouteRequest(String aggregateId) {
         super(aggregateId);
-        this.id = id;
     }
 
-    public Long getId() {
-        return id;
-    }
+
 }

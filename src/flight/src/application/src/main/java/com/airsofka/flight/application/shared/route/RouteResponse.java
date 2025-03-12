@@ -1,24 +1,26 @@
 package com.airsofka.flight.application.shared.route;
 
+import reactor.core.publisher.Mono;
+
 public class RouteResponse {
-    private String routeId;
+    private String aggregateId;
     private String origin;
     private Integer duration;
     private String destination;
 
-    public RouteResponse(String routeId, String origin, Integer duration, String destination) {
-        this.routeId = routeId;
+    public RouteResponse(String aggregateId, String origin, Integer duration, String destination) {
+        this.aggregateId = aggregateId;
         this.origin = origin;
         this.duration = duration;
         this.destination = destination;
     }
 
     public String getRouteId() {
-        return routeId;
+        return aggregateId;
     }
 
     public void setRouteId(String routeId) {
-        this.routeId = routeId;
+        this.aggregateId = routeId;
     }
 
     public String getOrigin() {
@@ -44,4 +46,5 @@ public class RouteResponse {
     public void setDestination(String destination) {
         this.destination = destination;
     }
+
 }
