@@ -3,10 +3,19 @@ package com.airsofkaapi.booking.domain.shared.dtos;
 import java.time.LocalTime;
 
 public class FlightDto {
+  private String relationalId;
   private Double price;
   private String category;
   private LocalTime startTime;
   private LocalTime endTime;
+
+  public String getRelationalId() {
+    return relationalId;
+  }
+
+  public void setRelationalId(String relationalId) {
+    this.relationalId = relationalId;
+  }
 
   public Double getPrice() {
     return price;

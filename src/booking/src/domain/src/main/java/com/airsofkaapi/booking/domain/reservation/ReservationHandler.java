@@ -6,25 +6,7 @@ import com.airsofkaapi.booking.domain.reservation.entities.Flight;
 import com.airsofkaapi.booking.domain.reservation.entities.Passenger;
 import com.airsofkaapi.booking.domain.reservation.entities.Payment;
 import com.airsofkaapi.booking.domain.reservation.events.CreatedReservation;
-import com.airsofkaapi.booking.domain.reservation.values.BillingAddress;
-import com.airsofkaapi.booking.domain.reservation.values.BirthdayDate;
-import com.airsofkaapi.booking.domain.reservation.values.Card;
-import com.airsofkaapi.booking.domain.reservation.values.Category;
-import com.airsofkaapi.booking.domain.reservation.values.DocumentNumber;
-import com.airsofkaapi.booking.domain.reservation.values.DocumentType;
-import com.airsofkaapi.booking.domain.reservation.values.Email;
-import com.airsofkaapi.booking.domain.reservation.values.Gender;
-import com.airsofkaapi.booking.domain.reservation.values.Hour;
-import com.airsofkaapi.booking.domain.reservation.values.Money;
-import com.airsofkaapi.booking.domain.reservation.values.PassengerType;
-import com.airsofkaapi.booking.domain.reservation.values.PaymentMethod;
-import com.airsofkaapi.booking.domain.reservation.values.Phone;
-import com.airsofkaapi.booking.domain.reservation.values.Pse;
-import com.airsofkaapi.booking.domain.reservation.values.RegularDate;
-import com.airsofkaapi.booking.domain.reservation.values.RegularName;
-import com.airsofkaapi.booking.domain.reservation.values.ReservationCode;
-import com.airsofkaapi.booking.domain.reservation.values.Seat;
-import com.airsofkaapi.booking.domain.reservation.values.State;
+import com.airsofkaapi.booking.domain.reservation.values.*;
 import com.airsofkaapi.booking.domain.shared.dtos.PassengerDto;
 
 import java.util.ArrayList;
@@ -46,6 +28,7 @@ public class ReservationHandler extends DomainActionsContainer {
       reservation.setReservationCode(ReservationCode.of(event.getReservationCode()));
       reservation.setCreationDate(RegularDate.of(event.getCreationDate()));
       Flight originFlight = new Flight(
+        RelationalId.of(event.getOriginFlight().getRelationalId()),
         Money.of(event.getOriginFlight().getPrice()),
         Category.of(event.getOriginFlight().getCategory()),
         Hour.of(event.getOriginFlight().getStartTime()),
@@ -53,6 +36,7 @@ public class ReservationHandler extends DomainActionsContainer {
       );
       reservation.setOriginFlight(originFlight);
       Flight destinationFlight = new Flight(
+        RelationalId.of(event.getDestinationFlight().getRelationalId()),
         Money.of(event.getDestinationFlight().getPrice()),
         Category.of(event.getDestinationFlight().getCategory()),
         Hour.of(event.getDestinationFlight().getStartTime()),

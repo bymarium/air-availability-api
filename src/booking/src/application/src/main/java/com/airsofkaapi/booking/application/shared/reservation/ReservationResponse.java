@@ -83,17 +83,23 @@ public class ReservationResponse {
 
   public static class Flight {
     private final String id;
+    private final String relationalId;
     private final Double price;
     private final String category;
     private final LocalTime startTime;
     private final LocalTime endTime;
 
-    public Flight(String id, Double price, String category, LocalTime startTime, LocalTime endTime) {
+    public Flight(String id, String relationalId, Double price, String category, LocalTime startTime, LocalTime endTime) {
       this.id = id;
+      this.relationalId = relationalId;
       this.price = price;
       this.category = category;
       this.startTime = startTime;
       this.endTime = endTime;
+    }
+
+    public String getRelationalId() {
+      return relationalId;
     }
 
     public String getId() {

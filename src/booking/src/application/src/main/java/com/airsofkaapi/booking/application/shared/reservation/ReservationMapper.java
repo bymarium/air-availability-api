@@ -16,6 +16,7 @@ public class ReservationMapper {
       reservation.getCreationDate().getValue(),
       new ReservationResponse.Flight(
         reservation.getOriginFlight().getIdentity().getValue(),
+        reservation.getOriginFlight().getRelationalId().getValue(),
         reservation.getOriginFlight().getPrice().getValue(),
         reservation.getOriginFlight().getCategory().getValue(),
         reservation.getOriginFlight().getStartTime().getValue(),
@@ -23,6 +24,7 @@ public class ReservationMapper {
       ),
       new ReservationResponse.Flight(
         reservation.getDestinationFlight().getIdentity().getValue(),
+        reservation.getDestinationFlight().getRelationalId().getValue(),
         reservation.getDestinationFlight().getPrice().getValue(),
         reservation.getDestinationFlight().getCategory().getValue(),
         reservation.getDestinationFlight().getStartTime().getValue(),

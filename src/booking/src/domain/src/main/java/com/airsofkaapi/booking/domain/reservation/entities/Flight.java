@@ -5,23 +5,27 @@ import com.airsofkaapi.booking.domain.reservation.values.Category;
 import com.airsofkaapi.booking.domain.reservation.values.FlightId;
 import com.airsofkaapi.booking.domain.reservation.values.Hour;
 import com.airsofkaapi.booking.domain.reservation.values.Money;
+import com.airsofkaapi.booking.domain.reservation.values.RelationalId;
 
 public class Flight extends Entity<FlightId> {
+  private RelationalId relationalId;
   private Money price;
   private Category category;
   private Hour startTime;
   private Hour endTime;
 
-  public Flight(FlightId identity, Money price, Category category, Hour startTime, Hour endTime) {
+  public Flight(FlightId identity, RelationalId relationalId, Money price, Category category, Hour startTime, Hour endTime) {
     super(identity);
+    this.relationalId = relationalId;
     this.price = price;
     this.category = category;
     this.startTime = startTime;
     this.endTime = endTime;
   }
 
-  public Flight(Money price, Category category, Hour startTime, Hour endTime) {
+  public Flight(RelationalId relationalId,Money price, Category category, Hour startTime, Hour endTime) {
     super(new FlightId());
+    this.relationalId = relationalId;
     this.price = price;
     this.category = category;
     this.startTime = startTime;
@@ -29,6 +33,15 @@ public class Flight extends Entity<FlightId> {
   }
 
   // region Getters and Setters
+
+  public RelationalId getRelationalId() {
+    return relationalId;
+  }
+
+  public void setRelationalId(RelationalId relationalId) {
+    this.relationalId = relationalId;
+  }
+
   public Money getPrice() {
     return price;
   }
