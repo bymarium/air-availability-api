@@ -23,3 +23,5 @@ project(':authentication:application').projectDir = file('./src/authentication/s
 project(':authentication:mongo').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/mongo')
 project(':authentication:mysql').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/mysql')
 project(':authentication:main-service').projectDir = file('./src/authentication/src/infrastructure/driving-adapters/main-service')
+
+
