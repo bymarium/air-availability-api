@@ -1,6 +1,7 @@
 package com.airsofka.infra.sql.adapters;
 
 import com.airsofka.flight.application.shared.flight.FlightListResponse;
+import com.airsofka.flight.application.shared.flight.SeatResponse;
 import com.airsofka.flight.domain.flight.Flight;
 import com.airsofka.flight.domain.flight.entities.Seat;
 import com.airsofka.flight.domain.flight.values.IsAvailable;
@@ -119,5 +120,19 @@ public class FlightAdapter {
                 entity.getPrice().getPassengerPrices().get(4).getTax(),
                 entity.getPrice().getPassengerPrices().get(4).getTotalPrice()
         );
+    }
+
+    public static SeatResponse toSeatResponse(FlightEntity entity) {
+        List<SeatResponse.SeatInfo> seats = entity.getSeats().stream().map(
+                seat -> {
+                    return new SeatResponse.SeatInfo(
+                            seat.getSeatId().toString(),
+                            seat.getSeatNumber(),
+                            seat.getSeatClass(),
+                            seat.getIsAvailable(),
+                            seat.getPriceSeat()
+                    );
+                }).collect(Collectors.toList());
+        return new SeatResponse(seats);
     }
 }
