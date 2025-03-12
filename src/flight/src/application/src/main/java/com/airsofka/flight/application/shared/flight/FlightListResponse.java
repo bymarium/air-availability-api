@@ -1,10 +1,14 @@
 package com.airsofka.flight.application.shared.flight;
 
+import lombok.Getter;
+
 import java.util.Date;
 import java.util.List;
 
+@Getter
 public class FlightListResponse {
-    private final String flightId;
+  // Getters
+  private final String flightId;
     private final String flightNumber;
     private final String flightModel;
     private final String routeId;
@@ -60,105 +64,9 @@ public class FlightListResponse {
         this.tax = tax;
     }
 
-    // Getters
-    public String getFlightId() {
-        return flightId;
-    }
 
-    public String getFlightNumber() {
-        return flightNumber;
-    }
-
-    public String getRouteId() {
-        return routeId;
-    }
-
-    public Date getDepartureTime() {
-        return departureTime;
-    }
-
-    public Date getArrivalTime() {
-        return arrivalTime;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-
-    public Integer getSeats() {
-        return seats;
-    }
-
-    public Double getTax() {
-        return tax;
-    }
-
-    public String getFlightModel() {
-        return flightModel;
-    }
-
-    public Double getBusinessFullPrice() {
-        return businessFullPrice;
-    }
-
-    public Double getTaxBusinessFullPrice() {
-        return taxBusinessFullPrice;
-    }
-
-    public Double getTotalPriceBusinessFullPrice() {
-        return totalPriceBusinessFullPrice;
-    }
-
-    public Double getBusinessBasicPrice() {
-        return businessBasicPrice;
-    }
-
-    public Double getTaxBusinessBasicPrice() {
-        return taxBusinessBasicPrice;
-    }
-
-    public Double getTotalPriceBusinessBasicPrice() {
-        return totalPriceBusinessBasicPrice;
-    }
-
-    public Double getEconomyFullPrice() {
-        return economyFullPrice;
-    }
-
-    public Double getTaxEconomyFullPrice() {
-        return taxEconomyFullPrice;
-    }
-
-    public Double getTotalPriceEconomyFullPrice() {
-        return totalPriceEconomyFullPrice;
-    }
-
-    public Double getEconomyBasicPrice() {
-        return economyBasicPrice;
-    }
-
-    public Double getTaxEconomyBasicPrice() {
-        return taxEconomyBasicPrice;
-    }
-
-    public Double getTotalPriceEconomyBasicPrice() {
-        return totalPriceEconomyBasicPrice;
-    }
-
-    public Double getEconomyClassicPrice() {
-        return economyClassicPrice;
-    }
-
-    public Double getTaxEconomyClassicPrice() {
-        return taxEconomyClassicPrice;
-    }
-
-    public Double getTotalPriceEconomyClassicPrice() {
-        return totalPriceEconomyClassicPrice;
-    }
-
-    //#region PassengerPriceInfo
+  //#region PassengerPriceInfo
+    @Getter
     public static class PricesInfo {
 
         private final Double standardPrice;
@@ -176,20 +84,10 @@ public class FlightListResponse {
             return standardPrice;
         }
 
-        public Double getStandardPrice() {
-            return standardPrice;
-        }
-
-        public List<PricePassengerInfo> getPassengerPrices() {
-            return passengerPrices;
-        }
-
-        public Double getTax() {
-            return tax;
-        }
-    }
+  }
 
 
+    @Getter
     public static class PricePassengerInfo {
         private final String type;
         private final Double price;
@@ -203,21 +101,6 @@ public class FlightListResponse {
             this.totalPrice = totalPrice;
         }   // Getters
 
-        public Double getPrice() {
-            return price;
-        }
-
-        public Double getTax() {
-            return tax;
-        }
-
-        public Double getTotalPrice() {
-            return totalPrice;
-        }
-
-        public String getType() {
-            return type;
-        }
     }
             //#endregion
 
