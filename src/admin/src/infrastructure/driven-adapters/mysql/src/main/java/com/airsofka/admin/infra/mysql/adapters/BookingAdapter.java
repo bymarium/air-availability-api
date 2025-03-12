@@ -8,7 +8,7 @@ public class BookingAdapter {
     public static BookingEntity toEntity(Booking booking){
         BookingEntity entity = new BookingEntity();
 
-        entity.setId(booking.getIdentity());
+        entity.setId(booking.getIdentity().getValue());
         entity.setState(booking.getState().getValue());
         entity.setDestination(booking.getDestination().getValue());
         entity.setOrigin(booking.getOrigin().getValue());

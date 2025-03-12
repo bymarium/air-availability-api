@@ -8,7 +8,7 @@ public abstract class Entity<I extends Identity> {
     this.identity = identity;
   }
 
-  public String getIdentity() {
+  public I getIdentity() {
     return identity;
   }
 }

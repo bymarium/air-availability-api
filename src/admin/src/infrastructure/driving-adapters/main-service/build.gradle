@@ -6,4 +6,8 @@ dependencies {
     implementation(project(':admin:mysql'))
     implementation(project(':admin:application'))
     implementation(project(':shared:application'))
+
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 }
