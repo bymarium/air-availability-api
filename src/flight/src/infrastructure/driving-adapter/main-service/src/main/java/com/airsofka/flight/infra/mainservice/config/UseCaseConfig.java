@@ -63,5 +63,5 @@ public class UseCaseConfig {
     public UpdateRouteUseCase updateRouteUseCase(MongoAdapter adapter, MySQLAdapterRoute mysqlAdapter){ return new UpdateRouteUseCase(adapter, mysqlAdapter); }
 
     @Bean
-    public DisplayRouteUseCase displayRouteUseCase(MongoAdapter adapter, MySQLAdapterRoute mysqlAdapter){ return new DisplayRouteUseCase(adapter, mysqlAdapter); }
+    public DisplayRouteUseCase displayRouteUseCase(MongoAdapter adapter, MySQLAdapterRoute mysqlAdapter){ return new DisplayRouteUseCase(mysqlAdapter); }
 }

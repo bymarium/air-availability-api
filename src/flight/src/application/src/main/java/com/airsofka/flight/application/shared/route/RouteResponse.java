@@ -1,5 +1,7 @@
 package com.airsofka.flight.application.shared.route;
 
+import reactor.core.publisher.Mono;
+
 public class RouteResponse {
     private String routeId;
     private String origin;
@@ -44,4 +46,5 @@ public class RouteResponse {
     public void setDestination(String destination) {
         this.destination = destination;
     }
+
 }

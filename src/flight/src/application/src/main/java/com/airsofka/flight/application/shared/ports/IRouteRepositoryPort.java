@@ -9,9 +9,9 @@ import java.util.List;
 public interface IRouteRepositoryPort {
     void saveRoute(Route route);
 
-    void updateRoute(Long id, String origin, Integer duration, String destination);
+    void updateRoute(String id, String origin, Integer duration, String destination);
 
-    Mono<Route> findById(Long id);
+    RouteResponse findById(String id);
 
-    void removeRoute(Long id);
+    void removeRoute(String id);
 }

@@ -16,7 +16,7 @@ public class DisplayRouteController {
     }
 
     @PostMapping
-    public Mono<RouteResponse> getRouteById(@RequestBody DisplayRouteRequest request) {
+    public RouteResponse getRouteById(@RequestBody DisplayRouteRequest request) {
         return displayRouteUseCase.execute(request);
     }
 }
