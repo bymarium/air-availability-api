@@ -53,6 +53,7 @@ public class Booking extends Entity<BookingId> {
     public Booking() {
         super(new BookingId());
     }
+
     // endregion
 
     // region Public Methods
