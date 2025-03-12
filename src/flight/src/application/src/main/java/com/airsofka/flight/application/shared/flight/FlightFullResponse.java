@@ -15,8 +15,9 @@ public class FlightFullResponse {
   private final String arrivalTime;
   private final TaxesInfo tax;
   private final PricesInfo prices;
+  private final TotalPricesInfo totalPricesInfo;
 
-  public FlightFullResponse(String flightId, String flightNumber, String aircraftModel, String duration, String operatingAirline, String origin, String destination, String departureTime, String arrivalTime, TaxesInfo tax, PricesInfo prices) {
+  public FlightFullResponse(String flightId, String flightNumber, String aircraftModel, String duration, String operatingAirline, String origin, String destination, String departureTime, String arrivalTime, TaxesInfo tax, PricesInfo prices, TotalPricesInfo totalPricesInfo) {
     this.flightId = flightId;
     this.flightNumber = flightNumber;
     this.aircraftModel = aircraftModel;
@@ -28,6 +29,7 @@ public class FlightFullResponse {
     this.arrivalTime = arrivalTime;
     this.tax = tax;
     this.prices = prices;
+    this.totalPricesInfo = totalPricesInfo;
   }
 
   @Getter
@@ -61,6 +63,23 @@ public class FlightFullResponse {
       this.favorableTax = favorableTax;
       this.executiveTax = executiveTax;
       this.executiveFullTax = executiveFullTax;
+    }
+  }
+
+  @Getter
+  public static class TotalPricesInfo{
+    private final double standardPriceTotal;
+    private final double economicPriceTotal;
+    private final double favorablePriceTotal;
+    private final double executiveTotalPrice;
+    private final double executiveFullTotalPrice;
+
+    public TotalPricesInfo(double standardPriceTotal, double economicPriceTotal, double favorablePriceTotal, double executiveTotalPrice, double executiveFullTotalPrice) {
+      this.standardPriceTotal = standardPriceTotal;
+      this.economicPriceTotal = economicPriceTotal;
+      this.favorablePriceTotal = favorablePriceTotal;
+      this.executiveTotalPrice = executiveTotalPrice;
+      this.executiveFullTotalPrice = executiveFullTotalPrice;
     }
   }
 }

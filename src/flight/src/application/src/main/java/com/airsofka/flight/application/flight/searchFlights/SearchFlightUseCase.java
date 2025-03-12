@@ -1,18 +1,18 @@
 package com.airsofka.flight.application.flight.searchFlights;
 
 import com.airsofka.flight.application.shared.flight.FlightFullMapper;
-import com.airsofka.flight.application.shared.flight.FlightResponse;
+import com.airsofka.flight.application.shared.flight.FlightFullResponse;
 import com.airsofka.flight.application.shared.flight.FlightListResponse;
 import com.airsofka.flight.application.shared.ports.IFlightRepositoryPort;
 import com.airsofka.flight.application.shared.ports.IRouteRepositoryPort;
-import com.airsofka.infra.sql.entities.RouteEntity;
+import com.airsofka.flight.domain.route.Route;
 import com.airsofka.shared.application.ICommandUseCase;
 import reactor.core.publisher.Flux;
 
+import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
 
-public class SearchFlightUseCase implements ICommandUseCase<SearchFlightRequest, Flux<FlightResponse>> {
+public class SearchFlightUseCase implements ICommandUseCase<SearchFlightRequest, Flux<FlightFullResponse>> {
 
   private final IFlightRepositoryPort flightRepository;
   private final IRouteRepositoryPort routeRepository;
@@ -22,20 +22,21 @@ public class SearchFlightUseCase implements ICommandUseCase<SearchFlightRequest,
     this.routeRepository = routeRepository;
   }
 
-  private record FlightWrapper(FlightListResponse flight, RouteEntity routeEntity) { }
+  private record FlightWrapper(FlightListResponse flight, Route route) { }
 
   @Override
-  public Flux<FlightResponse> execute(SearchFlightRequest request) {
+  public Flux<FlightFullResponse> execute(SearchFlightRequest request) {
+    LocalDate requestDate = request.getDate().toLocalDate();
+
     return Flux.fromIterable(flightRepository.findAll())
       .flatMap(flight ->
-        routeRepository.findById(flight.getRouteId())
+        routeRepository.findById(Long.parseLong(flight.getRouteId()))
           .filter(routeEntity ->
-            routeEntity.getOrigin().equalsIgnoreCase(request.getOrigin()) &&
-              routeEntity.getDestination().equalsIgnoreCase(request.getDestination())
+            routeEntity.getOrigin().getValue().equals(request.getOrigin()) &&
+              routeEntity.getDestination().getValue().equals(request.getDestination())
           )
           .map(routeEntity -> new FlightWrapper(flight, routeEntity))
       )
-      .cast(FlightWrapper.class)
       .filter(wrapper -> {
         int requestedPassengers =
           (request.getPassengers().getAdults() != null ? request.getPassengers().getAdults() : 0) +
@@ -45,11 +46,14 @@ public class SearchFlightUseCase implements ICommandUseCase<SearchFlightRequest,
         return availableSeats != null && availableSeats >= requestedPassengers;
       })
       .filter(wrapper -> {
-        Date requestedDeparture = Date.from(request.getDates().getDeparture().atZone(ZoneId.systemDefault()).toInstant());
-        Date requestedReturn = Date.from(request.getDates().getReturnDate().atZone(ZoneId.systemDefault()).toInstant());
-        return wrapper.flight().getDepartureTime().equals(requestedDeparture)
-          && wrapper.flight().getArrivalTime().equals(requestedReturn);
+
+        LocalDate flightDate = wrapper.flight().getDepartureTime().toInstant()
+          .atZone(ZoneId.systemDefault())
+          .toLocalDate();
+        boolean dateMatches = flightDate.equals(requestDate);
+        System.out.println("Flight date: " + flightDate + ", Request date: " + requestDate + ", Matches: " + dateMatches);
+        return flightDate.equals(requestDate);
       })
-      .map(wrapper -> FlightFullMapper.mapToResponse(wrapper.flight(), wrapper.routeEntity()));
+      .map(wrapper -> FlightFullMapper.mapToResponse(wrapper.flight(), wrapper.route()));
   }
 }

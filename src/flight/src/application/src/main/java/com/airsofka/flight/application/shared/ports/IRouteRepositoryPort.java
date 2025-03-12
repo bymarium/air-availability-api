@@ -14,4 +14,6 @@ public interface IRouteRepositoryPort {
     Mono<Route> findById(Long id);
 
     void removeRoute(Long id);
+
+    Mono<Route> findByAggregateId(String aggregateId);
 }

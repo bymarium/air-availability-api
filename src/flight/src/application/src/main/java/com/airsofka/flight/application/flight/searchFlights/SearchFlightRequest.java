@@ -21,16 +21,16 @@ public class SearchFlightRequest extends Request {
   @NotBlank(message = "Destination is required")
   private String destination;
 
-  @NotNull(message = "Dates information is required")
+  @NotNull(message = "Date information is required")
   @Valid
-  private Dates dates;
+  private LocalDateTime date;
 
-  public SearchFlightRequest(String aggregateId, Passengers passengers, String origin, String destination, Dates dates) {
+  public SearchFlightRequest(String aggregateId, Passengers passengers, String origin, String destination, LocalDateTime dates) {
     super(aggregateId);
     this.passengers = passengers;
     this.origin = origin;
     this.destination = destination;
-    this.dates = dates;
+    this.date = dates;
   }
 
   @Getter
@@ -46,26 +46,7 @@ public class SearchFlightRequest extends Request {
       this.children = children;
       this.infants = infants;
     }
-
     public Passengers(){
-    }
-  }
-
-  @Getter
-  @Setter
-  public static class Dates {
-    @NotNull(message = "Departure date is required")
-    private LocalDateTime departure;
-    @NotNull(message = "Return date is required")
-    private LocalDateTime returnDate;
-
-    public Dates(LocalDateTime departure, LocalDateTime returnDate) {
-      this.departure = departure;
-      this.returnDate = returnDate;
-    }
-
-    public Dates(){
-
     }
   }
 }

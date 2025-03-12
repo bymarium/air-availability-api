@@ -9,24 +9,15 @@ import com.airsofka.shared.application.ICommandUseCase;
 import reactor.core.publisher.Mono;
 
 public class DisplayRouteUseCase implements ICommandUseCase<DisplayRouteRequest, Mono<RouteResponse>> {
-    private final IEventsRepositoryPort repository;
     private final IRouteRepositoryPort routeRepositoryPort;
 
-    public DisplayRouteUseCase(IEventsRepositoryPort repository, IRouteRepositoryPort routeRepositoryPort) {
-        this.repository = repository;
+    public DisplayRouteUseCase(IRouteRepositoryPort routeRepositoryPort) {
         this.routeRepositoryPort = routeRepositoryPort;
     }
 
-    @Override
-    public Mono<RouteResponse> execute(DisplayRouteRequest request) {
-        return repository.findEventsByAggregateId(request.getAggregateId())
-                .collectList()
-                .flatMap(events -> {
-                    Route route = Route.from(request.getAggregateId(), events);
-                    route.getUncommittedEvents().forEach(repository::save);
-                    route.markEventsAsCommitted();
-                    return routeRepositoryPort.findById(request.getId())
-                            .map(RouteMapper::mapToResponse);
-                });
-    }
+  @Override
+  public Mono<RouteResponse> execute(DisplayRouteRequest request) {
+    return routeRepositoryPort.findById(request.getId())
+            .map(RouteMapper::mapToResponse);
+  }
 }

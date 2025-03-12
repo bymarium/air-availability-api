@@ -2,6 +2,7 @@ package com.airsofka.flight.infra.mainservice.controller;
 
 import com.airsofka.flight.application.flight.searchFlights.SearchFlightUseCase;
 import com.airsofka.flight.application.flight.searchFlights.SearchFlightRequest;
+import com.airsofka.flight.application.shared.flight.FlightFullResponse;
 import com.airsofka.flight.application.shared.flight.FlightResponse;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,7 @@ public class SearchFlightController {
   }
 
   @PostMapping
-  public Flux<FlightResponse> searchFlight(@Valid @RequestBody SearchFlightRequest request) {
+  public Flux<FlightFullResponse> searchFlight(@Valid @RequestBody SearchFlightRequest request) {
     return searchFlightUseCase.execute(request);
   }
 }

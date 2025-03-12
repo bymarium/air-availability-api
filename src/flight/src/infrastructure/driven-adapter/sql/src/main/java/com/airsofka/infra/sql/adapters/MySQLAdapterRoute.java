@@ -52,4 +52,13 @@ public class MySQLAdapterRoute implements IRouteRepositoryPort {
     public void removeRoute(Long id) {
         routeRepository.deleteById(id);
     }
+
+    @Override
+    public Mono<Route> findByAggregateId(String aggregateId) {
+        return Mono.fromCallable(() -> {
+            RouteEntity route = routeRepository.findByAggregateId(aggregateId)
+              .orElseThrow(() -> new RuntimeException("Route not found"));
+            return RouteAdapter.toDomain(route);
+        });
+    }
 }

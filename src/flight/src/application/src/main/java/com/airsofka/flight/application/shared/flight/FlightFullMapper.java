@@ -1,12 +1,12 @@
 package com.airsofka.flight.application.shared.flight;
-import com.airsofka.infra.sql.entities.RouteEntity;
+import com.airsofka.flight.domain.route.Route;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class FlightFullMapper {
 
-  public static FlightFullResponse mapToResponse(FlightListResponse flight, RouteEntity route) {
+  public static FlightFullResponse mapToResponse(FlightListResponse flight, Route route) {
     String duration = calculateDuration(flight.getDepartureTime(), flight.getArrivalTime());
     String operatingAirline = "Copa Airlines";
 
@@ -22,14 +22,20 @@ public class FlightFullMapper {
     double executiveTax = flight.getTaxBusinessBasicPrice() != null ? flight.getTaxBusinessBasicPrice() : 0.0;
     double executiveFullTax = flight.getTaxBusinessFullPrice() != null ? flight.getTaxBusinessFullPrice() : 0.0;
 
+    double standardTotalPrice = flight.getTotalPriceEconomyBasicPrice() !=null ? flight.getTotalPriceEconomyBasicPrice(): 0.0;
+    double economicTotalPrice = flight.getTotalPriceEconomyClassicPrice() !=null ? flight.getTotalPriceEconomyClassicPrice() : 0.0;
+    double favorableTotalPrice = flight.getTotalPriceEconomyFullPrice() !=null ? flight.getTotalPriceEconomyFullPrice() : 0.0;
+    double executiveTotal = flight.getTotalPriceBusinessBasicPrice() !=null ? flight.getTotalPriceBusinessBasicPrice() :0.0;
+    double executiveFullTotal = flight.getTotalPriceBusinessFullPrice() != null ?flight.getTotalPriceBusinessFullPrice() :0.0;
+
     return new FlightFullResponse(
       flight.getFlightId(),
       flight.getFlightNumber(),
       flight.getFlightModel(),
       duration,
       operatingAirline,
-      route.getOrigin(),
-      route.getDestination(),
+      route.getOrigin().getValue(),
+      route.getDestination().getValue(),
       flight.getDepartureTime().toString(),
       flight.getArrivalTime().toString(),
       new FlightFullResponse.TaxesInfo(
@@ -45,6 +51,13 @@ public class FlightFullMapper {
         favorablePrice,
         executivePrice,
         executiveFullPrice
+      ),
+      new FlightFullResponse.TotalPricesInfo(
+        standardTotalPrice,
+        economicTotalPrice,
+        favorableTotalPrice,
+        executiveTotal,
+        executiveFullTotal
       )
     );
   }
