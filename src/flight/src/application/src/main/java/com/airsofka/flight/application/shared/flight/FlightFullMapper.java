@@ -1,12 +1,11 @@
 package com.airsofka.flight.application.shared.flight;
-import com.airsofka.flight.domain.route.Route;
-
+import com.airsofka.flight.application.shared.route.RouteResponse;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class FlightFullMapper {
 
-  public static FlightFullResponse mapToResponse(FlightListResponse flight, Route route) {
+  public static FlightFullResponse mapToResponse(FlightListResponse flight, RouteResponse route) {
     String duration = calculateDuration(flight.getDepartureTime(), flight.getArrivalTime());
     String operatingAirline = "Copa Airlines";
 
@@ -34,8 +33,8 @@ public class FlightFullMapper {
       flight.getFlightModel(),
       duration,
       operatingAirline,
-      route.getOrigin().getValue(),
-      route.getDestination().getValue(),
+      route.getOrigin(),
+      route.getDestination(),
       flight.getDepartureTime().toString(),
       flight.getArrivalTime().toString(),
       new FlightFullResponse.TaxesInfo(

@@ -5,9 +5,11 @@ import com.airsofka.flight.application.shared.flight.FlightFullResponse;
 import com.airsofka.flight.application.shared.flight.FlightListResponse;
 import com.airsofka.flight.application.shared.ports.IFlightRepositoryPort;
 import com.airsofka.flight.application.shared.ports.IRouteRepositoryPort;
+import com.airsofka.flight.application.shared.route.RouteResponse;
 import com.airsofka.flight.domain.route.Route;
 import com.airsofka.shared.application.ICommandUseCase;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -22,7 +24,7 @@ public class SearchFlightUseCase implements ICommandUseCase<SearchFlightRequest,
     this.routeRepository = routeRepository;
   }
 
-  private record FlightWrapper(FlightListResponse flight, Route route) { }
+  private record FlightWrapper(FlightListResponse flight, RouteResponse route) { }
 
   @Override
   public Flux<FlightFullResponse> execute(SearchFlightRequest request) {
@@ -30,10 +32,10 @@ public class SearchFlightUseCase implements ICommandUseCase<SearchFlightRequest,
 
     return Flux.fromIterable(flightRepository.findAll())
       .flatMap(flight ->
-        routeRepository.findById(Long.parseLong(flight.getRouteId()))
+        Mono.justOrEmpty(routeRepository.findById(flight.getRouteId()))
           .filter(routeEntity ->
-            routeEntity.getOrigin().getValue().equals(request.getOrigin()) &&
-              routeEntity.getDestination().getValue().equals(request.getDestination())
+            routeEntity.getOrigin().equals(request.getOrigin()) &&
+              routeEntity.getDestination().equals(request.getDestination())
           )
           .map(routeEntity -> new FlightWrapper(flight, routeEntity))
       )
@@ -46,7 +48,6 @@ public class SearchFlightUseCase implements ICommandUseCase<SearchFlightRequest,
         return availableSeats != null && availableSeats >= requestedPassengers;
       })
       .filter(wrapper -> {
-
         LocalDate flightDate = wrapper.flight().getDepartureTime().toInstant()
           .atZone(ZoneId.systemDefault())
           .toLocalDate();

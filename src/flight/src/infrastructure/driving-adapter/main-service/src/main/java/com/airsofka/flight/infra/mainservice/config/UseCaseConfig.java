@@ -6,6 +6,7 @@ import com.airsofka.flight.application.flight.changeStatus.ChangeStatusUseCase;
 import com.airsofka.flight.application.flight.createFlight.CreateFlightUseCase;
 import com.airsofka.flight.application.flight.getFlights.GetFlightUseCase;
 import com.airsofka.flight.application.flight.removeFlight.RemoveFlightUseCase;
+import com.airsofka.flight.application.flight.searchFlights.SearchFlightUseCase;
 import com.airsofka.flight.application.flight.updateFlight.UpdateFlightUseCase;
 import com.airsofka.flight.application.route.deleteRoute.DeleteRouteUseCase;
 //import com.airsofka.flight.application.route.displayRoute.DisplayRouteUseCase;
@@ -68,4 +69,7 @@ public class UseCaseConfig {
 
     @Bean
     public ListRoutesUseCase listRoutesUseCase(MySQLAdapterRoute mysqlAdapter){ return new ListRoutesUseCase(mysqlAdapter); }
+
+    @Bean
+    public SearchFlightUseCase searchFlightUseCase(MySQLAdapter mysqlAdapter, MySQLAdapterRoute mysqlAdapterRoute){ return new SearchFlightUseCase(mysqlAdapter, mysqlAdapterRoute); }
 }
