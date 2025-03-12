@@ -3,6 +3,8 @@ package com.airsofka.authentication.infra.jwt.adapters;
 import com.airsofka.authentication.application.shared.ports.IJwtServicePort;
 import com.airsofka.authentication.infra.jwt.utils.JwtUtil;
 
+import java.util.Map;
+
 public class JwtAdapter implements IJwtServicePort {
   private final JwtUtil jwtUtil;
 
@@ -11,8 +13,13 @@ public class JwtAdapter implements IJwtServicePort {
   }
 
   @Override
-  public String createToken(String id, String subject) {
-    return jwtUtil.create(id, subject);
+  public String createToken(String id, String subject, Map<String, Object> claims) {
+    return jwtUtil.create(id, subject, claims);
+  }
+
+  @Override
+  public boolean validateToken(String token) {
+    return jwtUtil.validateToken(token);
   }
 
   @Override

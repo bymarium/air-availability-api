@@ -1,12 +1,12 @@
-package com.airsofka.authentication.application.authenticateuser;
+package com.airsofka.authentication.application.loginuser;
 
 import com.airsofka.shared.application.Request;
 
-public class AuthenticateUserRequest extends Request {
+public class LoginUserRequest extends Request {
   private final String email;
   private final String password;
 
-  public AuthenticateUserRequest(String aggregateId, String email, String password) {
+  public LoginUserRequest(String aggregateId, String email, String password) {
     super(aggregateId);
     this.email = email;
     this.password = password;

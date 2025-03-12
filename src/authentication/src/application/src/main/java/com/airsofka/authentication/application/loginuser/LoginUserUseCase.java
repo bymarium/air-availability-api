@@ -1,4 +1,4 @@
-package com.airsofka.authentication.application.authenticateuser;
+package com.airsofka.authentication.application.loginuser;
 
 import com.airsofka.authentication.application.shared.ports.IEventsRepositoryPort;
 import com.airsofka.authentication.application.shared.ports.IJwtServicePort;
@@ -9,20 +9,22 @@ import com.airsofka.shared.domain.generic.DomainEvent;
 import reactor.core.publisher.Mono;
 
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
-public class AuthenticateUserUseCase implements ICommandUseCase<AuthenticateUserRequest, Mono<AuthenticateUserResponse>> {
+public class LoginUserUseCase implements ICommandUseCase<LoginUserRequest, Mono<LoginUserResponse>> {
   private final IEventsRepositoryPort repository;
   private final IUserRepositoryPort userRepository;
   private final IJwtServicePort jwtService;
 
-  public AuthenticateUserUseCase(IEventsRepositoryPort repository, IUserRepositoryPort userRepository, IJwtServicePort jwtService) {
+  public LoginUserUseCase(IEventsRepositoryPort repository, IUserRepositoryPort userRepository, IJwtServicePort jwtService) {
     this.repository = repository;
     this.userRepository = userRepository;
     this.jwtService = jwtService;
   }
 
   @Override
-  public Mono<AuthenticateUserResponse> execute(AuthenticateUserRequest request) {
+  public Mono<LoginUserResponse> execute(LoginUserRequest request) {
     return repository.findEventsByAggregateId(request.getAggregateId())
       .collectList()
       .map(events -> {
@@ -35,8 +37,12 @@ public class AuthenticateUserUseCase implements ICommandUseCase<AuthenticateUser
 
         userRepository.save(user);
 
-        String token = jwtService.createToken(user.getIdentity().getValue(), user.getEmail().getValue());
-        return new AuthenticateUserResponse(user.getEmail().getValue(), user.getIsAuthenticated().getValue(), token);
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("isFrequent", user.getIsFrequent().getValue());
+        claims.put("role", user.getRole().getValue());
+
+        String token = jwtService.createToken(user.getIdentity().getValue(), user.getEmail().getValue(), claims);
+        return new LoginUserResponse(token);
       });
   }
 }

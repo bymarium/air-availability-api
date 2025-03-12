@@ -21,7 +21,7 @@ import com.airsofka.shared.domain.generic.DomainEvent;
 
 import java.util.List;
 
-public class User extends AggregateRoot<UserId> {
+public class User extends AggregateRoot<UserId>{
   private Name name;
   private Email email;
   private Password password;
@@ -38,12 +38,16 @@ public class User extends AggregateRoot<UserId> {
   // region Constructors
   public User() {
     super(new UserId());
+    subscribe(new UserHandler(this));
     role = Role.of(RoleEnum.USER.name());
+    state = State.of(StateEnum.ACTIVE.name());
     isFrequent = IsFrequent.of(false);
+    isAuthenticated = IsAuthenticated.of(false);
   }
 
   private User(UserId identity) {
     super(identity);
+    subscribe(new UserHandler(this));
   }
   // endregion
 
@@ -156,6 +160,12 @@ public class User extends AggregateRoot<UserId> {
   public void validateStatedUser() {
     if(state.getValue().equals(StateEnum.INACTIVE.name())) {
       throw new IllegalStateException("Inactive user cannot be authenticated");
+    }
+  }
+
+  public void validateAlreadyAuthenticated() {
+    if(isAuthenticated.getValue()) {
+      throw new IllegalStateException("User is already authenticated");
     }
   }
 

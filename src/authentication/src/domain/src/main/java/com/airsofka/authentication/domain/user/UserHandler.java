@@ -14,10 +14,9 @@ public class UserHandler extends DomainActionsContainer {
   public Consumer<? extends DomainEvent> authenticateUser(User user) {
     return (AuthenticatedUser event) -> {
       user.validateStatedUser();
-      if(user.getIsAuthenticated().getValue()) {
-        throw new IllegalStateException("User is already authenticated");
-      }
-      if(!user.getEmail().getValue().equals(event.getEmail()) && user.getPassword().getValue().equals(event.getPassword())) {
+      user.validateAlreadyAuthenticated();
+
+      if(!user.getEmail().getValue().equals(event.getEmail()) || !user.getPassword().getValue().equals(event.getPassword())) {
         throw new IllegalStateException("Invalid email or password");
       }
       user.toggleIsAuthenticated();

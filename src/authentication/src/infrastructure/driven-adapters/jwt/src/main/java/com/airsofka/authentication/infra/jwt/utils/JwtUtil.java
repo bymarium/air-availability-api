@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Date;
+import java.util.Map;
 
 @Component
 public class JwtUtil {
@@ -26,14 +27,15 @@ public class JwtUtil {
 
   private final Logger log = LoggerFactory.getLogger(JwtUtil.class);
 
-  public String create(String id, String subject) {
+  public String create(String id, String subject, Map<String, Object> claims) {
     long nowMillis = System.currentTimeMillis();
     Date now = new Date(nowMillis);
 
     JwtBuilder builder = Jwts.builder()
       .setId(id)
-      .setIssuedAt(now)
       .setSubject(subject)
+      .setClaims(claims)
+      .setIssuedAt(now)
       .setIssuer(issuer)
       .signWith(getSigningKey(), SignatureAlgorithm.HS256);
 
@@ -50,6 +52,18 @@ public class JwtUtil {
     return Keys.hmacShaKeyFor(keyBytes);
   }
 
+  public boolean validateToken(String token) {
+    try {
+      Jwts.parserBuilder()
+        .setSigningKey(getSigningKey())
+        .build()
+        .parseClaimsJws(token);
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
+  }
+
   public String getValue(String jwt) {
     Claims claims = Jwts.parserBuilder()
       .setSigningKey(getSigningKey())
@@ -58,6 +72,14 @@ public class JwtUtil {
       .getBody();
 
     return claims.getSubject();
+  }
+
+  public Map<String, Object> getClaims(String jwt) {
+    return Jwts.parserBuilder()
+      .setSigningKey(getSigningKey())
+      .build()
+      .parseClaimsJws(jwt)
+      .getBody();
   }
 
   public String getKey(String jwt) {
