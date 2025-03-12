@@ -33,8 +33,6 @@ public class CancelBookingUseCase implements ICommandUseCase<CancelBookingReques
                     );
 
                     Booking booking = new Booking();
-//                    booking.setId(request.getId());
-//                    booking.setBookingCode(request.getBookingCode());
                     booking.setState(State.of("CANCELED"));
 
                     bookingRepository.updateStatus(booking);
