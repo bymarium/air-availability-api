@@ -1,18 +1,13 @@
 package com.airsofka.flight.application.route.deleteRoute;
 
 import com.airsofka.shared.application.Request;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
 public class DeleteRouteRequest extends Request {
 
-    private Long id;
-
-    public DeleteRouteRequest(String aggregateId, Long id) {
+    @JsonCreator
+    public DeleteRouteRequest(String aggregateId) {
         super(aggregateId);
-        this.id = id;
-
     }
 
-    public Long getId() {
-        return id;
-    }
 }
