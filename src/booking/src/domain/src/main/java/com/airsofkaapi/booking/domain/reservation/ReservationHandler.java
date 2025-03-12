@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 
 public class ReservationHandler extends DomainActionsContainer {
   public ReservationHandler(Reservation reservation) {
-    add(createReservation(reservation));
+    addAction(createReservation(reservation));
   }
 
   public Consumer<? extends DomainEvent> createReservation(Reservation reservation){

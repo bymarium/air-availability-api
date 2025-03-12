@@ -6,6 +6,11 @@ include ':booking:domain'
 include ':booking:application'
 include ':booking:mongo'
 include ':booking:main-service'
+include ':authentication:domain'
+include ':authentication:application'
+include ':authentication:mongo'
+include ':authentication:mysql'
+include ':authentication:main-service'
 
 project(':shared:domain').projectDir = file('./src/shared/src/domain')
 project(':shared:application').projectDir = file('./src/shared/src/application')
@@ -13,3 +18,8 @@ project(':booking:domain').projectDir = file('./src/booking/src/domain')
 project(':booking:application').projectDir = file('./src/booking/src/application')
 project(':booking:mongo').projectDir = file('./src/booking/src/infrastructure/driven-adapters/mongo')
 project(':booking:main-service').projectDir = file('./src/booking/src/infrastructure/driving-adapters/main-service')
+project(':authentication:domain').projectDir = file('./src/authentication/src/domain')
+project(':authentication:application').projectDir = file('./src/authentication/src/application')
+project(':authentication:mongo').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/mongo')
+project(':authentication:mysql').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/mysql')
+project(':authentication:main-service').projectDir = file('./src/authentication/src/infrastructure/driving-adapters/main-service')
