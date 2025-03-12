@@ -68,9 +68,9 @@ public class FlightResponse {
         private final String seatId;
         private final String seatNumber;
         private final String seatClass;
-        private final boolean isAvailable;
-        private final double price;
-        private final int row;
+        private final Boolean isAvailable;
+        private final Double price;
+        private final Integer row;
         private final String column;
 
         public seat(String seatId, String seatNumber, String seatClass, boolean isAvailable, double price, int row, String column) {

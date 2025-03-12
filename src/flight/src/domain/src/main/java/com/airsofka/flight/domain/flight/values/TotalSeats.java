@@ -4,7 +4,7 @@ import com.airsofka.shared.domain.generic.IValueObject;
 import utils.Validator;
 
 public class TotalSeats implements IValueObject {
-    private final int value;
+    private final Integer value;
 
     private TotalSeats(int value) {
         this.value = value;
