@@ -1,5 +1,7 @@
 package com.airsofka.authentication.domain.user;
 
+import com.airsofka.authentication.domain.user.events.RegisteredGoogleUser;
+import com.airsofka.authentication.domain.user.events.RegisteredUser;
 import com.airsofka.authentication.domain.user.entities.Booking;
 import com.airsofka.authentication.domain.user.events.AuthenticatedUser;
 import com.airsofka.authentication.domain.user.values.DocumentID;
@@ -21,8 +23,9 @@ import com.airsofka.shared.domain.generic.DomainEvent;
 
 import java.util.List;
 
-public class User extends AggregateRoot<UserId>{
-  private Name name;
+
+public class User extends AggregateRoot<UserId> {
+  private Name fullName;
   private Email email;
   private Password password;
   private DocumentID documentID;
@@ -47,17 +50,16 @@ public class User extends AggregateRoot<UserId>{
 
   private User(UserId identity) {
     super(identity);
-    subscribe(new UserHandler(this));
   }
   // endregion
 
   // region Getters and Setters
   public Name getName() {
-    return name;
+    return fullName;
   }
 
   public void setName(Name name) {
-    this.name = name;
+    this.fullName = name;
   }
 
   public Email getEmail() {
@@ -151,9 +153,18 @@ public class User extends AggregateRoot<UserId>{
   // endregion
 
   // region Domain Actions
+  public void registerUser(String name, String email, String password, String documentId, String phoneNumber, String nacionality){
+    apply(new RegisteredUser(name, email, password, documentId,phoneNumber, nacionality));
+  }
   public void authenticateUser(String email, String password) {
     apply(new AuthenticatedUser(email, password));
   }
+
+
+  public void registerGoogleUser(String name, String email){
+    apply(new RegisteredGoogleUser(name,email));
+  }
+
   // endregion
 
   // region Public Methods

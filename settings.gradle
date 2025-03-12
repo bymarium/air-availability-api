@@ -8,6 +8,7 @@ include ':authentication:mongo'
 include ':authentication:mysql'
 include ':authentication:jwt'
 include ':authentication:main-service'
+include ':authentication:googleAuth'
 
 project(':shared:domain').projectDir = file('./src/shared/src/domain')
 project(':shared:application').projectDir = file('./src/shared/src/application')
@@ -15,6 +16,6 @@ project(':authentication:domain').projectDir = file('./src/authentication/src/do
 project(':authentication:application').projectDir = file('./src/authentication/src/application')
 project(':authentication:mongo').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/mongo')
 project(':authentication:mysql').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/mysql')
+project(':authentication:googleAuth').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/googleAuth')
 project(':authentication:jwt').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/jwt')
 project(':authentication:main-service').projectDir = file('./src/authentication/src/infrastructure/driving-adapters/main-service')
-
