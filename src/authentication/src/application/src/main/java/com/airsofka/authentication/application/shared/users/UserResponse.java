@@ -1,18 +1,18 @@
-package com.airsofka.authentication.application.registeruser;
+package com.airsofka.authentication.application.shared.users;
 
-public class RegisterUserResponse {
+public class UserResponse {
 
-    private String name;
-    private String email;
-    private String documentId;
-    private String phoneNumber;
-    private String nacionality;
-    private String methodAuthentication;
-    private String role;
-    private Boolean isFrequent;
+    private final String name;
+    private final String email;
+    private final String documentId;
+    private final String phoneNumber;
+    private final String nacionality;
+    private final String methodAuthentication;
+    private final String role;
+    private final Boolean isFrequent;
 
 
-    public RegisterUserResponse(String name, String email, String documentId, String phoneNumber, String nacionality, String methodAuthentication, String role, Boolean isFrequent) {
+    public UserResponse(String name, String email, String documentId, String phoneNumber, String nacionality, String methodAuthentication, String role, Boolean isFrequent) {
         this.name = name;
         this.email = email;
         this.documentId = documentId;
@@ -23,13 +23,6 @@ public class RegisterUserResponse {
         this.isFrequent = isFrequent;
     }
 
-    public RegisterUserResponse(String name, String email, String role,Boolean isFrequent ,String methodAuthentication) {
-        this.name = name;
-        this.email = email;
-        this.role = role;
-        this.isFrequent = isFrequent;
-        this.methodAuthentication = methodAuthentication;
-    }
 
     public String getName() {
         return name;

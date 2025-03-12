@@ -12,7 +12,7 @@ import com.airsofka.authentication.domain.user.values.PhoneNumber;
 
 public class UserMapper {
 
-    public static User MapperLocal(RegisterUserRequest userRequest){
+    public static User mapperLocal(RegisterUserRequest userRequest){
         User user = new User();
         user.setName(Name.of(userRequest.getName()));
         user.setEmail(Email.of(userRequest.getEmail()));
@@ -20,17 +20,17 @@ public class UserMapper {
         user.setDocumentID(DocumentID.of(userRequest.getDocumentId()));
         user.setPhoneNumber(PhoneNumber.of(userRequest.getPhoneNumber()));
         user.setNacionality(Nacionality.of(userRequest.getNacionality()));
-        user.setMethodAuthentication(MethodAuthentication.of("LOCAL"));
         return user;
     }
 
-    public static User MapperGoogle(RegisterUserRequest userRequest){
+    public static User mapperGoogle(RegisterUserRequest userRequest){
         User user = new User();
         user.setName(Name.of(userRequest.getName()));
         user.setEmail(Email.of(userRequest.getEmail()));
-        user.setMethodAuthentication(MethodAuthentication.of("GOOGLE"));
         return user;
     }
+
+
 
 
 

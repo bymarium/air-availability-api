@@ -4,13 +4,13 @@ import com.airsofka.shared.application.Request;
 
 public class RegisterUserRequest extends Request {
 
-  private String name;
-  private String email;
-  private String password;
+  private final String name;
+  private final String email;
+  private final String password;
 
-  private String documentId;
-  private String phoneNumber;
-  private String nacionality;
+  private final String documentId;
+  private final String phoneNumber;
+  private final String nacionality;
 
   public RegisterUserRequest(String aggregateId, String name, String email, String password, String documentId, String phoneNumber, String nacionality) {
     super(aggregateId);
@@ -22,61 +22,28 @@ public class RegisterUserRequest extends Request {
     this.nacionality = nacionality;
   }
 
-//  public RegisterUserRequest(String aggregateId, String name, String email) {
-//    super(aggregateId);
-//    this.name = name;
-//    this.email = email;
-//  }
-
   public String getName() {
     return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 
   public String getEmail() {
     return email;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
   public String getPassword() {
     return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
   }
 
   public String getDocumentId() {
     return documentId;
   }
 
-  public void setDocumentId(String documentId) {
-    this.documentId = documentId;
-  }
-
   public String getPhoneNumber() {
     return phoneNumber;
-  }
-
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
   }
 
   public String getNacionality() {
     return nacionality;
   }
-
-  public void setNacionality(String nacionality) {
-    this.nacionality = nacionality;
-  }
-
-
-
 
 }

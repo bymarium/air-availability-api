@@ -3,21 +3,18 @@ package com.airsofka.authentication.infra.mysql.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class UserSql {
 
     @Id
@@ -25,6 +22,7 @@ public class UserSql {
 
     private String name;
     private String password;
+    @Column(unique = true, nullable = false)
     private String email;
     private String documentId;
     private String phoneNumber;
@@ -34,11 +32,10 @@ public class UserSql {
     @Column(nullable = false, columnDefinition = "TINYINT(1)")
     private Boolean isFrequent;
 
-    public UserSql(String id,String name, String role, Boolean isFrequent, String methodAuthentication) {
-        this.id = id;
-        this.name = name;
-        this.role = role;
-        this.isFrequent = isFrequent;
-        this.methodAuthentication = methodAuthentication;
+
+    public UserSql() {
+        this.id = UUID.randomUUID().toString();
+        this.role="USER";
+        this.isFrequent=false;
     }
 }

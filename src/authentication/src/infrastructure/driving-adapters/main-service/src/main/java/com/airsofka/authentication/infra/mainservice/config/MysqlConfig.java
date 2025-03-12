@@ -8,13 +8,14 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EntityScan(basePackages = "com.airsofka.authentication.infra.mysql.entities")
 @EnableJpaRepositories(basePackages = "com.airsofka.authentication.infra.mysql.repositories")
 public class MysqlConfig {
     @Bean
-    public MysqlAdapter mysqlAdapter(IUserRepository repository) {
-        return new MysqlAdapter(repository);
+    public MysqlAdapter mysqlAdapter(IUserRepository repository, PasswordEncoder passwordEncoder) {
+        return new MysqlAdapter(repository,passwordEncoder);
     }
 }

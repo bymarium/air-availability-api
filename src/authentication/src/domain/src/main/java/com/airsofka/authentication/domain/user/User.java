@@ -1,5 +1,6 @@
 package com.airsofka.authentication.domain.user;
 
+import com.airsofka.authentication.domain.user.events.RegisteredGoogleUser;
 import com.airsofka.authentication.domain.user.events.RegisteredUser;
 import com.airsofka.authentication.domain.user.values.DocumentID;
 import com.airsofka.authentication.domain.user.values.Email;
@@ -13,6 +14,8 @@ import com.airsofka.authentication.domain.user.values.Role;
 import com.airsofka.authentication.domain.user.values.RoleEnum;
 import com.airsofka.authentication.domain.user.values.UserId;
 import com.airsofka.shared.domain.generic.AggregateRoot;
+
+import java.sql.SQLOutput;
 
 public class User extends AggregateRoot<UserId> {
   private Name fullName;
@@ -117,9 +120,9 @@ public class User extends AggregateRoot<UserId> {
     apply(new RegisteredUser(name, email, password, documentId,phoneNumber, nacionality));
   }
 
-//  public void registerUser(String name, String email){
-//    apply(new RegisteredUser(name,email));
-//  }
+  public void registerGoogleUser(String name, String email){
+    apply(new RegisteredGoogleUser(name,email));
+  }
 
   // endregion
 
