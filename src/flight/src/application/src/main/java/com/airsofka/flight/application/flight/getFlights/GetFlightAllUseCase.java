@@ -6,13 +6,13 @@ import com.airsofka.flight.application.shared.ports.IFlightRepositoryPort;
 
 import java.util.List;
 
-public class GetFlightUseCase {
+public class GetFlightAllUseCase {
     private final IFlightRepositoryPort repository;
-    public GetFlightUseCase(IFlightRepositoryPort repository) {
+    public GetFlightAllUseCase(IFlightRepositoryPort repository) {
         this.repository = repository;
     }
-    public List<FlightListResponse> execute() {
-        return repository.findAll();
+    public List<FlightResponse> execute() {
+        return repository.findAllReseponse();
     }
 
 }

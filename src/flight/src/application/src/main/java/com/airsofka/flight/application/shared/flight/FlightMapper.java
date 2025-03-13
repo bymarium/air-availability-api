@@ -25,7 +25,7 @@ public class FlightMapper {
                         flight.getPrices() != null ? flight.getPrices().getTax() : 0.0
                 )
                 ,
-                flight.getSeats().stream().map(seat -> new FlightResponse.seat(
+                flight.getSeats().stream().map(seat -> new FlightResponse.SeatInfo(
                         seat.getIdentity().getValue(),
                         seat.getSeatNumber().getValue(),
                         seat.getSeatClass().getValue(),

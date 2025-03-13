@@ -13,9 +13,9 @@ public class FlightResponse {
     private final String arrivalTime;
     private final String status;
     private final PricesInfo prices;
-    private final List<seat> seats;
+    private final List<SeatInfo> seats;
 
-    public FlightResponse(String flightId, String flightNumber, String flightModel, String routeId, String departureTime, String arrivalTime, String status, PricesInfo prices, List<seat> seats) {
+    public FlightResponse(String flightId, String flightNumber, String flightModel, String routeId, String departureTime, String arrivalTime, String status, PricesInfo prices, List<SeatInfo> seats) {
         this.flightId = flightId;
         this.flightNumber = flightNumber;
         this.flightModel = flightModel;
@@ -56,7 +56,7 @@ public class FlightResponse {
         return prices;
     }
 
-    public List<seat> getSeats() {
+    public List<SeatInfo> getSeats() {
         return seats;
     }
 
@@ -64,7 +64,7 @@ public class FlightResponse {
         return flightModel;
     }
 
-    public static class seat {
+    public static class SeatInfo {
         private final String seatId;
         private final String seatNumber;
         private final String seatClass;
@@ -73,7 +73,7 @@ public class FlightResponse {
         private final Integer row;
         private final String column;
 
-        public seat(String seatId, String seatNumber, String seatClass, boolean isAvailable, double price, int row, String column) {
+        public SeatInfo(String seatId, String seatNumber, String seatClass, boolean isAvailable, double price, int row, String column) {
             this.seatId = seatId;
             this.seatNumber = seatNumber;
             this.seatClass = seatClass;
