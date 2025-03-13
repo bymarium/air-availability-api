@@ -7,4 +7,5 @@ public interface IJwtServicePort {
   boolean validateToken(String token);
   String getId(String jwt);
   String getSubject(String jwt);
+  Map<String, Object> getClaims(String jwt);
 }

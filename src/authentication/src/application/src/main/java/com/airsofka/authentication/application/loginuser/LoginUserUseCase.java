@@ -32,9 +32,6 @@ public class LoginUserUseCase implements ICommandUseCase<LoginUserRequest, Mono<
       .map(events -> {
         events.sort(Comparator.comparing(DomainEvent::getWhen));
         User user = User.from(userResponse.getId(), events);
-        System.out.println("USER PW (case use):" + user.getPassword().getValue());
-        System.out.println("REQUEST PW (case use):" + request.getPassword());
-        System.out.println("MATCHES (case use):" + user.getPassword().getValue().equals(request.getPassword()));
         user.authenticateUser(request.getEmail(), request.getPassword());
         user.getUncommittedEvents().forEach(repository::save);
         user.markEventsAsCommitted();

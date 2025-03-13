@@ -1,6 +1,6 @@
 package com.airsofka.authentication.infra.mainservice.controllers;
 
-import com.airsofka.authentication.application.getalluser.GetAllUserResponse;
+
 import com.airsofka.authentication.application.getalluser.GetAllUserUseCase;
 import com.airsofka.authentication.application.shared.users.UserResponse;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,15 +13,15 @@ import java.util.List;
 @RequestMapping("/api/getAllUsers")
 public class GetAllUserController {
 
-    private final GetAllUserUseCase getAllUserUseCase;
+  private final GetAllUserUseCase getAllUserUseCase;
 
-    public GetAllUserController(GetAllUserUseCase getAllUserUseCase) {
-        this.getAllUserUseCase = getAllUserUseCase;
-    }
+  public GetAllUserController(GetAllUserUseCase getAllUserUseCase) {
+    this.getAllUserUseCase = getAllUserUseCase;
+  }
 
-    @GetMapping
-    public List<UserResponse> execute(){
-        return getAllUserUseCase.execute();
-    }
+  @GetMapping
+  public List<UserResponse> execute(){
+    return getAllUserUseCase.execute();
+  }
 
 }
