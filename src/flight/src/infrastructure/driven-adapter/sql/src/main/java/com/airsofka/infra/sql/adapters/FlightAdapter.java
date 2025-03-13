@@ -10,6 +10,7 @@ import com.airsofka.infra.sql.entities.PriceEntity;
 import com.airsofka.infra.sql.entities.SeatEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,8 +20,8 @@ public class FlightAdapter {
         FlightEntity entity = new FlightEntity();
         entity.setId(flight.getIdentity().getValue());
         entity.setFlightNumber(flight.getFlightNumber().getValue());
-        entity.setDepartureTime(flight.getDepartureTime().getValue());
-        entity.setArrivalTime(flight.getArrivalTime().getValue());
+        entity.setDepartureTime(Date.from(flight.getDepartureTime().getValue().toInstant()));
+        entity.setArrivalTime(Date.from(flight.getArrivalTime().getValue().toInstant()));
         entity.setRouteId(flight.getRouteId().getValue());
         entity.setStatus(flight.getStatusFlight().getValue());
         entity.setFlightModel(flight.getFlightModel().getValue());
@@ -109,21 +110,22 @@ public class FlightAdapter {
                 entity.getStatus(),
                 entity.getSeats().size(),
                 entity.getPrice().getTax(),
-                entity.getPrice().getPassengerPrices().get(0).getBasePrice(),
-                entity.getPrice().getPassengerPrices().get(0).getTax(),
-                entity.getPrice().getPassengerPrices().get(0).getTotalPrice(),
-                entity.getPrice().getPassengerPrices().get(1).getBasePrice(),
-                entity.getPrice().getPassengerPrices().get(1).getTax(),
-                entity.getPrice().getPassengerPrices().get(1).getTotalPrice(),
                 entity.getPrice().getPassengerPrices().get(2).getBasePrice(),
                 entity.getPrice().getPassengerPrices().get(2).getTax(),
                 entity.getPrice().getPassengerPrices().get(2).getTotalPrice(),
-                entity.getPrice().getPassengerPrices().get(3).getBasePrice(),
-                entity.getPrice().getPassengerPrices().get(3).getTax(),
-                entity.getPrice().getPassengerPrices().get(3).getTotalPrice(),
+                entity.getPrice().getPassengerPrices().get(1).getBasePrice(),
+                entity.getPrice().getPassengerPrices().get(1).getTax(),
+                entity.getPrice().getPassengerPrices().get(1).getTotalPrice(),
+                entity.getPrice().getPassengerPrices().get(0).getBasePrice(),
+                entity.getPrice().getPassengerPrices().get(0).getTax(),
+                entity.getPrice().getPassengerPrices().get(0).getTotalPrice(),
                 entity.getPrice().getPassengerPrices().get(4).getBasePrice(),
                 entity.getPrice().getPassengerPrices().get(4).getTax(),
-                entity.getPrice().getPassengerPrices().get(4).getTotalPrice()
+                entity.getPrice().getPassengerPrices().get(4).getTotalPrice(),
+                entity.getPrice().getPassengerPrices().get(3).getBasePrice(),
+                entity.getPrice().getPassengerPrices().get(3).getTax(),
+                entity.getPrice().getPassengerPrices().get(3).getTotalPrice()
+
         );
     }
 

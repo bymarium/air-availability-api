@@ -15,6 +15,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,8 +42,8 @@ public class MySQLAdapter implements IFlightRepositoryPort {
     public void updateFlight(Flight flight) {
         FlightEntity flightFound = flightRepository.findById(flight.getIdentity().getValue()).orElseThrow(() -> new RuntimeException("Flight not found"));
         flightFound.setFlightNumber(flight.getFlightNumber().getValue());
-        flightFound.setDepartureTime(flight.getDepartureTime().getValue());
-        flightFound.setArrivalTime(flight.getArrivalTime().getValue());
+        flightFound.setDepartureTime(Date.from(flight.getDepartureTime().getValue().toInstant()));
+        flightFound.setArrivalTime(Date.from(flight.getArrivalTime().getValue().toInstant()));
         flightFound.setStatus(flight.getStatusFlight().getValue());
         flightFound.setRouteId(flight.getRouteId().getValue());
 
