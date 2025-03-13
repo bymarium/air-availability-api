@@ -11,9 +11,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/flight")
-public class GetAllFlights {
+public class GetFlightsController {
     private final GetFlightUseCase getFlightUseCase;
-    public GetAllFlights(GetFlightUseCase getFlightUseCase) {
+    public GetFlightsController(GetFlightUseCase getFlightUseCase) {
         this.getFlightUseCase = getFlightUseCase;
     }
     @GetMapping

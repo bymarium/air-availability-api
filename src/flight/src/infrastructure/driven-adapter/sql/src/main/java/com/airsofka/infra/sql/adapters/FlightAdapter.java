@@ -1,16 +1,9 @@
 package com.airsofka.infra.sql.adapters;
 
 import com.airsofka.flight.application.shared.flight.FlightListResponse;
+import com.airsofka.flight.application.shared.flight.FlightResponse;
 import com.airsofka.flight.application.shared.flight.SeatResponse;
 import com.airsofka.flight.domain.flight.Flight;
-import com.airsofka.flight.domain.flight.entities.Seat;
-import com.airsofka.flight.domain.flight.values.IsAvailable;
-import com.airsofka.flight.domain.flight.values.LocationSeat;
-import com.airsofka.flight.domain.flight.values.PriceSeat;
-import com.airsofka.flight.domain.flight.values.SeatClass;
-import com.airsofka.flight.domain.flight.values.SeatId;
-import com.airsofka.flight.domain.flight.values.SeatNumber;
-import com.airsofka.flight.domain.flight.values.StatusFlight;
 import com.airsofka.infra.sql.entities.FlightEntity;
 import com.airsofka.infra.sql.entities.PassengerPriceEntity;
 import com.airsofka.infra.sql.entities.PriceEntity;
@@ -67,30 +60,42 @@ public class FlightAdapter {
         return entity;
     }
 
-    public static Flight toDomain(FlightEntity entity) {
-        Flight flight = new Flight(
-                entity.getFlightNumber(),
-                entity.getRouteId(),
-                entity.getPrice().getPriceStandard(),
-                entity.getDepartureTime(),
-                entity.getArrivalTime(),
-                entity.getFlightModel()
-        );
-        flight.setStatusFlight(StatusFlight.of(entity.getStatus()));
-        List<Seat> seats = entity.getSeats().stream().map(
+    public static FlightResponse toResponseFlight(FlightEntity entity) {
+
+        List<FlightResponse.SeatInfo> seats = entity.getSeats().stream().map(
                 seat -> {
-                    return new Seat(
-                            SeatId.of(seat.getSeatId().toString()),
-                            SeatNumber.of(seat.getSeatNumber()),
-                            SeatClass.of(seat.getSeatClass()),
-                            IsAvailable.of(seat.getIsAvailable()),
-                            PriceSeat.of(seat.getPriceSeat())
-                            , LocationSeat.of(Integer.parseInt(seat.getSeatNumber().split("-")[0]), seat.getSeatNumber().split("-")[1])
+                    return new FlightResponse.SeatInfo(
+                            seat.getSeatId().toString(),
+                            seat.getSeatNumber(),
+                            seat.getSeatClass(),
+                            seat.getIsAvailable(),
+                            seat.getPriceSeat(),
+                            Integer.parseInt(seat.getSeatNumber().split("-")[0]),
+                            seat.getSeatNumber().split("-")[1]
                     );
                 }).collect(Collectors.toList());
-        flight.setSeats(seats);
+        FlightResponse.PricesInfo prices = new FlightResponse.PricesInfo(
+                entity.getPrice().getPriceStandard(),
+                entity.getPrice().getPassengerPrices().stream().map(price -> new FlightResponse.PricePassengerInfo(
+                        price.getType(),
+                        price.getBasePrice(),
+                        price.getTax(),
+                        price.getTotalPrice()
+                )).collect(Collectors.toList()),
+                entity.getPrice().getTax()
+        );
 
-        return flight;
+
+        return new FlightResponse(entity.getId(),
+                entity.getFlightNumber(),
+                entity.getFlightModel(),
+                entity.getRouteId(),
+                entity.getDepartureTime().toString(),
+                entity.getArrivalTime().toString(),
+                entity.getStatus(),
+                prices,
+                seats
+        );
     }
 
     public static FlightListResponse toResponse(FlightEntity entity) {
@@ -121,6 +126,7 @@ public class FlightAdapter {
                 entity.getPrice().getPassengerPrices().get(4).getTotalPrice()
         );
     }
+
 
     public static SeatResponse toSeatResponse(FlightEntity entity) {
         List<SeatResponse.SeatInfo> seats = entity.getSeats().stream().map(

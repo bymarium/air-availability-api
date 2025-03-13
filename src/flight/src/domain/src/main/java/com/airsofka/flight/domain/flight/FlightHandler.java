@@ -104,7 +104,7 @@ public class FlightHandler extends DomainActionsContainer {
             flight.setArrivalTime(ArrivalTime.of(event.getArrivalTime()));
             flight.setRouteId(RouteId.of(event.getRouteId()));
             flight.setFlightNumber(FlightNumber.of(event.getFlightNumber()));
-
+            flight.setFlightModel(FlightModel.of(event.getFlightModel()));
             flight.setPrices(Prices.of(event.getPrice()));
         };
     }
