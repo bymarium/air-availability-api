@@ -1,6 +1,7 @@
 package com.airsofka.infra.sql.adapters;
 
 import com.airsofka.flight.application.shared.flight.FlightListResponse;
+import com.airsofka.flight.application.shared.flight.SeatResponse;
 import com.airsofka.flight.application.shared.ports.IFlightRepositoryPort;
 import com.airsofka.flight.domain.flight.Flight;
 
@@ -122,6 +123,12 @@ public class MySQLAdapter implements IFlightRepositoryPort {
         flightRepository.deleteById(aggregateId);
     }
 
+
+    @Override
+    public SeatResponse findSeatsById(String aggregateId) {
+        FlightEntity flight = flightRepository.findById(aggregateId).orElseThrow(() -> new RuntimeException("Flight not found"));
+        return FlightAdapter.toSeatResponse(flight);
+    }
 
 
 
