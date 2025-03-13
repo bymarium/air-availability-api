@@ -8,17 +8,17 @@ public class UpdateFlight extends DomainEvent {
     private String flightId;
     private String flightNumber;
     private String routeId;
-    private String seatId;
+    private String flightModel;
     private Date departureTime;
     private Date arrivalTime;
     private Double price;
 
-    public UpdateFlight(String flightId, String flightNumber, String routeId, String seatId, Date departureTime, Date arrivalTime, Double price) {
+    public UpdateFlight(String flightId, String flightNumber, String routeId, String flightModel, Date departureTime, Date arrivalTime, Double price) {
         super(EventsEnum.UPDATED_FLIGHT.name());
         this.flightId = flightId;
         this.flightNumber = flightNumber;
         this.routeId = routeId;
-        this.seatId = seatId;
+        this.flightModel = flightModel;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.price = price;
@@ -36,9 +36,6 @@ public class UpdateFlight extends DomainEvent {
         return routeId;
     }
 
-    public String getSeatId() {
-        return seatId;
-    }
     public Date getDepartureTime() {
         return departureTime;
     }
@@ -59,9 +56,6 @@ public class UpdateFlight extends DomainEvent {
         this.routeId = routeId;
     }
 
-    public void setSeatId(String seatId) {
-        this.seatId = seatId;
-    }
 
     public void setDepartureTime(Date departureTime) {
         this.departureTime = departureTime;
@@ -77,5 +71,13 @@ public class UpdateFlight extends DomainEvent {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getFlightModel() {
+        return flightModel;
+    }
+
+    public void setFlightModel(String flightModel) {
+        this.flightModel = flightModel;
     }
 }

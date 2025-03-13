@@ -5,6 +5,7 @@ import com.airsofka.flight.application.flight.changeSeat.ChangeSeatUseCase;
 import com.airsofka.flight.application.flight.changeStatus.ChangeStatusUseCase;
 import com.airsofka.flight.application.flight.createFlight.CreateFlightUseCase;
 import com.airsofka.flight.application.flight.enableSeat.EnableSeatUseCase;
+import com.airsofka.flight.application.flight.getFlights.GetFlightAllUseCase;
 import com.airsofka.flight.application.flight.getFlights.GetFlightUseCase;
 import com.airsofka.flight.application.flight.getSeatsByFlight.GetSeatsByIdUseCase;
 import com.airsofka.flight.application.flight.removeFlight.RemoveFlightUseCase;
@@ -70,7 +71,7 @@ public class UseCaseConfig {
     public DisplayRouteUseCase displayRouteUseCase(MongoAdapter adapter, MySQLAdapterRoute mysqlAdapter){ return new DisplayRouteUseCase(mysqlAdapter); }
 
     @Bean
-    public GetSeatsByIdUseCase getSeatByIDUseCase(MySQLAdapter mySQLAdapter) {
+    public GetSeatsByIdUseCase getSeatByIdUseCase(MySQLAdapter mySQLAdapter) {
         return new GetSeatsByIdUseCase(mySQLAdapter);
     }
     @Bean
@@ -82,4 +83,8 @@ public class UseCaseConfig {
 
     @Bean
     public SearchFlightUseCase searchFlightUseCase(MySQLAdapter mysqlAdapter, MySQLAdapterRoute mysqlAdapterRoute){ return new SearchFlightUseCase(mysqlAdapter, mysqlAdapterRoute); }
+
+    @Bean
+    public GetFlightAllUseCase getFlightAllUseCase(MySQLAdapter mysqlAdapter){ return new GetFlightAllUseCase(mysqlAdapter); }
+
 }
