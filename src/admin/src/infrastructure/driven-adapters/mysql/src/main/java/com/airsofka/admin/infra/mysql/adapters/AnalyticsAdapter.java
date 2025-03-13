@@ -3,23 +3,24 @@ package com.airsofka.admin.infra.mysql.adapters;
 import com.airsofka.admin.application.admin.generateanalytics.GenerateAnalyticsResponse;
 import com.airsofka.admin.application.shared.ports.IEventRepositoryAnalyticsPort;
 import com.airsofka.admin.infra.mysql.entities.BookingEntity;
-import org.springframework.stereotype.Component;
+import com.airsofka.admin.infra.mysql.repositories.BookingJpaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Component
 public class AnalyticsAdapter implements IEventRepositoryAnalyticsPort {
+    private final BookingJpaRepository bookingJpaRepository;
 
-    private final List<BookingEntity> bookings;
-
-    public AnalyticsAdapter(List<BookingEntity> bookings) {
-        this.bookings = bookings;
+    @Autowired
+    public AnalyticsAdapter(BookingJpaRepository bookingJpaRepository) {
+        this.bookingJpaRepository = bookingJpaRepository;
     }
 
     @Override
     public GenerateAnalyticsResponse findAllBookings() {
+        List<BookingEntity> bookings = bookingJpaRepository.findAll();
         Map<String, Long> stateCounts = bookings.stream()
                 .collect(Collectors.groupingBy(BookingEntity::getState, Collectors.counting()));
 

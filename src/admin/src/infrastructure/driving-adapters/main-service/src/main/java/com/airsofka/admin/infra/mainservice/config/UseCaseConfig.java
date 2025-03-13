@@ -26,7 +26,7 @@ public class UseCaseConfig {
     }
 
     @Bean
-    public GenerateAnalyticsUseCase generateAnalyticsUseCase(MongoAdapter adapter, AnalyticsAdapter mysqlAdapter) {
+    public GenerateAnalyticsUseCase generateAnalyticsUseCase(AnalyticsAdapter mysqlAdapter) {
         return new GenerateAnalyticsUseCase(mysqlAdapter);
     }
 
