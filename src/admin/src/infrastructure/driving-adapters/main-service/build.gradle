@@ -1,0 +1,13 @@
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-webflux')
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation(project(':admin:mongo'))
+    implementation(project(':admin:mysql'))
+    implementation(project(':admin:application'))
+    implementation(project(':shared:application'))
+
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+}

@@ -1,7 +1,7 @@
-package com.airsofka.authentication.infra.mainservice.Controllers;
+package com.airsofka.authentication.infra.mainservice.controllers;
 
-import com.airsofka.authentication.application.getByEmailUser.GetByEmailUserRequest;
-import com.airsofka.authentication.application.getByEmailUser.GetByEmailUserUseCase;
+import com.airsofka.authentication.application.getbyemailuser.GetByEmailUserRequest;
+import com.airsofka.authentication.application.getbyemailuser.GetByEmailUserUseCase;
 import com.airsofka.authentication.application.shared.users.UserResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +22,5 @@ public class GetByEmailUserController {
     public UserResponse execute (@RequestBody GetByEmailUserRequest request){
         return getByEmailUserUseCase.execute(request);
     }
-
 
 }

@@ -6,10 +6,16 @@ include ':booking:domain'
 include ':booking:application'
 include ':booking:mongo'
 include ':booking:main-service'
+include ':admin:domain'
+include ':admin:application'
+include ':admin:mongo'
+include ':admin:mysql'
+include ':admin:main-service'
 include ':authentication:domain'
 include ':authentication:application'
 include ':authentication:mongo'
 include ':authentication:mysql'
+include ':authentication:jwt'
 include ':authentication:main-service'
 include ':authentication:googleAuth'
 include ':flight:domain'
@@ -24,17 +30,21 @@ project(':booking:domain').projectDir = file('./src/booking/src/domain')
 project(':booking:application').projectDir = file('./src/booking/src/application')
 project(':booking:mongo').projectDir = file('./src/booking/src/infrastructure/driven-adapters/mongo')
 project(':booking:main-service').projectDir = file('./src/booking/src/infrastructure/driving-adapters/main-service')
+project(':admin:domain').projectDir = file('./src/admin/src/domain')
+project(':admin:application').projectDir = file('./src/admin/src/application')
+project(':admin:mongo').projectDir = file('./src/admin/src/infrastructure/driven-adapters/mongo')
+project(':admin:mysql').projectDir = file('./src/admin/src/infrastructure/driven-adapters/mysql')
+project(':admin:main-service').projectDir = file('./src/admin/src/infrastructure/driving-adapters/main-service')
 project(':authentication:domain').projectDir = file('./src/authentication/src/domain')
 project(':authentication:application').projectDir = file('./src/authentication/src/application')
 project(':authentication:mongo').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/mongo')
 project(':authentication:mysql').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/mysql')
 project(':authentication:googleAuth').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/googleAuth')
+project(':authentication:jwt').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/jwt')
 project(':authentication:main-service').projectDir = file('./src/authentication/src/infrastructure/driving-adapters/main-service')
 project(':flight:domain').projectDir = file('./src/flight/src/domain')
 project(':flight:application').projectDir = file('./src/flight/src/application')
 project(':flight:main-service').projectDir = file('./src/flight/src/infrastructure/driving-adapter/main-service')
 project(':flight:mongo').projectDir = file('./src/flight/src/infrastructure/driven-adapter/mongo')
 project(':flight:sql').projectDir = file('./src/flight/src/infrastructure/driven-adapter/sql')
-include 'src:flight:src:infrastructure:driven-adapter:sql'
-findProject(':src:flight:src:infrastructure:driven-adapter:sql')?.name = 'sql'
 

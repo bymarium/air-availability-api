@@ -1,9 +1,14 @@
 package com.airsofka.authentication.domain.user;
 
+import com.airsofka.authentication.domain.user.events.AuthenticatedGoogleUser;
+import com.airsofka.authentication.domain.user.events.LoggedOutUser;
 import com.airsofka.authentication.domain.user.events.RegisteredGoogleUser;
 import com.airsofka.authentication.domain.user.events.RegisteredUser;
+import com.airsofka.authentication.domain.user.entities.Booking;
+import com.airsofka.authentication.domain.user.events.AuthenticatedUser;
 import com.airsofka.authentication.domain.user.values.DocumentID;
 import com.airsofka.authentication.domain.user.values.Email;
+import com.airsofka.authentication.domain.user.values.IsAuthenticated;
 import com.airsofka.authentication.domain.user.values.IsFrequent;
 import com.airsofka.authentication.domain.user.values.MethodAuthentication;
 import com.airsofka.authentication.domain.user.values.Nacionality;
@@ -11,11 +16,14 @@ import com.airsofka.authentication.domain.user.values.Name;
 import com.airsofka.authentication.domain.user.values.Password;
 import com.airsofka.authentication.domain.user.values.PhoneNumber;
 import com.airsofka.authentication.domain.user.values.Role;
-import com.airsofka.authentication.domain.user.values.RoleEnum;
+import com.airsofka.authentication.domain.user.values.State;
+import com.airsofka.authentication.domain.user.values.StateEnum;
 import com.airsofka.authentication.domain.user.values.UserId;
 import com.airsofka.shared.domain.generic.AggregateRoot;
+import com.airsofka.shared.domain.generic.DomainEvent;
 
-import java.sql.SQLOutput;
+import java.util.List;
+
 
 public class User extends AggregateRoot<UserId> {
   private Name fullName;
@@ -26,18 +34,20 @@ public class User extends AggregateRoot<UserId> {
   private Nacionality nacionality;
   private IsFrequent isFrequent;
   private Role role;
+  private State state;
   private MethodAuthentication methodAuthentication;
+  private IsAuthenticated isAuthenticated;
+  private List<Booking> bookings;
 
   // region Constructors
   public User() {
     super(new UserId());
-    role = Role.of(RoleEnum.USER.name());
-    isFrequent = IsFrequent.of(false);
     subscribe(new UserHandler(this));
   }
 
   private User(UserId identity) {
     super(identity);
+    subscribe(new UserHandler(this));
   }
   // endregion
 
@@ -106,6 +116,14 @@ public class User extends AggregateRoot<UserId> {
     this.role = role;
   }
 
+  public State getState() {
+    return state;
+  }
+
+  public void setState(State state) {
+    this.state = state;
+  }
+
   public MethodAuthentication getMethodAuthentication() {
     return methodAuthentication;
   }
@@ -113,6 +131,23 @@ public class User extends AggregateRoot<UserId> {
   public void setMethodAuthentication(MethodAuthentication methodAuthentication) {
     this.methodAuthentication = methodAuthentication;
   }
+
+  public IsAuthenticated getIsAuthenticated() {
+    return isAuthenticated;
+  }
+
+  public void setIsAuthenticated(IsAuthenticated isAuthenticated) {
+    this.isAuthenticated = isAuthenticated;
+  }
+
+  public List<Booking> getBookings() {
+    return bookings;
+  }
+
+  public void setBookings(List<Booking> bookings) {
+    this.bookings = bookings;
+  }
+
   // endregion
 
   // region Domain Actions
@@ -124,10 +159,43 @@ public class User extends AggregateRoot<UserId> {
     apply(new RegisteredGoogleUser(name,email));
   }
 
+  public void authenticateUser(String email, String password) {
+    apply(new AuthenticatedUser(email, password));
+  }
+
+  public void authenticateGoogleUser(String email, String fullName) {
+    apply(new AuthenticatedGoogleUser(email, fullName));
+  }
+
+  public void loggedOutUser() {
+    apply(new LoggedOutUser());
+  }
+
   // endregion
 
   // region Public Methods
+  public void validateStatedUser() {
+    if(state.getValue().equals(StateEnum.INACTIVE.name())) {
+      throw new IllegalStateException("Inactive user cannot be authenticated");
+    }
+  }
 
+  public void validateAlreadyAuthenticated() {
+    if(isAuthenticated.getValue()) {
+      throw new IllegalStateException("User is already authenticated");
+    }
+  }
+
+  public void toggleIsAuthenticated() {
+    isAuthenticated = IsAuthenticated.of(!isAuthenticated.getValue());
+  }
+
+  public static User from(final String identity, final List<DomainEvent> events) {
+    User user = new User(UserId.of(identity));
+    events.forEach(user::apply);
+    user.markEventsAsCommitted();
+    return user;
+  }
   // endregion
 
 }

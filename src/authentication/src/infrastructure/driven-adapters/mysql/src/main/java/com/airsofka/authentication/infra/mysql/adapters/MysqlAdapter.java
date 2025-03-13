@@ -6,6 +6,7 @@ import com.airsofka.authentication.domain.user.User;
 import com.airsofka.authentication.infra.mysql.entities.UserSql;
 import com.airsofka.authentication.infra.mysql.repositories.IUserRepository;
 import com.airsofka.authentication.infra.mysql.utils.UserResponseMapper;
+import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +40,9 @@ public class MysqlAdapter implements IUserRepositoryPort {
         userSql.setNacionality(user.getNacionality().getValue());
         userSql.setMethodAuthentication(user.getMethodAuthentication().getValue());
         userSql.setRole(user.getRole().getValue());
+        userSql.setState(user.getState().getValue());
         userSql.setIsFrequent(user.getIsFrequent().getValue());
+        userSql.setIsAuthenticated(user.getIsAuthenticated().getValue());
         repository.save(userSql);
     }
 
@@ -68,9 +71,52 @@ public class MysqlAdapter implements IUserRepositoryPort {
             UserSql userSql = userSqlOpt.get();
             return mapperSql(userSql);
         } else {
-            throw new RuntimeException("No se encontró un usuario con el email: " + email);
+            return null;
         }
     }
 
+    @Override
+    @Transactional
+    public void save(User user) {
+        if(user.getIdentity().getValue() == null){
+            throw new IllegalStateException("Identity cannot be null");
+        }
+        UserSql userSql = new UserSql(
+          user.getIdentity().getValue(),
+          user.getName().getValue(),
+          user.getPassword() != null? user.getPassword().getValue() : null,
+          user.getEmail().getValue(),
+          user.getDocumentID()!= null? user.getDocumentID().getValue() : null,
+          user.getPhoneNumber()!= null? user.getPhoneNumber().getValue() : null,
+          user.getNacionality()!= null? user.getNacionality().getValue() : null,
+          user.getMethodAuthentication().getValue(),
+          user.getState().getValue(),
+          user.getRole().getValue(),
+          user.getIsFrequent().getValue(),
+          user.getIsAuthenticated().getValue()
+        );
+        repository.save(userSql);
+    }
 
+    @Override
+    @Transactional
+    public void saveGoogle(User user) {
+        if(user.getIdentity().getValue() == null){
+            throw new IllegalStateException("Identity cannot be null");
+        }
+        UserSql userSql = new UserSql( user.getIdentity().getValue());
+        userSql.setName(user.getName().getValue());
+        userSql.setEmail(user.getEmail().getValue());
+        userSql.setMethodAuthentication(user.getMethodAuthentication().getValue());
+        userSql.setState(user.getState().getValue());
+        userSql.setRole(user.getRole().getValue());
+        userSql.setIsFrequent(user.getIsFrequent().getValue());
+        userSql.setIsAuthenticated(user.getIsAuthenticated().getValue());
+        repository.save(userSql);
+    }
+
+    @Override
+    public Boolean matches(String password, String encodedPassword) {
+        return passwordEncoder.matches(password, encodedPassword);
+    }
 }
