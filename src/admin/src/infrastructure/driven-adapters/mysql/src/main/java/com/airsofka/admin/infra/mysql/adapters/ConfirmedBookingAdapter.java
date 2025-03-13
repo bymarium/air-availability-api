@@ -3,23 +3,26 @@ package com.airsofka.admin.infra.mysql.adapters;
 import com.airsofka.admin.application.admin.getallbookings.BookingConfirmedResponse;
 import com.airsofka.admin.application.shared.ports.IEventConfirmedPort;
 import com.airsofka.admin.infra.mysql.entities.BookingEntity;
-import com.airsofka.admin.infra.mysql.entities.PassengerEntity;
+import com.airsofka.admin.infra.mysql.repositories.BookingJpaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class ConfirmedBookingAdapter implements IEventConfirmedPort {
+    private final BookingJpaRepository bookingJpaRepository;
 
-    private final List<BookingEntity> bookings;
-
-    public ConfirmedBookingAdapter(List<BookingEntity> bookings) {
-        this.bookings = bookings;
+    @Autowired
+    public ConfirmedBookingAdapter(BookingJpaRepository bookingJpaRepository) {
+        this.bookingJpaRepository = bookingJpaRepository;
     }
 
     @Override
     public List<BookingConfirmedResponse> findAllBookingsConfirmed() {
-        return bookings.stream()
-                .filter(booking -> "CONFIRMED".equalsIgnoreCase(booking.getState()))
+        return bookingJpaRepository.findByStateIgnoreCase("CONFIRMED")
+                .stream()
                 .map(this::toResponse)
                 .collect(Collectors.toList());
     }
@@ -35,9 +38,8 @@ public class ConfirmedBookingAdapter implements IEventConfirmedPort {
                 booking.getReservationCode(),
                 booking.getCreationDate(),
                 booking.getPassengers().stream()
-                        .map(PassengerEntity::getFirstName)
+                        .map(passenger -> passenger.getFirstName())
                         .collect(Collectors.toList())
         );
     }
-
 }
