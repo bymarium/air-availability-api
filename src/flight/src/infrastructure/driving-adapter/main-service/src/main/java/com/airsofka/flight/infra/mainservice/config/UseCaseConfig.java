@@ -71,7 +71,7 @@ public class UseCaseConfig {
     public DisplayRouteUseCase displayRouteUseCase(MongoAdapter adapter, MySQLAdapterRoute mysqlAdapter){ return new DisplayRouteUseCase(mysqlAdapter); }
 
     @Bean
-    public GetSeatsByIdUseCase getSeatByIDUseCase(MySQLAdapter mySQLAdapter) {
+    public GetSeatsByIdUseCase getSeatByIdUseCase(MySQLAdapter mySQLAdapter) {
         return new GetSeatsByIdUseCase(mySQLAdapter);
     }
     @Bean

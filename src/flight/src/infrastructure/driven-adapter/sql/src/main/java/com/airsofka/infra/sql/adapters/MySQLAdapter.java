@@ -132,6 +132,7 @@ public class MySQLAdapter implements IFlightRepositoryPort {
 
     @Override
     public SeatResponse findSeatsById(String aggregateId) {
+        System.out.println(aggregateId);
         FlightEntity flight = flightRepository.findById(aggregateId).orElseThrow(() -> new RuntimeException("Flight not found"));
         return FlightAdapter.toSeatResponse(flight);
     }
