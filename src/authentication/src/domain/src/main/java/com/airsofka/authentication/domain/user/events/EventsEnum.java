@@ -3,6 +3,8 @@ package com.airsofka.authentication.domain.user.events;
 public enum EventsEnum {
   AGGREGATED_BOOKING,
   AUTHENTICATED_USER,
+  AUTHENTICATED_GOOGLE_USER,
+  LOGGED_OUT_USER,
   DEACTIVATED_USER,
   MARKED_AS_FREQUENT_USER,
   MODIFIED_USER,

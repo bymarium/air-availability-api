@@ -1,10 +1,12 @@
-package com.airsofka.authentication.application.getAllUser;
-
+package com.airsofka.authentication.application.getalluser;
 
 import com.airsofka.authentication.application.shared.ports.IUserRepositoryPort;
+import com.airsofka.authentication.application.shared.users.UserResponse;
 import com.airsofka.shared.application.IQueryUseCase;
 
-public class GetAllUserUseCase implements IQueryUseCase<GetAllUserResponse> {
+import java.util.List;
+
+public class GetAllUserUseCase implements IQueryUseCase<List<UserResponse>> {
 
     private final IUserRepositoryPort repositoryPort;
 
@@ -13,7 +15,7 @@ public class GetAllUserUseCase implements IQueryUseCase<GetAllUserResponse> {
     }
 
     @Override
-    public GetAllUserResponse execute() {
-        return new GetAllUserResponse(repositoryPort.getAllUser());
+    public List<UserResponse> execute() {
+        return repositoryPort.getAllUser();
     }
 }

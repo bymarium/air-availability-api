@@ -1,4 +1,4 @@
-package com.airsofka.authentication.application.getByEmailUser;
+package com.airsofka.authentication.application.getbyemailuser;
 
 
 
