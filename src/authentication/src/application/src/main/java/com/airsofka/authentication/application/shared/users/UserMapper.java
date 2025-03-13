@@ -29,4 +29,19 @@ public class UserMapper {
         return user;
     }
 
+    public static UserResponse mapperUserResponse(User user){
+        return new UserResponse(
+                user.getIdentity().getValue(),
+                user.getName().getValue(),
+                user.getEmail().getValue(),
+                user.getDocumentID()!= null? user.getDocumentID().getValue() : null,
+                user.getPhoneNumber()!= null? user.getPhoneNumber().getValue() : null,
+                user.getNacionality()!= null? user.getNacionality().getValue() : null,
+                user.getMethodAuthentication().getValue(),
+                user.getState().getValue(),
+                user.getRole().getValue(),
+                user.getIsFrequent().getValue(),
+                user.getIsAuthenticated().getValue()
+        );
+    }
 }

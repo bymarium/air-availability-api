@@ -18,6 +18,7 @@ include ':authentication:mysql'
 include ':authentication:jwt'
 include ':authentication:main-service'
 include ':authentication:googleAuth'
+include ':authentication:reservationAPI'
 include ':flight:domain'
 include ':flight:application'
 include ':flight:main-service'
@@ -41,6 +42,7 @@ project(':authentication:mongo').projectDir = file('./src/authentication/src/inf
 project(':authentication:mysql').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/mysql')
 project(':authentication:googleAuth').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/googleAuth')
 project(':authentication:jwt').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/jwt')
+project(':authentication:reservationAPI').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/reservationAPI')
 project(':authentication:main-service').projectDir = file('./src/authentication/src/infrastructure/driving-adapters/main-service')
 project(':flight:domain').projectDir = file('./src/flight/src/domain')
 project(':flight:application').projectDir = file('./src/flight/src/application')

@@ -54,10 +54,10 @@ public class SecurityConfig {
           DefaultOidcUser oidcUser = (DefaultOidcUser) authentication.getPrincipal();
           String token = (String) oidcUser.getAttributes().get("token");
           response.addCookie(generateCookie(token));
-          response.sendRedirect("/");
+          response.sendRedirect("http://localhost:4200/");
         })
         .failureHandler((request, response, exception) -> {
-          response.sendRedirect("/login/error");
+          response.sendRedirect("http://localhost:4200/error");
         })
       )
       .build();
@@ -81,7 +81,6 @@ public class SecurityConfig {
 
     if (isUserExists) {
       return getOidcUserLogin(userRequest, idToken, userInfo);
-
     } else {
       return getOidcUserRegister(userRequest);
     }
