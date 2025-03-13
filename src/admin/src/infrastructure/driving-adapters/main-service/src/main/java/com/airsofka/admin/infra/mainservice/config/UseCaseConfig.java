@@ -5,6 +5,7 @@ import com.airsofka.admin.application.admin.confirmbooking.ConfirmBookingUseCase
 import com.airsofka.admin.application.admin.generateanalytics.GenerateAnalyticsUseCase;
 import com.airsofka.admin.application.admin.getallbookings.GetAllBookingsUseCase;
 import com.airsofka.admin.application.admin.issuebooking.IssueBookingUseCase;
+import com.airsofka.admin.application.shared.ports.IEventConfirmedPort;
 import com.airsofka.admin.infra.mongo.adapters.MongoAdapter;
 import com.airsofka.admin.infra.mysql.adapters.AnalyticsAdapter;
 import com.airsofka.admin.infra.mysql.adapters.MysqlAdapter;
@@ -36,7 +37,7 @@ public class UseCaseConfig {
 
     @Bean
     public GetAllBookingsUseCase getAllBookingsUseCase(MongoAdapter adapter, MysqlAdapter mysqlAdapter) {
-        return new GetAllBookingsUseCase(adapter);
+        return new GetAllBookingsUseCase((IEventConfirmedPort) mysqlAdapter);
     }
 
 }
