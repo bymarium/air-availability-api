@@ -19,6 +19,8 @@ import com.airsofka.flight.domain.flight.values.TotalSeats;
 import com.airsofka.shared.domain.generic.DomainActionsContainer;
 import com.airsofka.shared.domain.generic.DomainEvent;
 
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.function.Consumer;
 
@@ -104,7 +106,7 @@ public class FlightHandler extends DomainActionsContainer {
             flight.setArrivalTime(ArrivalTime.of(event.getArrivalTime()));
             flight.setRouteId(RouteId.of(event.getRouteId()));
             flight.setFlightNumber(FlightNumber.of(event.getFlightNumber()));
-
+            flight.setFlightModel(FlightModel.of(event.getFlightModel()));
             flight.setPrices(Prices.of(event.getPrice()));
         };
     }
