@@ -6,7 +6,6 @@ import com.airsofka.flight.application.shared.flight.FlightListResponse;
 import com.airsofka.flight.application.shared.ports.IFlightRepositoryPort;
 import com.airsofka.flight.application.shared.ports.IRouteRepositoryPort;
 import com.airsofka.flight.application.shared.route.RouteResponse;
-import com.airsofka.flight.domain.route.Route;
 import com.airsofka.shared.application.ICommandUseCase;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -39,6 +38,7 @@ public class SearchFlightUseCase implements ICommandUseCase<SearchFlightRequest,
           )
           .map(routeEntity -> new FlightWrapper(flight, routeEntity))
       )
+      .filter(wrapper -> wrapper.flight().getStatus().equals("Ready"))
       .filter(wrapper -> {
         int requestedPassengers =
           (request.getPassengers().getAdults() != null ? request.getPassengers().getAdults() : 0) +
