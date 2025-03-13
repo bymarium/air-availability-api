@@ -82,7 +82,7 @@ public class ReservationHandler extends DomainActionsContainer {
       }
       BillingAddress billingAddress =  BillingAddress.of(
         event.getPayment().getBillingAddress().getAddressOne(),
-        event.getPayment().getBillingAddress().getAddressOne(),
+        event.getPayment().getBillingAddress().getAddressTwo(),
         event.getPayment().getBillingAddress().getCountry(),
         event.getPayment().getBillingAddress().getCity(),
         event.getPayment().getBillingAddress().getState(),

@@ -5,7 +5,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 public class ReservationResponse {
-  private final String reservationId;
+  private final String id;
   private final String state;
   private final LocalDate departureDate;
   private final LocalDate arrivalDate;
@@ -18,8 +18,8 @@ public class ReservationResponse {
   private final List<Passenger> passengers;
   private final Payment payment;
 
-  public ReservationResponse(String reservationId, String state, LocalDate departureDate, LocalDate arrivalDate, String origin, String destination, String reservationCode, LocalDate creationDate, Flight originFlight, Flight destinationFlight, List<Passenger> passengers, Payment payment) {
-    this.reservationId = reservationId;
+  public ReservationResponse(String id, String state, LocalDate departureDate, LocalDate arrivalDate, String origin, String destination, String reservationCode, LocalDate creationDate, Flight originFlight, Flight destinationFlight, List<Passenger> passengers, Payment payment) {
+    this.id = id;
     this.state = state;
     this.departureDate = departureDate;
     this.arrivalDate = arrivalDate;
@@ -33,8 +33,8 @@ public class ReservationResponse {
     this.payment = payment;
   }
 
-  public String getReservationId() {
-    return reservationId;
+  public String getId() {
+    return id;
   }
 
   public String getState() {

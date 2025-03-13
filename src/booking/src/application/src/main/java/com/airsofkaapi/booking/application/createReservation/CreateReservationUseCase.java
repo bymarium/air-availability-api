@@ -2,6 +2,7 @@ package com.airsofkaapi.booking.application.createReservation;
 
 import com.airsofka.shared.application.ICommandUseCase;
 import com.airsofkaapi.booking.application.shared.ports.IEventsRepositoryPort;
+import com.airsofkaapi.booking.application.shared.ports.IReservationRepositoryPort;
 import com.airsofkaapi.booking.application.shared.reservation.ReservationResponse;
 import com.airsofkaapi.booking.domain.reservation.Reservation;
 import reactor.core.publisher.Mono;
@@ -10,9 +11,11 @@ import static com.airsofkaapi.booking.application.shared.reservation.Reservation
 
 public class CreateReservationUseCase implements ICommandUseCase<CreateReservationRequest, Mono<ReservationResponse>> {
   private final IEventsRepositoryPort repository;
+  private final IReservationRepositoryPort reservationRepository;
 
-  public CreateReservationUseCase(IEventsRepositoryPort repository) {
+  public CreateReservationUseCase(IEventsRepositoryPort repository, IReservationRepositoryPort reservationRepository) {
     this.repository = repository;
+    this.reservationRepository = reservationRepository;
   }
 
   @Override
@@ -30,6 +33,7 @@ public class CreateReservationUseCase implements ICommandUseCase<CreateReservati
       request.getPayment()
     );
 
+    reservationRepository.saveReservation(reservation);
     reservation.getUncommittedEvents().forEach(repository::save);
     reservation.markEventsAsCommitted();
     return Mono.just(mapToReservation(reservation));
