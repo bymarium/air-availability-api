@@ -27,14 +27,17 @@ public class RegisterUserUseCase  implements ICommandUseCase<RegisterUserRequest
         user.markEventsAsCommitted();
         userRepository.register(user);
         return Mono.just(new UserResponse(
+                user.getIdentity().getValue(),
                 user.getName().getValue(),
                 user.getEmail().getValue(),
                 user.getDocumentID().getValue(),
                 user.getPhoneNumber().getValue(),
                 user.getNacionality().getValue(),
                 user.getMethodAuthentication().getValue(),
+                user.getState().getValue(),
                 user.getRole().getValue(),
-                user.getIsFrequent().getValue()
+                user.getIsFrequent().getValue(),
+                user.getIsAuthenticated().getValue()
             ));
     }
 }

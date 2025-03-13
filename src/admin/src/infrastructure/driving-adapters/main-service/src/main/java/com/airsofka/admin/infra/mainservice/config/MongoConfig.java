@@ -16,19 +16,4 @@ public class MongoConfig {
         return new MongoAdapter(repository);
     }
 
-//    @Bean
-//    public MongoClient reactiveMongoClient() {
-//        return MongoClients.create("mongodb://localhost:27017");
-//    }
-//
-//    @Bean
-//    public ReactiveMongoTemplate reactiveMongoTemplate(MongoClient mongoClient) {
-//        return new ReactiveMongoTemplate(mongoClient, "AirSofka");
-//    }
-//
-//    @Bean
-//    public MongoAdapter mongoAdapter(IEventsRepository repository) {
-//        return new MongoAdapter(repository);
-//    }
-
 }

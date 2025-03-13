@@ -11,6 +11,7 @@ include ':authentication:domain'
 include ':authentication:application'
 include ':authentication:mongo'
 include ':authentication:mysql'
+include ':authentication:jwt'
 include ':authentication:main-service'
 include ':authentication:googleAuth'
 include ':flight:domain'
@@ -31,12 +32,11 @@ project(':authentication:application').projectDir = file('./src/authentication/s
 project(':authentication:mongo').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/mongo')
 project(':authentication:mysql').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/mysql')
 project(':authentication:googleAuth').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/googleAuth')
+project(':authentication:jwt').projectDir = file('./src/authentication/src/infrastructure/driven-adapters/jwt')
 project(':authentication:main-service').projectDir = file('./src/authentication/src/infrastructure/driving-adapters/main-service')
 project(':flight:domain').projectDir = file('./src/flight/src/domain')
 project(':flight:application').projectDir = file('./src/flight/src/application')
 project(':flight:main-service').projectDir = file('./src/flight/src/infrastructure/driving-adapter/main-service')
 project(':flight:mongo').projectDir = file('./src/flight/src/infrastructure/driven-adapter/mongo')
 project(':flight:sql').projectDir = file('./src/flight/src/infrastructure/driven-adapter/sql')
-include 'src:flight:src:infrastructure:driven-adapter:sql'
-findProject(':src:flight:src:infrastructure:driven-adapter:sql')?.name = 'sql'
 

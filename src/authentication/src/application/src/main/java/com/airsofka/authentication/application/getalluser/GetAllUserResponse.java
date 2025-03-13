@@ -1,7 +1,6 @@
-package com.airsofka.authentication.application.getAllUser;
+package com.airsofka.authentication.application.getalluser;
 
 import com.airsofka.authentication.application.shared.users.UserResponse;
-
 import java.util.List;
 
 public class GetAllUserResponse {

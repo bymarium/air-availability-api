@@ -7,7 +7,6 @@ public class RegisterUserRequest extends Request {
   private final String name;
   private final String email;
   private final String password;
-
   private final String documentId;
   private final String phoneNumber;
   private final String nacionality;

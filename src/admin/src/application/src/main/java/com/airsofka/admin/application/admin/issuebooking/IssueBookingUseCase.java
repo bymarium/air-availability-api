@@ -8,6 +8,7 @@ import com.airsofka.admin.domain.admin.Admin;
 import com.airsofka.admin.domain.admin.entities.Booking;
 import com.airsofka.admin.domain.admin.values.State;
 import com.airsofka.shared.application.ICommandUseCase;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public class IssueBookingUseCase implements ICommandUseCase<IssueBookingRequest, Mono<AdminResponse>> {
@@ -33,8 +34,6 @@ public class IssueBookingUseCase implements ICommandUseCase<IssueBookingRequest,
                     );
 
                     Booking booking = new Booking();
-//                    booking.setId(request.getId());
-//                    booking.setBookingCode(request.getBookingCode());
                     booking.setState(State.of("ISSUED"));
 
                     bookingRepository.updateStatus(booking);
