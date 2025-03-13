@@ -6,7 +6,7 @@ import com.airsofka.authentication.application.loginusergoogle.LoginUserGoogleRe
 import com.airsofka.authentication.application.loginusergoogle.LoginUserGoogleUseCase;
 import com.airsofka.authentication.application.shared.users.UserGoogleRequest;
 import com.airsofka.authentication.application.registerusergoogle.RegisterUserGoogleUseCase;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Cookie;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -50,8 +50,26 @@ public class SecurityConfig {
         .userInfoEndpoint(userInfo -> userInfo
           .oidcUserService(this::processGoogleLogin)
         )
+        .successHandler((request, response, authentication) -> {
+          DefaultOidcUser oidcUser = (DefaultOidcUser) authentication.getPrincipal();
+          String token = (String) oidcUser.getAttributes().get("token");
+          response.addCookie(generateCookie(token));
+          response.sendRedirect("/");
+        })
+        .failureHandler((request, response, exception) -> {
+          response.sendRedirect("/login/error");
+        })
       )
       .build();
+  }
+
+  private Cookie generateCookie(String token) {
+    Cookie cookie = new Cookie("AUTH_TOKEN", token);
+    cookie.setHttpOnly(false);
+    cookie.setSecure(false);
+    cookie.setPath("/");
+    cookie.setMaxAge(60 * 60);
+    return cookie;
   }
 
   private OidcUser processGoogleLogin(OidcUserRequest userRequest) {
@@ -62,26 +80,34 @@ public class SecurityConfig {
     boolean isUserExists = checkUserExistsUseCase.execute(new CheckUserExistsRequest(email));
 
     if (isUserExists) {
-      LoginUserGoogleResponse loginResponse = loginUserGoogleUseCase.execute(new UserGoogleRequest(userRequest)).block();
-      if(loginResponse != null) {
-        Map<String, Object> attributes = new HashMap<>(idToken.getClaims());
-        attributes.put("token", loginResponse.getToken());
-        return new DefaultOidcUser(
-          Collections.singleton(new SimpleGrantedAuthority("USER")),
-          new OidcIdToken(idToken.getTokenValue(), idToken.getIssuedAt(), idToken.getExpiresAt(), attributes),
-          userInfo,
-          "sub"
-        );
-      } else {
-        throw new RuntimeException("Error al iniciar sesión");
-      }
+      return getOidcUserLogin(userRequest, idToken, userInfo);
 
     } else {
-      OidcUser newUser = registerUserGoogleUseCase.execute(new UserGoogleRequest(userRequest));
-      if (newUser == null) {
-        throw new RuntimeException("No se pudo registrar el usuario");
-      }
-      return newUser;
+      return getOidcUserRegister(userRequest);
+    }
+  }
+
+  private OidcUser getOidcUserRegister(OidcUserRequest userRequest) {
+    OidcUser newUser = registerUserGoogleUseCase.execute(new UserGoogleRequest(userRequest));
+    if (newUser == null) {
+      throw new RuntimeException("No se pudo registrar el usuario");
+    }
+    return newUser;
+  }
+
+  private DefaultOidcUser getOidcUserLogin(OidcUserRequest userRequest, OidcIdToken idToken, OidcUserInfo userInfo) {
+    LoginUserGoogleResponse loginResponse = loginUserGoogleUseCase.execute(new UserGoogleRequest(userRequest)).block();
+    if(loginResponse != null) {
+      Map<String, Object> attributes = new HashMap<>(idToken.getClaims());
+      attributes.put("token", loginResponse.getToken());
+      return new DefaultOidcUser(
+        Collections.singleton(new SimpleGrantedAuthority("USER")),
+        new OidcIdToken(idToken.getTokenValue(), idToken.getIssuedAt(), idToken.getExpiresAt(), attributes),
+        userInfo,
+        "sub"
+      );
+    } else {
+      throw new RuntimeException("Error al iniciar sesión");
     }
   }
 }
