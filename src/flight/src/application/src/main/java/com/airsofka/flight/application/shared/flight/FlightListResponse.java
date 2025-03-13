@@ -15,7 +15,6 @@ public class FlightListResponse {
     private final Date departureTime;
     private final Date arrivalTime;
     private final String status;
-//    private final PricesInfo prices;
     private final Integer seats;
     private final Double tax;
     private final Double businessFullPrice;
