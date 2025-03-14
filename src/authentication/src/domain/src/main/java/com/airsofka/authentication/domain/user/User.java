@@ -171,6 +171,10 @@ public class User extends AggregateRoot<UserId> {
     apply(new UpdatedIsFrequentUser(counter, counterFrequent));
   }
 
+  public void modifyUser(String fullName, String email, String password, String documentId, String phoneNumber, String nacionality) {
+    apply(new ModifiedUser(fullName, email, password, documentId, phoneNumber, nacionality));
+  }
+
   public void toggleUser() {
     apply(new ToggledUser());
   }
