@@ -1,5 +1,6 @@
 package com.airsofka.flight.application.flight.getSeatsByFlight;
 
+import com.airsofka.flight.application.flight.getFlightById.GetFlightsRequest;
 import com.airsofka.flight.application.shared.flight.SeatResponse;
 import com.airsofka.flight.application.shared.ports.IFlightRepositoryPort;
 
@@ -9,7 +10,7 @@ public class GetSeatsByIdUseCase {
         this.repository = repository;
     }
 
-    public SeatResponse execute(String request) {
-        return repository.findSeatsById(request);
+    public SeatResponse execute(GetSeatsRequest request) {
+        return repository.findSeatsById(request.getAggregateId());
     }
 }

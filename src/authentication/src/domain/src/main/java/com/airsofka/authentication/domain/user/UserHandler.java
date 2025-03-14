@@ -1,10 +1,13 @@
 package com.airsofka.authentication.domain.user;
 
+import com.airsofka.authentication.domain.user.entities.ReservationCounter;
 import com.airsofka.authentication.domain.user.events.AuthenticatedGoogleUser;
 import com.airsofka.authentication.domain.user.events.AuthenticatedUser;
 import com.airsofka.authentication.domain.user.events.LoggedOutUser;
+import com.airsofka.authentication.domain.user.events.UpdatedIsFrequentUser;
 import com.airsofka.authentication.domain.user.events.RegisteredGoogleUser;
 import com.airsofka.authentication.domain.user.events.RegisteredUser;
+import com.airsofka.authentication.domain.user.values.Counter;
 import com.airsofka.authentication.domain.user.values.DocumentID;
 import com.airsofka.authentication.domain.user.values.Email;
 import com.airsofka.authentication.domain.user.values.IsAuthenticated;
@@ -31,6 +34,7 @@ public class UserHandler extends DomainActionsContainer {
     addAction(authenticateUser(user));
     addAction(authenticateGoogleUser(user));
     addAction(loggedOutUser(user));
+    addAction(updateIsFrequent(user));
   }
 
   public Consumer<? extends DomainEvent> registerUser(User user) {
@@ -46,6 +50,7 @@ public class UserHandler extends DomainActionsContainer {
       user.setState(State.of(StateEnum.ACTIVE.name()));
       user.setIsFrequent(IsFrequent.of(false));
       user.setIsAuthenticated(IsAuthenticated.of(false));
+      user.setReservationCounter(new ReservationCounter(Counter.of(0)));
     };
   }
 
@@ -58,6 +63,7 @@ public class UserHandler extends DomainActionsContainer {
       user.setState(State.of(StateEnum.ACTIVE.name()));
       user.setIsFrequent(IsFrequent.of(false));
       user.setIsAuthenticated(IsAuthenticated.of(false));
+      user.setReservationCounter(new ReservationCounter(Counter.of(0)));
     };
   }
 
@@ -95,6 +101,19 @@ public class UserHandler extends DomainActionsContainer {
       }
 
       user.toggleIsAuthenticated();
+    };
+  }
+
+  public Consumer<? extends DomainEvent> updateIsFrequent(User user) {
+    return (UpdatedIsFrequentUser event) -> {
+      user.validateStatedUser();
+
+      user.getReservationCounter().setCounter(Counter.of(event.getCounter()));
+      if(user.getReservationCounter().checkCounter(event.getCounterFrequent())) {
+        user.setIsFrequent(IsFrequent.of(true));
+      } else {
+        user.setIsFrequent(IsFrequent.of(false));
+      }
     };
   }
 

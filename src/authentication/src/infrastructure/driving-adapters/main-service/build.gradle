@@ -17,6 +17,7 @@ dependencies {
     implementation(project(':authentication:mysql'))
     implementation(project(':authentication:jwt'))
     implementation(project(':authentication:googleAuth'))
+    implementation(project(':authentication:reservationAPI'))
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 }

@@ -24,11 +24,7 @@ public class LogOutUserUseCase implements ICommandUseCase<LogOutUserRequest,Mono
 
   @Override
   public Mono<Boolean> execute(LogOutUserRequest request) {
-    System.out.println("TOKEN (case use):" + request.getToken());
-    System.out.println("SUBJECT (case use):" + jwtServicePort.getSubject(request.getToken()));
-    System.out.println("EMAIL (case use):" + jwtServicePort.getId(request.getToken()));
     UserResponse userResponse = userRepositoryPort.getByEmailUser(jwtServicePort.getSubject(request.getToken()));
-    System.out.println("USER (case use):" + userResponse.getId());
 
      return eventsRepositoryPort.findEventsByAggregateId(userResponse.getId())
       .collectList()
