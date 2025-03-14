@@ -7,8 +7,25 @@ dependencies {
     implementation(project(':shared:application'))
     implementation(project(':shared:domain'))
     implementation(project(':flight:domain'))
+<<<<<<< HEAD
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.0'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+=======
+    implementation(project(':flight:mongo'))
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation ("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+>>>>>>> origin/main
 }
 test {
     useJUnitPlatform()

@@ -1,8 +1,6 @@
 package com.airsofka.flight.infra.mainservice.controller;
 
 import com.airsofka.flight.application.flight.getFlights.GetFlightAllUseCase;
-import com.airsofka.flight.application.flight.getFlights.GetFlightUseCase;
-import com.airsofka.flight.application.shared.flight.FlightListResponse;
 import com.airsofka.flight.application.shared.flight.FlightResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
