@@ -3,6 +3,7 @@ package com.airsofka.authentication.infra.mainservice.controllers;
 import com.airsofka.authentication.application.logoutuser.LogOutUserRequest;
 import com.airsofka.authentication.application.logoutuser.LogOutUserUseCase;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,7 @@ public class LogOutUserController {
     this.logOutUserUseCase = logOutUserUseCase;
   }
 
-  @GetMapping
+  @PutMapping
   public Mono<Boolean> execute(@RequestBody LogOutUserRequest request){
     return logOutUserUseCase.execute(request);
   }
