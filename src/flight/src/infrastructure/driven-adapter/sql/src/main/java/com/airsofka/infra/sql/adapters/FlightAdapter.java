@@ -4,15 +4,20 @@ import com.airsofka.flight.application.shared.flight.FlightListResponse;
 import com.airsofka.flight.application.shared.flight.FlightResponse;
 import com.airsofka.flight.application.shared.flight.SeatResponse;
 import com.airsofka.flight.domain.flight.Flight;
+import com.airsofka.flight.domain.flight.values.PassengerPrice;
 import com.airsofka.infra.sql.entities.FlightEntity;
 import com.airsofka.infra.sql.entities.PassengerPriceEntity;
 import com.airsofka.infra.sql.entities.PriceEntity;
 import com.airsofka.infra.sql.entities.SeatEntity;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Comparator;
+import java.util.List;
 
 @Component
 public class FlightAdapter {
@@ -99,7 +104,15 @@ public class FlightAdapter {
         );
     }
 
+
     public static FlightListResponse toResponse(FlightEntity entity) {
+        List<PassengerPriceEntity> sortedPrices = entity.getPrice().getPassengerPrices().stream()
+                .sorted(Comparator.comparing(PassengerPriceEntity::getTotalPrice).reversed())
+                .toList();
+
+        java.util.function.Function<Double, Double> round = value ->
+                BigDecimal.valueOf(value).setScale(2, RoundingMode.HALF_UP).doubleValue();
+
         return new FlightListResponse(
                 entity.getId(),
                 entity.getFlightNumber(),
@@ -109,26 +122,24 @@ public class FlightAdapter {
                 entity.getArrivalTime(),
                 entity.getStatus(),
                 entity.getSeats().size(),
-                entity.getPrice().getTax(),
-                entity.getPrice().getPassengerPrices().get(2).getBasePrice(),
-                entity.getPrice().getPassengerPrices().get(2).getTax(),
-                entity.getPrice().getPassengerPrices().get(2).getTotalPrice(),
-                entity.getPrice().getPassengerPrices().get(1).getBasePrice(),
-                entity.getPrice().getPassengerPrices().get(1).getTax(),
-                entity.getPrice().getPassengerPrices().get(1).getTotalPrice(),
-                entity.getPrice().getPassengerPrices().get(0).getBasePrice(),
-                entity.getPrice().getPassengerPrices().get(0).getTax(),
-                entity.getPrice().getPassengerPrices().get(0).getTotalPrice(),
-                entity.getPrice().getPassengerPrices().get(4).getBasePrice(),
-                entity.getPrice().getPassengerPrices().get(4).getTax(),
-                entity.getPrice().getPassengerPrices().get(4).getTotalPrice(),
-                entity.getPrice().getPassengerPrices().get(3).getBasePrice(),
-                entity.getPrice().getPassengerPrices().get(3).getTax(),
-                entity.getPrice().getPassengerPrices().get(3).getTotalPrice()
-
+                round.apply(entity.getPrice().getTax()),
+                round.apply(sortedPrices.get(0).getBasePrice()),
+                round.apply(sortedPrices.get(0).getTax()),
+                round.apply(sortedPrices.get(0).getTotalPrice()),
+                round.apply(sortedPrices.get(1).getBasePrice()),
+                round.apply(sortedPrices.get(1).getTax()),
+                round.apply(sortedPrices.get(1).getTotalPrice()),
+                round.apply(sortedPrices.get(2).getBasePrice()),
+                round.apply(sortedPrices.get(2).getTax()),
+                round.apply(sortedPrices.get(2).getTotalPrice()),
+                round.apply(sortedPrices.get(4).getBasePrice()),
+                round.apply(sortedPrices.get(4).getTax()),
+                round.apply(sortedPrices.get(4).getTotalPrice()),
+                round.apply(sortedPrices.get(3).getBasePrice()),
+                round.apply(sortedPrices.get(3).getTax()),
+                round.apply(sortedPrices.get(3).getTotalPrice())
         );
     }
-
 
     public static SeatResponse toSeatResponse(FlightEntity entity) {
         List<SeatResponse.SeatInfo> seats = entity.getSeats().stream().map(
@@ -138,7 +149,9 @@ public class FlightAdapter {
                             seat.getSeatNumber(),
                             seat.getSeatClass(),
                             seat.getIsAvailable(),
-                            seat.getPriceSeat()
+                            seat.getPriceSeat(),
+                            Integer.parseInt(seat.getSeatNumber().split("-")[0]),
+                            seat.getSeatNumber().split("-")[1]
                     );
                 }).collect(Collectors.toList());
         return new SeatResponse(seats);
