@@ -1,6 +1,6 @@
 package com.airsofka.flight.application.shared.flight;
 
-import com.airsofka.flight.domain.flight.values.SeatInfo;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,13 +14,8 @@ public class SeatResponse {
     public SeatResponse(List<SeatInfo> seats) {
         this.seats = seats;
     }
-    public List<SeatInfo> getSeats() {
-        return seats;
-    }
 
-    public void setSeats(List<SeatInfo> seats) {
-        this.seats = seats;
-    }
+
     @Getter
     @Setter
     public static class SeatInfo {
@@ -32,17 +27,16 @@ public class SeatResponse {
         private final Integer row;
         private final String column;
 
-
         public SeatInfo(String seatId, String seatNumber, String seatClass, Boolean isAvailable, Double price, Integer row, String column) {
             this.seatId = seatId;
             this.seatNumber = seatNumber;
             this.seatClass = seatClass;
             this.isAvailable = isAvailable;
             this.price = price;
-
             this.row = row;
             this.column = column;
         }
+
     }
 
 

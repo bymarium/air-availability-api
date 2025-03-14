@@ -31,6 +31,9 @@ public class CreateFlightUseCase implements ICommandUseCase<CreateFlightRequest,
         Date arrivalTime = request.getArrivalTime();
         Instant newArrivalTime = arrivalTime.toInstant().plus(5, ChronoUnit.HOURS);
         Date updatedArrivalTime = Date.from(newArrivalTime);
+
+        System.out.println(updatedArrivalTime);
+        System.out.println(updatedDepartureTime);
         Flight flight = new Flight(
                 request.getFlightNumber(),
                 request.getRouteId(),
@@ -38,6 +41,7 @@ public class CreateFlightUseCase implements ICommandUseCase<CreateFlightRequest,
                 updatedDepartureTime,
                 updatedArrivalTime,
                 request.getFlightModel());
+        System.out.println(flight.getIdentity().getValue());
 
         flight.initializeSeats();
         flightRepositoryPort.saveFlight(flight);

@@ -1,10 +1,11 @@
 package com.airsofka.authentication.domain.user;
 
 import com.airsofka.authentication.domain.user.events.AuthenticatedGoogleUser;
+import com.airsofka.authentication.domain.user.events.UpdatedIsFrequentUser;
 import com.airsofka.authentication.domain.user.events.LoggedOutUser;
 import com.airsofka.authentication.domain.user.events.RegisteredGoogleUser;
 import com.airsofka.authentication.domain.user.events.RegisteredUser;
-import com.airsofka.authentication.domain.user.entities.Booking;
+import com.airsofka.authentication.domain.user.entities.ReservationCounter;
 import com.airsofka.authentication.domain.user.events.AuthenticatedUser;
 import com.airsofka.authentication.domain.user.values.DocumentID;
 import com.airsofka.authentication.domain.user.values.Email;
@@ -37,7 +38,7 @@ public class User extends AggregateRoot<UserId> {
   private State state;
   private MethodAuthentication methodAuthentication;
   private IsAuthenticated isAuthenticated;
-  private List<Booking> bookings;
+  private ReservationCounter reservationCounter;
 
   // region Constructors
   public User() {
@@ -140,12 +141,12 @@ public class User extends AggregateRoot<UserId> {
     this.isAuthenticated = isAuthenticated;
   }
 
-  public List<Booking> getBookings() {
-    return bookings;
+  public ReservationCounter getReservationCounter() {
+    return reservationCounter;
   }
 
-  public void setBookings(List<Booking> bookings) {
-    this.bookings = bookings;
+  public void setReservationCounter(ReservationCounter reservationCounter) {
+    this.reservationCounter = reservationCounter;
   }
 
   // endregion
@@ -169,6 +170,10 @@ public class User extends AggregateRoot<UserId> {
 
   public void loggedOutUser() {
     apply(new LoggedOutUser());
+  }
+
+  public void updateIsFrequentUser(Integer counter, Integer counterFrequent) {
+    apply(new UpdatedIsFrequentUser(counter, counterFrequent));
   }
 
   // endregion

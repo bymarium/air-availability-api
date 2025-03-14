@@ -22,4 +22,6 @@ public class GetSeatByIdController {
         return ResponseEntity.ok(getSeatByIdUseCase.execute(id));
     }
 
+
+
 }

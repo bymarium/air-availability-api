@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-
 @Getter
 @Setter
 public class FlightResponse {
@@ -31,6 +30,9 @@ public class FlightResponse {
         this.prices = prices;
         this.seats = seats;
     }
+
+
+
     @Getter
     @Setter
     public static class SeatInfo {
@@ -52,6 +54,7 @@ public class FlightResponse {
             this.column = column;
         }
 
+
     }
     @Getter
     @Setter
@@ -67,6 +70,8 @@ public class FlightResponse {
             this.tax = tax;
         }
 
+
+
     }
     @Getter
     @Setter
@@ -81,6 +86,8 @@ public class FlightResponse {
             this.price = price;
             this.tax = tax;
             this.totalPrice = totalPrice;
-        }   // Getters
+        }
+
+
     }
 }

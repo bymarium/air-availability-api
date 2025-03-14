@@ -36,6 +36,7 @@ public class FlightListResponse {
     private final Double totalPriceEconomyClassicPrice;
 
 
+
     public FlightListResponse(String flightId, String flightNumber, String flightModel, String routeId, Date departureTime, Date arrivalTime, String status, Integer seats, Double tax, Double businessFullPrice, Double taxBusinessFullPrice, Double totalPriceBusinessFullPrice, Double businessBasicPrice, Double taxBusinessBasicPrice, Double totalPriceBusinessBasicPrice, Double economyFullPrice, Double taxEconomyFullPrice, Double totalPriceEconomyFullPrice, Double economyBasicPrice, Double taxEconomyBasicPrice, Double totalPriceEconomyBasicPrice, Double economyClassicPrice, Double taxEconomyClassicPrice, Double totalPriceEconomyClassicPrice) {
         this.flightId = flightId;
         this.flightNumber = flightNumber;
@@ -66,7 +67,9 @@ public class FlightListResponse {
 
 
   //#region PassengerPriceInfo
-    @Getter
+  @Getter
+  @Setter
+
     public static class PricesInfo {
 
         private final Double standardPrice;
@@ -79,7 +82,7 @@ public class FlightListResponse {
             this.tax = tax;
         }
 
-
+        // Getters
         public Double getPrice() {
             return standardPrice;
         }
@@ -99,9 +102,9 @@ public class FlightListResponse {
             this.price = price;
             this.tax = tax;
             this.totalPrice = totalPrice;
-        }
+        }   // Getters
 
     }
-
+            //#endregion
 
 }
