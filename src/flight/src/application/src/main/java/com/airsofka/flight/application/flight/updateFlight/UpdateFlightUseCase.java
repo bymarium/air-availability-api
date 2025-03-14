@@ -18,7 +18,6 @@ public class UpdateFlightUseCase implements ICommandUseCase<UpdateFlightRequest,
         this.repository = repository;
         this.flightRepository = flightRepository;
     }
-
     @Override
     public Mono<FlightResponse> execute(UpdateFlightRequest request) {
         return repository.findEventsByAggregateId(request.getAggregateId())

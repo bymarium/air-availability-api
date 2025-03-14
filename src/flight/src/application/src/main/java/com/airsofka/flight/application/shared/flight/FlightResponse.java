@@ -2,8 +2,12 @@ package com.airsofka.flight.application.shared.flight;
 
 
 
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.List;
+@Getter
+@Setter
 public class FlightResponse {
     private final String flightId;
     private final String flightNumber;
@@ -27,43 +31,10 @@ public class FlightResponse {
         this.seats = seats;
     }
 
-    // Getters
-    public String getFlightId() {
-        return flightId;
-    }
 
-    public String getFlightNumber() {
-        return flightNumber;
-    }
 
-    public String getRouteId() {
-        return routeId;
-    }
-
-    public String getDepartureTime() {
-        return departureTime;
-    }
-
-    public String getArrivalTime() {
-        return arrivalTime;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public PricesInfo getPrices() {
-        return prices;
-    }
-
-    public List<SeatInfo> getSeats() {
-        return seats;
-    }
-
-    public String getFlightModel() {
-        return flightModel;
-    }
-
+    @Getter
+    @Setter
     public static class SeatInfo {
         private final String seatId;
         private final String seatNumber;
@@ -83,36 +54,10 @@ public class FlightResponse {
             this.column = column;
         }
 
-        // Getters
-        public String getSeatId() {
-            return seatId;
-        }
 
-        public String getSeatNumber() {
-            return seatNumber;
-        }
-
-        public String getSeatClass() {
-            return seatClass;
-        }
-
-        public boolean getIsAvailable() {
-            return isAvailable;
-        }
-
-        public double getPrice() {
-            return price;
-        }
-
-
-        public int getRow() {
-            return row;
-        }
-
-        public String getColumn() {
-            return column;
-        }
     }
+    @Getter
+    @Setter
     public static class PricesInfo {
 
         private final Double standardPrice;
@@ -125,23 +70,11 @@ public class FlightResponse {
             this.tax = tax;
         }
 
-        // Getters
-        public Double getPrice() {
-            return standardPrice;
-        }
 
-        public Double getStandardPrice() {
-            return standardPrice;
-        }
 
-        public List<PricePassengerInfo> getPassengerPrices() {
-            return passengerPrices;
-        }
-
-        public Double getTax() {
-            return tax;
-        }
     }
+    @Getter
+    @Setter
     public static class PricePassengerInfo {
         private final String type;
         private final Double price;
@@ -153,22 +86,8 @@ public class FlightResponse {
             this.price = price;
             this.tax = tax;
             this.totalPrice = totalPrice;
-        }   // Getters
-
-        public Double getPrice() {
-            return price;
         }
 
-        public Double getTax() {
-            return tax;
-        }
 
-        public Double getTotalPrice() {
-            return totalPrice;
-        }
-
-        public String getType() {
-            return type;
-        }
     }
 }
