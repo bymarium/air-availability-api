@@ -37,7 +37,7 @@ public class ModifyUserUseCase implements ICommandUseCase<ModifyUserRequest, Mon
           request.getName(),
           user.getEmail().getValue(),
           request.getPassword(),
-          user.getDocumentID().getValue(),
+          request.getDocumentId(),
           request.getPhoneNumber(),
           request.getNacionality()
         );
