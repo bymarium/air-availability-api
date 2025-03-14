@@ -17,7 +17,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "RESERVATION")
+@Table(name = "booking")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

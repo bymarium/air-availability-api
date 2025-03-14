@@ -13,7 +13,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "PASSENGER")
+@Table(name = "passenger")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -34,6 +34,6 @@ public class PassengerEntity {
   private String destinationSeat;
 
   @ManyToOne
-  @JoinColumn(name = "reservation_id")
+  @JoinColumn(name = "booking_id")
   private ReservationEntity reservation;
 }

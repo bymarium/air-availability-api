@@ -14,22 +14,8 @@ public class ReservationMapper {
       reservation.getDestination().getValue(),
       reservation.getReservationCode().getValue(),
       reservation.getCreationDate().getValue(),
-      new ReservationResponse.Flight(
-        reservation.getOriginFlight().getIdentity().getValue(),
-        reservation.getOriginFlight().getRelationalId().getValue(),
-        reservation.getOriginFlight().getPrice().getValue(),
-        reservation.getOriginFlight().getCategory().getValue(),
-        reservation.getOriginFlight().getStartTime().getValue(),
-        reservation.getOriginFlight().getEndTime().getValue()
-      ),
-      new ReservationResponse.Flight(
-        reservation.getDestinationFlight().getIdentity().getValue(),
-        reservation.getDestinationFlight().getRelationalId().getValue(),
-        reservation.getDestinationFlight().getPrice().getValue(),
-        reservation.getDestinationFlight().getCategory().getValue(),
-        reservation.getDestinationFlight().getStartTime().getValue(),
-        reservation.getDestinationFlight().getEndTime().getValue()
-      ),
+      reservation.getOriginFlight().getRelationalId().getValue(),
+      reservation.getDestinationFlight().getRelationalId().getValue(),
       reservation.getPassengers().stream().map(item -> new ReservationResponse.Passenger(
         item.getIdentity().getValue(),
         item.getType().getValue(),
