@@ -3,17 +3,18 @@ package com.airsofka.admin.domain.admin.values;
 import com.airsofka.admin.domain.admin.utils.ValueValidator;
 import com.airsofka.shared.domain.generic.IValueObject;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class DepartureDate implements IValueObject {
-    private final LocalDateTime value;
+    private final LocalDate value;
 
-    private DepartureDate(LocalDateTime value) {
+    private DepartureDate(LocalDate value) {
         this.value = value;
         validate();
     }
 
-    public static DepartureDate of(LocalDateTime value) {
+    public static DepartureDate of(LocalDate value) {
         return new DepartureDate(value);
     }
 
@@ -23,7 +24,7 @@ public class DepartureDate implements IValueObject {
         ValueValidator.validateDateNotEmpty(value, "DepartureDate");
     }
 
-    public LocalDateTime getValue() {
+    public LocalDate getValue() {
         return value;
     }
 }

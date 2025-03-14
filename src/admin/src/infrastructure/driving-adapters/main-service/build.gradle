@@ -7,7 +7,16 @@ dependencies {
     implementation(project(':admin:application'))
     implementation(project(':shared:application'))
 
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+
     implementation("org.springframework.boot:spring-boot-starter-web")
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.amqp:spring-rabbit-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
+

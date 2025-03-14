@@ -1,12 +1,7 @@
 package com.airsofka.authentication.domain.user;
 
-import com.airsofka.authentication.domain.user.events.AuthenticatedGoogleUser;
-import com.airsofka.authentication.domain.user.events.UpdatedIsFrequentUser;
-import com.airsofka.authentication.domain.user.events.LoggedOutUser;
-import com.airsofka.authentication.domain.user.events.RegisteredGoogleUser;
-import com.airsofka.authentication.domain.user.events.RegisteredUser;
+import com.airsofka.authentication.domain.user.events.*;
 import com.airsofka.authentication.domain.user.entities.ReservationCounter;
-import com.airsofka.authentication.domain.user.events.AuthenticatedUser;
 import com.airsofka.authentication.domain.user.values.DocumentID;
 import com.airsofka.authentication.domain.user.values.Email;
 import com.airsofka.authentication.domain.user.values.IsAuthenticated;
@@ -176,6 +171,10 @@ public class User extends AggregateRoot<UserId> {
     apply(new UpdatedIsFrequentUser(counter, counterFrequent));
   }
 
+  public void toggleUser() {
+    apply(new ToggledUser());
+  }
+
   // endregion
 
   // region Public Methods
@@ -193,6 +192,15 @@ public class User extends AggregateRoot<UserId> {
 
   public void toggleIsAuthenticated() {
     isAuthenticated = IsAuthenticated.of(!isAuthenticated.getValue());
+  }
+
+  public void toggleState() {
+
+    if(state.getValue().equals(StateEnum.ACTIVE.name())) {
+      state = State.of(StateEnum.INACTIVE.name());
+    } else {
+      state = State.of(StateEnum.ACTIVE.name());
+    }
   }
 
   public static User from(final String identity, final List<DomainEvent> events) {

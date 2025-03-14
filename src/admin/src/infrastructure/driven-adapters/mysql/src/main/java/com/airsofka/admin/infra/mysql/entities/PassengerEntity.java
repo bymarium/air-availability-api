@@ -17,8 +17,8 @@ import java.time.LocalDate;
 public class PassengerEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id", nullable = false)
+    private String id;
 
     @Column(nullable = false)
     private String type;
