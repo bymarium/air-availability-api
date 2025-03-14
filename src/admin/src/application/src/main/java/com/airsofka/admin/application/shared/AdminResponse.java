@@ -2,6 +2,7 @@ package com.airsofka.admin.application.shared;
 
 import com.airsofka.admin.domain.admin.values.State;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -48,10 +49,10 @@ public class AdminResponse {
 
     public static class Booking {
         private final String bookingId;
-        private final LocalDateTime arrivalDate;
+        private final LocalDate arrivalDate;
         private final String bookingCode;
-        private final LocalDateTime creationDate;
-        private final LocalDateTime departureDate;
+        private final LocalDate creationDate;
+        private final LocalDate departureDate;
         private final String Destination;
         private final String email;
         private final String flightClass;
@@ -61,7 +62,7 @@ public class AdminResponse {
         private final Double price;
         private final String state;
 
-        public Booking(String bookingId, LocalDateTime arrivalDate, String bookingCode, LocalDateTime creationDate, LocalDateTime departureDate, String destination, String email, String flightClass, String origin, List<Passenger> passengers, String paymentMethod, Double price, String state) {
+        public Booking(String bookingId, LocalDate arrivalDate, String bookingCode, LocalDate creationDate, LocalDate departureDate, String destination, String email, String flightClass, String origin, List<Passenger> passengers, String paymentMethod, Double price, String state) {
             this.bookingId = bookingId;
             this.arrivalDate = arrivalDate;
             this.bookingCode = bookingCode;
@@ -81,7 +82,7 @@ public class AdminResponse {
             return bookingId;
         }
 
-        public LocalDateTime getArrivalDate() {
+        public LocalDate getArrivalDate() {
             return arrivalDate;
         }
 
@@ -89,11 +90,11 @@ public class AdminResponse {
             return bookingCode;
         }
 
-        public LocalDateTime getCreationDate() {
+        public LocalDate getCreationDate() {
             return creationDate;
         }
 
-        public LocalDateTime getDepartureDate() {
+        public LocalDate getDepartureDate() {
             return departureDate;
         }
 

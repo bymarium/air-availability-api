@@ -15,8 +15,8 @@ import lombok.Setter;
 public class PaymentEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id", nullable = false)
+    private String id;
 
     @Column(nullable = false)
     private String paymentMethod;
@@ -30,10 +30,16 @@ public class PaymentEntity {
     @Column(nullable = false)
     private Double discount;
 
-    @Embedded
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "card_id")
     private CardEntity card;
 
-    @Embedded
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pse_id")
+    private PseEntity pse;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "billing_address_id")
     private BillingAddressEntity billingAddress;
 }
 
