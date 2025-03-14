@@ -6,12 +6,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Embeddable
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "billing_address")
 public class BillingAddressEntity {
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
     private String addressOne;
@@ -28,7 +32,7 @@ public class BillingAddressEntity {
     private String state;
 
     @Column(nullable = false)
-    private String postalCode;
+    private Integer postalCode;
 
     @Column(nullable = false)
     private String phoneNumber;

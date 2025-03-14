@@ -31,12 +31,12 @@ public class ConfirmedBookingAdapter implements IEventConfirmedPort {
         return new BookingConfirmedResponse(
                 booking.getId(),
                 booking.getState(),
-                booking.getDepartureDate(),
-                booking.getArrivalDate(),
+                booking.getDepartureDate().atStartOfDay(),
+                booking.getArrivalDate().atStartOfDay(),
                 booking.getOrigin(),
                 booking.getDestination(),
                 booking.getReservationCode(),
-                booking.getCreationDate(),
+                booking.getCreationDate().atStartOfDay(),
                 booking.getPassengers().stream()
                         .map(passenger -> passenger.getFirstName())
                         .collect(Collectors.toList())

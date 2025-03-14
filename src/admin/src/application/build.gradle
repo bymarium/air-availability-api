@@ -7,7 +7,7 @@ dependencies {
     implementation(project(':shared:application'))
     implementation(project(':shared:domain'))
     implementation(project(':admin:domain'))
-    implementation(project(':admin:mysql'))
+//    implementation(project(':admin:mysql'))
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     compileOnly 'org.projectlombok:lombok'
