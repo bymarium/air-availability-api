@@ -4,17 +4,17 @@ import com.airsofka.shared.application.Request;
 
 public class ModifyUserAsAdminRequest extends Request {
   private final String originalEmail;
-  private final String fullName;
+  private final String name;
   private final String email;
   private final String password;
   private final String documentId;
   private final String phoneNumber;
   private final String nacionality;
 
-  public ModifyUserAsAdminRequest(String originalEmail, String fullName, String email, String password, String documentId, String phoneNumber, String nacionality) {
+  public ModifyUserAsAdminRequest(String originalEmail, String name, String email, String password, String documentId, String phoneNumber, String nacionality) {
     super(null);
     this.originalEmail = originalEmail;
-    this.fullName = fullName;
+    this.name = name;
     this.email = email;
     this.password = password;
     this.documentId = documentId;
@@ -26,8 +26,8 @@ public class ModifyUserAsAdminRequest extends Request {
     return originalEmail;
   }
 
-  public String getFullName() {
-    return fullName;
+  public String getName() {
+    return name;
   }
 
   public String getEmail() {

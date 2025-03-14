@@ -54,7 +54,11 @@ public class SecurityConfig {
           DefaultOidcUser oidcUser = (DefaultOidcUser) authentication.getPrincipal();
           String token = (String) oidcUser.getAttributes().get("token");
           response.addCookie(generateCookie(token));
-          response.sendRedirect("http://localhost:4200/");
+          if (token == null || token.isBlank()) {
+            response.sendRedirect("http://localhost:4200/users/update/" + oidcUser.getEmail());
+          } else {
+            response.sendRedirect("http://localhost:4200");
+          }
         })
         .failureHandler((request, response, exception) -> {
           response.sendRedirect("http://localhost:4200/error");

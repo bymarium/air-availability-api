@@ -21,7 +21,7 @@ public class RegisterUserUseCase  implements ICommandUseCase<RegisterUserRequest
     @Override
     public Mono<UserResponse> execute(RegisterUserRequest request) {
         User user;
-        user =  UserMapper.mapperLocal(request);
+        user = UserMapper.mapperLocal(request);
         user.registerUser(user.getName().getValue(),user.getEmail().getValue(),user.getPassword().getValue(),user.getDocumentID().getValue(),user.getPhoneNumber().getValue(),user.getNacionality().getValue());
         user.getUncommittedEvents().forEach(eventsRepository::save);
         user.markEventsAsCommitted();

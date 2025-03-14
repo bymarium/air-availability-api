@@ -34,7 +34,7 @@ public class ModifyUserUseCase implements ICommandUseCase<ModifyUserRequest, Mon
         events.sort(Comparator.comparing(DomainEvent::getWhen));
         User user = User.from(userResponse.getId(), events);
         user.modifyUser(
-          request.getFullName(),
+          request.getName(),
           user.getEmail().getValue(),
           request.getPassword(),
           user.getDocumentID().getValue(),
@@ -44,7 +44,7 @@ public class ModifyUserUseCase implements ICommandUseCase<ModifyUserRequest, Mon
 
         user.getUncommittedEvents().forEach(eventsRepositoryPort::save);
         user.markEventsAsCommitted();
-        userRepositoryPort.save(user);
+        userRepositoryPort.update(user);
 
         return mapperUserResponse(user);
       });

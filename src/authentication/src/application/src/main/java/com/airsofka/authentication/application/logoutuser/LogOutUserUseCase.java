@@ -1,5 +1,6 @@
 package com.airsofka.authentication.application.logoutuser;
 
+import com.airsofka.authentication.application.loginuser.LoginUserResponse;
 import com.airsofka.authentication.application.shared.ports.IEventsRepositoryPort;
 import com.airsofka.authentication.application.shared.ports.IJwtServicePort;
 import com.airsofka.authentication.application.shared.ports.IUserRepositoryPort;
@@ -10,6 +11,8 @@ import com.airsofka.shared.domain.generic.DomainEvent;
 import reactor.core.publisher.Mono;
 
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LogOutUserUseCase implements ICommandUseCase<LogOutUserRequest,Mono<Boolean>> {
   private final IUserRepositoryPort userRepositoryPort;
@@ -26,9 +29,16 @@ public class LogOutUserUseCase implements ICommandUseCase<LogOutUserRequest,Mono
   public Mono<Boolean> execute(LogOutUserRequest request) {
     UserResponse userResponse = userRepositoryPort.getByEmailUser(jwtServicePort.getSubject(request.getToken()));
 
+    if(userResponse.getRole().equals("ADMIN")){
+      userResponse.setAuthenticated(false);
+      userRepositoryPort.updateAdmin(userResponse);
+      return Mono.just(true);
+    }
+
      return eventsRepositoryPort.findEventsByAggregateId(userResponse.getId())
       .collectList()
       .map(events -> {
+
         events.sort(Comparator.comparing(DomainEvent::getWhen));
         User user = User.from(userResponse.getId(), events);
         user.loggedOutUser();

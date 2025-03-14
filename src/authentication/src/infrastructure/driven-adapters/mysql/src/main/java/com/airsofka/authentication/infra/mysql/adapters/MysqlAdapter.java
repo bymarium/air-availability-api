@@ -94,7 +94,7 @@ public class MysqlAdapter implements IUserRepositoryPort {
           user.getPhoneNumber()!= null? user.getPhoneNumber().getValue() : null,
           user.getNacionality()!= null? user.getNacionality().getValue() : null,
           user.getMethodAuthentication().getValue(),
-                user.getRole().getValue(),
+          user.getRole().getValue(),
           user.getState().getValue(),
           user.getIsFrequent().getValue(),
           user.getIsAuthenticated().getValue()
@@ -120,7 +120,33 @@ public class MysqlAdapter implements IUserRepositoryPort {
     }
 
     @Override
-    public Boolean matches(String password, String encodedPassword) {
-        return passwordEncoder.matches(password, encodedPassword);
+    public void update(User user) {
+        if(user.getIdentity().getValue() == null){
+            throw new IllegalStateException("Identity cannot be null");
+        }
+        UserSql userSql = new UserSql(
+          user.getIdentity().getValue(),
+          user.getName().getValue(),
+          user.getPassword() != null? passwordEncoder.encode(user.getPassword().getValue()) : null,
+          user.getEmail().getValue(),
+          user.getDocumentID()!= null? user.getDocumentID().getValue() : null,
+          user.getPhoneNumber()!= null? user.getPhoneNumber().getValue() : null,
+          user.getNacionality()!= null? user.getNacionality().getValue() : null,
+          user.getMethodAuthentication().getValue(),
+          user.getRole().getValue(),
+          user.getState().getValue(),
+          user.getIsFrequent().getValue(),
+          user.getIsAuthenticated().getValue()
+        );
+        repository.save(userSql);
+    }
+
+    @Override
+    public void updateAdmin(UserResponse user) {
+        repository.findById(user.getId()).ifPresent(userSql -> {
+            userSql.setName(user.getName());
+            userSql.setIsAuthenticated(user.getAuthenticated());
+            repository.save(userSql);
+        });
     }
 }
