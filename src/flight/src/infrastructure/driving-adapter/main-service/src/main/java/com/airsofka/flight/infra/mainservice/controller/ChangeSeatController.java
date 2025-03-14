@@ -10,14 +10,25 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
 @RestController
+<<<<<<< HEAD
 @RequestMapping("/api/flight-seat")
 public class ChangeSeatController {
     private final ChangeSeatUseCase changeSeatUseCase;
+=======
+    @RequestMapping("/api/change-seat")
+public class ChangeSeatController {
+    private final ChangeSeatUseCase changeSeatUseCase;
+
+>>>>>>> origin/main
     public ChangeSeatController(ChangeSeatUseCase changeSeatUseCase) {
         this.changeSeatUseCase = changeSeatUseCase;
     }
     @PutMapping
+<<<<<<< HEAD
     public Mono<FlightResponse> changeSeat(@RequestBody ChangeSeatRequest request) {
+=======
+    public Mono<FlightResponse> changeSeat(@RequestBody ChangeSeatRequest request){
+>>>>>>> origin/main
         return changeSeatUseCase.execute(request);
     }
 }

@@ -1,9 +1,19 @@
 package com.airsofka.flight.application.flight.createFlight;
 
+<<<<<<< HEAD
+=======
+import com.airsofka.flight.application.services.FlightService;
+import com.airsofka.flight.application.shared.flight.FlightMapper;
+>>>>>>> origin/main
 import com.airsofka.flight.application.shared.flight.FlightResponse;
 import com.airsofka.flight.application.shared.ports.IEventsRepositoryPort;
 import com.airsofka.flight.application.shared.ports.IFlightRepositoryPort;
 import com.airsofka.flight.domain.flight.Flight;
+<<<<<<< HEAD
+=======
+import com.airsofka.flight.domain.flight.values.FlightNumber;
+import com.airsofka.infra.mongo.repositories.FlightRepository;
+>>>>>>> origin/main
 import com.airsofka.shared.application.ICommandUseCase;
 import reactor.core.publisher.Mono;
 
@@ -15,12 +25,11 @@ import static com.airsofka.flight.application.shared.flight.FlightMapper.mapToRe
 
 public class CreateFlightUseCase implements ICommandUseCase<CreateFlightRequest, Mono<FlightResponse>> {
     private final IEventsRepositoryPort repository;
-    private final IFlightRepositoryPort flightRepositoryPort;
+    private final FlightService flightService;
 
-
-    public CreateFlightUseCase(IEventsRepositoryPort repository, IFlightRepositoryPort flightRepository) {
+    public CreateFlightUseCase(IEventsRepositoryPort repository,FlightService flightRepository) {
         this.repository = repository;
-        this.flightRepositoryPort = flightRepository;
+        this.flightService = flightRepository;
     }
 
     @Override
@@ -35,12 +44,17 @@ public class CreateFlightUseCase implements ICommandUseCase<CreateFlightRequest,
                 request.getFlightNumber(),
                 request.getRouteId(),
                 request.getPrice(),
+<<<<<<< HEAD
                 updatedDepartureTime,
                 updatedArrivalTime,
                 request.getFlightModel());
+=======
+                request.getDepartureTime(),
+                request.getArrivalTime());
+>>>>>>> origin/main
 
         flight.initializeSeats();
-        flightRepositoryPort.saveFlight(flight);
+        flightService.saveFlight(flight);
         flight.getUncommittedEvents().forEach(repository::save);
         flight.markEventsAsCommitted();
 
