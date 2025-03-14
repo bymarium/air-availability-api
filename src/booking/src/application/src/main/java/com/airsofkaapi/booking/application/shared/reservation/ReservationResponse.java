@@ -1,11 +1,10 @@
 package com.airsofkaapi.booking.application.shared.reservation;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 public class ReservationResponse {
-  private final String reservationId;
+  private final String id;
   private final String state;
   private final LocalDate departureDate;
   private final LocalDate arrivalDate;
@@ -13,13 +12,13 @@ public class ReservationResponse {
   private final String destination;
   private final String reservationCode;
   private final LocalDate creationDate;
-  private final Flight originFlight;
-  private final Flight destinationFlight;
+  private final String originFlightId;
+  private final String destinationFlightId;
   private final List<Passenger> passengers;
   private final Payment payment;
 
-  public ReservationResponse(String reservationId, String state, LocalDate departureDate, LocalDate arrivalDate, String origin, String destination, String reservationCode, LocalDate creationDate, Flight originFlight, Flight destinationFlight, List<Passenger> passengers, Payment payment) {
-    this.reservationId = reservationId;
+  public ReservationResponse(String id, String state, LocalDate departureDate, LocalDate arrivalDate, String origin, String destination, String reservationCode, LocalDate creationDate, String originFlightId, String destinationFlightId, List<Passenger> passengers, Payment payment) {
+    this.id = id;
     this.state = state;
     this.departureDate = departureDate;
     this.arrivalDate = arrivalDate;
@@ -27,14 +26,14 @@ public class ReservationResponse {
     this.destination = destination;
     this.reservationCode = reservationCode;
     this.creationDate = creationDate;
-    this.originFlight = originFlight;
-    this.destinationFlight = destinationFlight;
+    this.originFlightId = originFlightId;
+    this.destinationFlightId = destinationFlightId;
     this.passengers = passengers;
     this.payment = payment;
   }
 
-  public String getReservationId() {
-    return reservationId;
+  public String getId() {
+    return id;
   }
 
   public String getState() {
@@ -65,12 +64,12 @@ public class ReservationResponse {
     return creationDate;
   }
 
-  public Flight getOriginFlight() {
-    return originFlight;
+  public String getOriginFlightId() {
+    return originFlightId;
   }
 
-  public Flight getDestinationFlight() {
-    return destinationFlight;
+  public String getDestinationFlightId() {
+    return destinationFlightId;
   }
 
   public List<Passenger> getPassengers() {
@@ -79,48 +78,6 @@ public class ReservationResponse {
 
   public Payment getPayment() {
     return payment;
-  }
-
-  public static class Flight {
-    private final String id;
-    private final String relationalId;
-    private final Double price;
-    private final String category;
-    private final LocalTime startTime;
-    private final LocalTime endTime;
-
-    public Flight(String id, String relationalId, Double price, String category, LocalTime startTime, LocalTime endTime) {
-      this.id = id;
-      this.relationalId = relationalId;
-      this.price = price;
-      this.category = category;
-      this.startTime = startTime;
-      this.endTime = endTime;
-    }
-
-    public String getRelationalId() {
-      return relationalId;
-    }
-
-    public String getId() {
-      return id;
-    }
-
-    public Double getPrice() {
-      return price;
-    }
-
-    public String getCategory() {
-      return category;
-    }
-
-    public LocalTime getStartTime() {
-      return startTime;
-    }
-
-    public LocalTime getEndTime() {
-      return endTime;
-    }
   }
 
   public static class Passenger {
