@@ -13,6 +13,10 @@ public class RegisteredUser  extends DomainEvent {
     private String nacionality;
     private String methodAuthentication;
 
+    public RegisteredUser() {
+        super(EventsEnum.REGISTERED_USER.name());
+    }
+
     public RegisteredUser(String name, String email, String password, String documentId, String phoneNumber, String nacionality) {
         super(EventsEnum.REGISTERED_USER.name());
         this.fullName = name;
@@ -23,12 +27,6 @@ public class RegisteredUser  extends DomainEvent {
         this.nacionality = nacionality;
         this.methodAuthentication = MethodRegister.LOCAL.name();
     }
-
-//    public RegisteredUser(String name, String email) {
-//        super(EventsEnum.REGISTERED_USER.name());
-//        this.email = email;
-//        this.methodAuthentication = MethodRegister.GOOGLE.name();
-//    }
 
     @Override
     public String getName() {

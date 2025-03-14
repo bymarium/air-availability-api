@@ -31,4 +31,9 @@ public class JwtAdapter implements IJwtServicePort {
   public String getSubject(String jwt) {
     return jwtUtil.getValue(jwt);
   }
+
+  @Override
+  public Map<String, Object> getClaims(String jwt) {
+    return jwtUtil.getClaims(jwt);
+  }
 }
