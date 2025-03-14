@@ -8,6 +8,7 @@ import com.airsofka.authentication.application.getbyemailuser.GetByEmailUserUseC
 import com.airsofka.authentication.application.loginuser.LoginUserUseCase;
 import com.airsofka.authentication.application.loginusergoogle.LoginUserGoogleUseCase;
 import com.airsofka.authentication.application.logoutuser.LogOutUserUseCase;
+import com.airsofka.authentication.application.toggleuser.ToggleUserUseCase;
 import com.airsofka.authentication.application.updateisfrequentusers.UpdateIsFrequentUserUseCase;
 import com.airsofka.authentication.application.registeruser.RegisterUserUseCase;
 import com.airsofka.authentication.application.registerusergoogle.RegisterUserGoogleUseCase;
@@ -75,6 +76,11 @@ public class UseCaseConfig {
     @Bean
     public GetByEmailUserUseCase getByEmailUserUseCase(MysqlAdapter mysqlAdapter){
         return new GetByEmailUserUseCase(mysqlAdapter);
+    }
+
+    @Bean
+    public ToggleUserUseCase toggleUserUseCase(MysqlAdapter mysqlAdapter, MongoAdapter adapter){
+        return new ToggleUserUseCase(mysqlAdapter, adapter);
     }
 
 }
