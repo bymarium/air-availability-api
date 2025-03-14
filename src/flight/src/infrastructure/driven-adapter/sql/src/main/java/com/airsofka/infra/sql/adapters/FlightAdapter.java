@@ -149,7 +149,9 @@ public class FlightAdapter {
                             seat.getSeatNumber(),
                             seat.getSeatClass(),
                             seat.getIsAvailable(),
-                            seat.getPriceSeat()
+                            seat.getPriceSeat(),
+                            Integer.parseInt(seat.getSeatNumber().split("-")[0]),
+                            seat.getSeatNumber().split("-")[1]
                     );
                 }).collect(Collectors.toList());
         return new SeatResponse(seats);

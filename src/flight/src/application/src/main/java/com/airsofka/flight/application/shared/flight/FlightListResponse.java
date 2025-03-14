@@ -1,11 +1,13 @@
 package com.airsofka.flight.application.shared.flight;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
 
 @Getter
+@Setter
 public class FlightListResponse {
   // Getters
   private final String flightId;
@@ -65,7 +67,9 @@ public class FlightListResponse {
 
 
   //#region PassengerPriceInfo
-    @Getter
+  @Getter
+  @Setter
+
     public static class PricesInfo {
 
         private final Double standardPrice;
