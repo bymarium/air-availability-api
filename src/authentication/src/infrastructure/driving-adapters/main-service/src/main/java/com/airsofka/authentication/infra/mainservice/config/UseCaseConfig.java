@@ -5,9 +5,12 @@ import com.airsofka.authentication.application.decodetoken.DecodeTokenUseCase;
 import com.airsofka.authentication.application.generatetoken.GenerateTokenUseCase;
 import com.airsofka.authentication.application.getalluser.GetAllUserUseCase;
 import com.airsofka.authentication.application.getbyemailuser.GetByEmailUserUseCase;
+import com.airsofka.authentication.application.getreservationbycode.GetReservationByCodeUseCase;
 import com.airsofka.authentication.application.loginuser.LoginUserUseCase;
 import com.airsofka.authentication.application.loginusergoogle.LoginUserGoogleUseCase;
 import com.airsofka.authentication.application.logoutuser.LogOutUserUseCase;
+import com.airsofka.authentication.application.modifyuser.ModifyUserUseCase;
+import com.airsofka.authentication.application.modifyuserasadmin.ModifyUserAsAdminUseCase;
 import com.airsofka.authentication.application.toggleuser.ToggleUserUseCase;
 import com.airsofka.authentication.application.updateisfrequentusers.UpdateIsFrequentUserUseCase;
 import com.airsofka.authentication.application.registeruser.RegisterUserUseCase;
@@ -81,6 +84,21 @@ public class UseCaseConfig {
     @Bean
     public ToggleUserUseCase toggleUserUseCase(MysqlAdapter mysqlAdapter, MongoAdapter adapter){
         return new ToggleUserUseCase(mysqlAdapter, adapter);
+    }
+
+    @Bean
+    public ModifyUserAsAdminUseCase modifyUserAsAdminUseCase(MysqlAdapter mysqlAdapter, MongoAdapter adapter){
+        return new ModifyUserAsAdminUseCase(adapter, mysqlAdapter);
+    }
+
+    @Bean
+    public ModifyUserUseCase modifyUserUseCase(MysqlAdapter mysqlAdapter, MongoAdapter adapter, JwtAdapter jwtAdapter){
+        return new ModifyUserUseCase(adapter, mysqlAdapter, jwtAdapter);
+    }
+
+    @Bean
+    public GetReservationByCodeUseCase getReservationByCodeUseCase(ReservationAPIAdapter reservationAPIAdapter){
+        return new GetReservationByCodeUseCase(reservationAPIAdapter);
     }
 
 }

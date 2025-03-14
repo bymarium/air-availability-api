@@ -11,5 +11,6 @@ public interface IUserRepositoryPort {
     UserResponse getByEmailUser(String email);
     void save(User user);
     void saveGoogle(User user);
-    Boolean matches(String password, String encodedPassword);
+    void update(User user);
+    void updateAdmin(UserResponse user);
 }

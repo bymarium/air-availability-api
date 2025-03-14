@@ -11,7 +11,7 @@ public class UserResponse {
   private final String state;
   private final String role;
   private final Boolean isFrequent;
-  private final Boolean isAuthenticated;
+  private Boolean isAuthenticated;
 
 
   public UserResponse(String id, String name, String email, String documentId, String phoneNumber, String nacionality, String methodAuthentication, String state, String role, Boolean isFrequent, Boolean isAuthenticated) {
@@ -70,5 +70,9 @@ public class UserResponse {
 
   public Boolean getAuthenticated() {
     return isAuthenticated;
+  }
+
+  public void setAuthenticated(Boolean authenticated) {
+    isAuthenticated = authenticated;
   }
 }

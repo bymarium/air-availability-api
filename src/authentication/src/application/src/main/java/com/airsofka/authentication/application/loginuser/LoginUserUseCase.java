@@ -27,6 +27,15 @@ public class LoginUserUseCase implements ICommandUseCase<LoginUserRequest, Mono<
   @Override
   public Mono<LoginUserResponse> execute(LoginUserRequest request) {
     UserResponse userResponse = userRepository.getByEmailUser(request.getEmail());
+
+    if(userResponse.getRole().equals("ADMIN")){
+      Map<String, Object> claims = new HashMap<>();
+      userResponse.setAuthenticated(true);
+      userRepository.updateAdmin(userResponse);
+      String token = jwtService.createToken(userResponse.getId(), userResponse.getEmail(), claims);
+      return Mono.just(new LoginUserResponse(token));
+    }
+
     return repository.findEventsByAggregateId(userResponse.getId())
       .collectList()
       .map(events -> {

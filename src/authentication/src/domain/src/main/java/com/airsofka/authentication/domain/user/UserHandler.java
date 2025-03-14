@@ -30,6 +30,7 @@ public class UserHandler extends DomainActionsContainer {
     addAction(authenticateGoogleUser(user));
     addAction(loggedOutUser(user));
     addAction(updateIsFrequent(user));
+    addAction(modifyUser(user));
     addAction(toggleUser(user));
   }
 
@@ -38,7 +39,7 @@ public class UserHandler extends DomainActionsContainer {
       user.setName(Name.of(event.getName()));
       user.setEmail(Email.of(event.getEmail()));
       user.setPassword(Password.of(event.getPassword()));
-      user.setDocumentID(DocumentID.of(event.getEmail()));
+      user.setDocumentID(DocumentID.of(event.getDocumentId()));
       user.setNacionality(Nacionality.of(event.getNacionality()));
       user.setPhoneNumber(PhoneNumber.of(event.getPhoneNumber()));
       user.setMethodAuthentication(MethodAuthentication.of(MethodEnum.LOCAL.name()));
@@ -113,10 +114,19 @@ public class UserHandler extends DomainActionsContainer {
     };
   }
 
-  public Consumer<? extends DomainEvent> toggleUser(User user) {
-    return (ToggledUser event) -> {
-      user.toggleState();
+  public Consumer<? extends DomainEvent> modifyUser(User user) {
+    return (ModifiedUser event) -> {
+      user.setName(Name.of(event.getFullName()));
+      user.setEmail(Email.of(event.getEmail()));
+      user.setPassword(Password.of(event.getPassword()));
+      user.setDocumentID(DocumentID.of(event.getDocumentId()));
+      user.setNacionality(Nacionality.of(event.getNacionality()));
+      user.setPhoneNumber(PhoneNumber.of(event.getPhoneNumber()));
     };
+  }
+
+  public Consumer<? extends DomainEvent> toggleUser(User user) {
+    return (ToggledUser event) -> user.toggleState();
   }
 
 }

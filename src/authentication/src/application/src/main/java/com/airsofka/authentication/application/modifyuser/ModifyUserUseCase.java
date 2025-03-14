@@ -1,6 +1,5 @@
-package com.airsofka.authentication.application.logoutuser;
+package com.airsofka.authentication.application.modifyuser;
 
-import com.airsofka.authentication.application.loginuser.LoginUserResponse;
 import com.airsofka.authentication.application.shared.ports.IEventsRepositoryPort;
 import com.airsofka.authentication.application.shared.ports.IJwtServicePort;
 import com.airsofka.authentication.application.shared.ports.IUserRepositoryPort;
@@ -11,42 +10,43 @@ import com.airsofka.shared.domain.generic.DomainEvent;
 import reactor.core.publisher.Mono;
 
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
 
-public class LogOutUserUseCase implements ICommandUseCase<LogOutUserRequest,Mono<Boolean>> {
-  private final IUserRepositoryPort userRepositoryPort;
+import static com.airsofka.authentication.application.shared.users.UserMapper.mapperUserResponse;
+
+public class ModifyUserUseCase implements ICommandUseCase<ModifyUserRequest, Mono<UserResponse>> {
   private final IEventsRepositoryPort eventsRepositoryPort;
+  private final IUserRepositoryPort userRepositoryPort;
   private final IJwtServicePort jwtServicePort;
 
-  public LogOutUserUseCase(IUserRepositoryPort userRepositoryPort, IEventsRepositoryPort eventsRepositoryPort, IJwtServicePort jwtServicePort) {
-    this.userRepositoryPort = userRepositoryPort;
+  public ModifyUserUseCase(IEventsRepositoryPort eventsRepositoryPort, IUserRepositoryPort userRepositoryPort, IJwtServicePort jwtServicePort) {
     this.eventsRepositoryPort = eventsRepositoryPort;
+    this.userRepositoryPort = userRepositoryPort;
     this.jwtServicePort = jwtServicePort;
   }
 
   @Override
-  public Mono<Boolean> execute(LogOutUserRequest request) {
+  public Mono<UserResponse> execute(ModifyUserRequest request) {
     UserResponse userResponse = userRepositoryPort.getByEmailUser(jwtServicePort.getSubject(request.getToken()));
 
-    if(userResponse.getRole().equals("ADMIN")){
-      userResponse.setAuthenticated(false);
-      userRepositoryPort.updateAdmin(userResponse);
-      return Mono.just(true);
-    }
-
-     return eventsRepositoryPort.findEventsByAggregateId(userResponse.getId())
+    return eventsRepositoryPort.findEventsByAggregateId(userResponse.getId())
       .collectList()
       .map(events -> {
-
         events.sort(Comparator.comparing(DomainEvent::getWhen));
         User user = User.from(userResponse.getId(), events);
-        user.loggedOutUser();
+        user.modifyUser(
+          request.getName(),
+          user.getEmail().getValue(),
+          request.getPassword(),
+          user.getDocumentID().getValue(),
+          request.getPhoneNumber(),
+          request.getNacionality()
+        );
+
         user.getUncommittedEvents().forEach(eventsRepositoryPort::save);
         user.markEventsAsCommitted();
-        userRepositoryPort.save(user);
+        userRepositoryPort.update(user);
 
-        return true;
+        return mapperUserResponse(user);
       });
   }
 }

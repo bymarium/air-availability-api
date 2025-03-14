@@ -1,19 +1,19 @@
 package com.airsofka.authentication.domain.user.entities;
 
-import com.airsofka.authentication.domain.user.values.BookingId;
+import com.airsofka.authentication.domain.user.values.ReservationCounterId;
 import com.airsofka.authentication.domain.user.values.Counter;
 import com.airsofka.shared.domain.generic.Entity;
 
-public class ReservationCounter extends Entity<BookingId> {
+public class ReservationCounter extends Entity<ReservationCounterId> {
   private Counter counter;
 
-  public ReservationCounter(BookingId identity, Counter counter) {
+  public ReservationCounter(ReservationCounterId identity, Counter counter) {
     super(identity);
     this.counter = counter;
   }
 
   public ReservationCounter(Counter counter) {
-    super(new BookingId());
+    super(new ReservationCounterId());
     this.counter = counter;
   }
 

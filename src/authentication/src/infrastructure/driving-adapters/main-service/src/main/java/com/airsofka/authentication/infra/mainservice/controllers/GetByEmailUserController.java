@@ -4,6 +4,7 @@ import com.airsofka.authentication.application.getbyemailuser.GetByEmailUserRequ
 import com.airsofka.authentication.application.getbyemailuser.GetByEmailUserUseCase;
 import com.airsofka.authentication.application.shared.users.UserResponse;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,7 @@ public class GetByEmailUserController {
         this.getByEmailUserUseCase = getByEmailUserUseCase;
     }
 
-    @GetMapping
+    @PostMapping
     public UserResponse execute (@RequestBody GetByEmailUserRequest request){
         return getByEmailUserUseCase.execute(request);
     }

@@ -1,6 +1,6 @@
-package com.airsofka.authentication.infra.reservationapi.entities;
+package com.airsofka.authentication.application.shared.reservations;
 
-public class ReservationResponse {
+public class Reservation {
   private String status;
   private String origin;
   private String destination;
@@ -18,10 +18,10 @@ public class ReservationResponse {
   private Double passengersPrice;
   private Double totalPrice;
 
-  public ReservationResponse() {
+  public Reservation() {
   }
 
-  public ReservationResponse(String status, String origin, String destination, String reservationCode, String flightDate, String departureTime, String arrivalTime, String flightDuration, String reservedBy, String email, String flightClass, String purchaseDate, String paymentMethod, Integer passengersCount, Double passengersPrice, Double totalPrice) {
+  public Reservation(String status, String origin, String destination, String reservationCode, String flightDate, String departureTime, String arrivalTime, String flightDuration, String reservedBy, String email, String flightClass, String purchaseDate, String paymentMethod, Integer passengersCount, Double passengersPrice, Double totalPrice) {
     this.status = status;
     this.origin = origin;
     this.destination = destination;
