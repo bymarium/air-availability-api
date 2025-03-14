@@ -4,7 +4,6 @@ import com.airsofka.flight.application.shared.flight.FlightListResponse;
 import com.airsofka.flight.application.shared.flight.FlightResponse;
 import com.airsofka.flight.application.shared.flight.SeatResponse;
 import com.airsofka.flight.domain.flight.Flight;
-import com.airsofka.flight.domain.flight.values.PassengerPrice;
 import com.airsofka.infra.sql.entities.FlightEntity;
 import com.airsofka.infra.sql.entities.PassengerPriceEntity;
 import com.airsofka.infra.sql.entities.PriceEntity;
@@ -17,7 +16,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Comparator;
-import java.util.List;
 
 @Component
 public class FlightAdapter {
@@ -149,7 +147,9 @@ public class FlightAdapter {
                             seat.getSeatNumber(),
                             seat.getSeatClass(),
                             seat.getIsAvailable(),
-                            seat.getPriceSeat()
+                            seat.getPriceSeat(),
+                            Integer.parseInt(seat.getSeatNumber().split("-")[0]),
+                            seat.getSeatNumber().split("-")[1]
                     );
                 }).collect(Collectors.toList());
         return new SeatResponse(seats);
