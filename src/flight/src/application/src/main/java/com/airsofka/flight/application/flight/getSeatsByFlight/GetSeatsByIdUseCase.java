@@ -10,7 +10,7 @@ public class GetSeatsByIdUseCase {
         this.repository = repository;
     }
 
-    public SeatResponse execute(GetSeatsRequest request) {
-        return repository.findSeatsById(request.getAggregateId());
+    public SeatResponse execute(String request) {
+        return repository.findSeatsById(request);
     }
 }
