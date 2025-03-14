@@ -18,10 +18,8 @@ public class GetSeatByIdController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SeatResponse> getSeatById(@PathVariable  String id) {
+    public ResponseEntity<SeatResponse> getSeatById(@PathVariable String id) {
         return ResponseEntity.ok(getSeatByIdUseCase.execute(id));
     }
-
-
 
 }

@@ -23,7 +23,6 @@ public class GetFlightByIdController {
                 .filter(f -> f.getFlightId().equals(id))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Flight not found"));
-
         return ResponseEntity.ok(flight);
     }
 }

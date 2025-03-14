@@ -20,5 +20,4 @@ public class GetFlightsController {
     public ResponseEntity<List<FlightListResponse>> getAllFlights() {
         return ResponseEntity.ok(getFlightUseCase.execute());
     }
-
 }
