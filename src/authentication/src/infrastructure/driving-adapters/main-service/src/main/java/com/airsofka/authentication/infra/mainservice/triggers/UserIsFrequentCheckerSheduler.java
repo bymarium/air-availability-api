@@ -18,6 +18,6 @@ public class UserIsFrequentCheckerSheduler {
 
   @Scheduled(fixedRate = 5000)
   public void checkAllUsersIsFrequent() {
-    updateIsFrequentUserUseCase.execute(updateIsFrequentUserRequest).subscribe();
+    //updateIsFrequentUserUseCase.execute(updateIsFrequentUserRequest).subscribe();
   }
 }

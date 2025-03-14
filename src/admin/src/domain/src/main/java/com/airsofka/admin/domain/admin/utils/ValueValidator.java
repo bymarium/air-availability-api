@@ -1,5 +1,6 @@
 package com.airsofka.admin.domain.admin.utils;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -47,14 +48,14 @@ public class ValueValidator {
         }
     }
 
-    public static void validateDateNotNull(LocalDateTime value, String fieldName) {
+    public static void validateDateNotNull(LocalDate value, String fieldName) {
         if (Objects.isNull(value)) {
             throw new IllegalArgumentException(fieldName + " cannot be null");
         }
     }
 
-    public static void validateDateNotEmpty(LocalDateTime value, String fieldName) {
-        if (Objects.isNull(value) || value.equals(LocalDateTime.MIN)) {
+    public static void validateDateNotEmpty(LocalDate value, String fieldName) {
+        if (Objects.isNull(value) || value.equals(LocalDate.MIN)) {
             throw new IllegalArgumentException(fieldName + " cannot be empty or default");
         }
     }

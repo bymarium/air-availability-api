@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,17 +19,17 @@ import java.util.List;
 public class BookingEntity {
 
     @Id
-    @Column(name = "id", length = 36, nullable = false, updatable = false)
+    @Column(name = "id", nullable = false)
     private String id;
 
     @Column(nullable = false)
     private String state;
 
     @Column(nullable = false)
-    private LocalDateTime departureDate;
+    private LocalDate departureDate;
 
     @Column(nullable = false)
-    private LocalDateTime arrivalDate;
+    private LocalDate arrivalDate;
 
     @Column(nullable = false)
     private String origin;
@@ -40,15 +41,13 @@ public class BookingEntity {
     private String reservationCode;
 
     @Column(nullable = false)
-    private LocalDateTime creationDate;
+    private LocalDate creationDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "origin_flight_id", referencedColumnName = "id")
-    private FlightEntity originFlight;
+    @Column(nullable = false)
+    private String originFlightId;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "destination_flight_id", referencedColumnName = "id")
-    private FlightEntity destinationFlight;
+    @Column(nullable = false)
+    private String destinationFlightId;
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PassengerEntity> passengers;

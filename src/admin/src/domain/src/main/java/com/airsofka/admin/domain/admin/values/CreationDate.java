@@ -3,17 +3,18 @@ package com.airsofka.admin.domain.admin.values;
 import com.airsofka.admin.domain.admin.utils.ValueValidator;
 import com.airsofka.shared.domain.generic.IValueObject;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class CreationDate implements IValueObject {
-    private final LocalDateTime value;
+    private final LocalDate value;
 
-    private CreationDate(LocalDateTime value) {
+    private CreationDate(LocalDate value) {
         this.value = value;
         validate();
     }
 
-    public static CreationDate of(LocalDateTime value) {
+    public static CreationDate of(LocalDate value) {
         return new CreationDate(value);
     }
 
@@ -23,7 +24,7 @@ public class CreationDate implements IValueObject {
         ValueValidator.validateDateNotEmpty(value, "CreationDate");
     }
 
-    public LocalDateTime getValue() {
+    public LocalDate getValue() {
         return value;
     }
 }
