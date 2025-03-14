@@ -39,8 +39,8 @@ public class MysqlAdapter implements IUserRepositoryPort {
         userSql.setPhoneNumber(user.getPhoneNumber().getValue());
         userSql.setNacionality(user.getNacionality().getValue());
         userSql.setMethodAuthentication(user.getMethodAuthentication().getValue());
-        userSql.setRole(user.getState().getValue());
-        userSql.setState(user.getRole().getValue());
+        userSql.setRole(user.getRole().getValue());
+        userSql.setState(user.getState().getValue());
         userSql.setIsFrequent(user.getIsFrequent().getValue());
         userSql.setIsAuthenticated(user.getIsAuthenticated().getValue());
         repository.save(userSql);
@@ -55,8 +55,8 @@ public class MysqlAdapter implements IUserRepositoryPort {
         userSql.setId(user.getIdentity().getValue());
         userSql.setName(user.getName().getValue());
         userSql.setEmail(user.getEmail().getValue());
-        userSql.setRole(user.getState().getValue());
-        userSql.setRole(user.getState().getValue());
+        userSql.setRole(user.getRole().getValue());
+        userSql.setState(user.getState().getValue());
         userSql.setMethodAuthentication(user.getMethodAuthentication().getValue());
         userSql.setIsFrequent(user.getIsFrequent().getValue());
         userSql.setIsAuthenticated(user.getIsAuthenticated().getValue());
@@ -94,8 +94,8 @@ public class MysqlAdapter implements IUserRepositoryPort {
           user.getPhoneNumber()!= null? user.getPhoneNumber().getValue() : null,
           user.getNacionality()!= null? user.getNacionality().getValue() : null,
           user.getMethodAuthentication().getValue(),
+                user.getRole().getValue(),
           user.getState().getValue(),
-          user.getRole().getValue(),
           user.getIsFrequent().getValue(),
           user.getIsAuthenticated().getValue()
         );
@@ -112,8 +112,8 @@ public class MysqlAdapter implements IUserRepositoryPort {
         userSql.setName(user.getName().getValue());
         userSql.setEmail(user.getEmail().getValue());
         userSql.setMethodAuthentication(user.getMethodAuthentication().getValue());
-        userSql.setState(user.getState().getValue());
         userSql.setRole(user.getRole().getValue());
+        userSql.setState(user.getState().getValue());
         userSql.setIsFrequent(user.getIsFrequent().getValue());
         userSql.setIsAuthenticated(user.getIsAuthenticated().getValue());
         repository.save(userSql);
