@@ -1,15 +1,10 @@
 package com.airsofka.flight.infra.mainservice.config;
 
-<<<<<<< HEAD
-=======
-import com.airsofka.flight.application.flight.assignRoute.AssignRouteUseCase;
->>>>>>> origin/main
 import com.airsofka.flight.application.flight.changeRoute.ChangeRouteUseCase;
 import com.airsofka.flight.application.flight.changeSeat.ChangeSeatUseCase;
 import com.airsofka.flight.application.flight.changeStatus.ChangeStatusUseCase;
 import com.airsofka.flight.application.flight.createFlight.CreateFlightUseCase;
 import com.airsofka.flight.application.flight.enableSeat.EnableSeatUseCase;
-<<<<<<< HEAD
 import com.airsofka.flight.application.flight.getFlights.GetFlightAllUseCase;
 import com.airsofka.flight.application.flight.getFlights.GetFlightUseCase;
 import com.airsofka.flight.application.flight.getSeatsByFlight.GetSeatsByIdUseCase;
@@ -21,9 +16,6 @@ import com.airsofka.flight.application.route.deleteRoute.DeleteRouteUseCase;
 import com.airsofka.flight.application.route.displayRoute.DisplayRouteUseCase;
 import com.airsofka.flight.application.route.listRoutes.ListRoutesUseCase;
 import com.airsofka.flight.application.route.updateRoute.UpdateRouteUseCase;
-=======
-import com.airsofka.flight.application.flight.updateFlight.UpdateFlightUseCase;
->>>>>>> origin/main
 import com.airsofka.infra.mongo.adapters.MongoAdapter;
 import com.airsofka.flight.application.route.createRoute.CreateRouteUseCase;
 
@@ -38,31 +30,6 @@ public class UseCaseConfig {
     public CreateFlightUseCase createFlightUseCase(MongoAdapter adapter, MySQLAdapter mysqlAdapter){
         return new CreateFlightUseCase(adapter,mysqlAdapter);
     }
-    @Bean
-    public UpdateFlightUseCase updateFlightUseCase(MongoAdapter adapter){
-        return new UpdateFlightUseCase(adapter);
-    }
-    @Bean
-    public AssignRouteUseCase assignRouteUseCase(MongoAdapter adapter){
-        return new AssignRouteUseCase(adapter);
-    }
-    @Bean
-    public ChangeRouteUseCase changeRouteUseCase(MongoAdapter adapter){
-        return new ChangeRouteUseCase(adapter);
-    }
-    @Bean
-    public ChangeSeatUseCase changeSeatUseCase(MongoAdapter adapter){
-        return new ChangeSeatUseCase(adapter);
-    }
-    @Bean
-    public ChangeStatusUseCase changeStatusUseCase(MongoAdapter adapter){
-        return new ChangeStatusUseCase(adapter);
-    }
-    @Bean
-    public EnableSeatUseCase enableSeatUseCase(MongoAdapter adapter){
-        return new EnableSeatUseCase(adapter);
-    }
-
 
     @Bean
     public UpdateFlightUseCase updateFlightUseCase(MongoAdapter adapter, MySQLAdapter mysqlAdapter){

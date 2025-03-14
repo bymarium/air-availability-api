@@ -1,13 +1,11 @@
 package com.airsofka.flight.application.shared.flight;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
 
 @Getter
-@Setter
 public class FlightListResponse {
   // Getters
   private final String flightId;
@@ -34,6 +32,7 @@ public class FlightListResponse {
     private final Double economyClassicPrice;
     private final Double taxEconomyClassicPrice;
     private final Double totalPriceEconomyClassicPrice;
+
 
 
     public FlightListResponse(String flightId, String flightNumber, String flightModel, String routeId, Date departureTime, Date arrivalTime, String status, Integer seats, Double tax, Double businessFullPrice, Double taxBusinessFullPrice, Double totalPriceBusinessFullPrice, Double businessBasicPrice, Double taxBusinessBasicPrice, Double totalPriceBusinessBasicPrice, Double economyFullPrice, Double taxEconomyFullPrice, Double totalPriceEconomyFullPrice, Double economyBasicPrice, Double taxEconomyBasicPrice, Double totalPriceEconomyBasicPrice, Double economyClassicPrice, Double taxEconomyClassicPrice, Double totalPriceEconomyClassicPrice) {
@@ -79,7 +78,7 @@ public class FlightListResponse {
             this.tax = tax;
         }
 
-
+        // Getters
         public Double getPrice() {
             return standardPrice;
         }
@@ -99,9 +98,9 @@ public class FlightListResponse {
             this.price = price;
             this.tax = tax;
             this.totalPrice = totalPrice;
-        }
+        }   // Getters
 
     }
-
+            //#endregion
 
 }
